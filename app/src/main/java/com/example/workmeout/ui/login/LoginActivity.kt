@@ -63,8 +63,9 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            loguear()
             finish()
+            loguear()
+
         })
 
         username.afterTextChanged {
@@ -114,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
-
+    
     fun loguear(){
         val intent: Intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

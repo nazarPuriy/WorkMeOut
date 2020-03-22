@@ -22,11 +22,10 @@ class SportAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return 10 //TODO
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     internal class SportViewHolder(itemView: View) :

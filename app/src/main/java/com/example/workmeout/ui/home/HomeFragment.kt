@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 
@@ -31,6 +32,7 @@ class HomeFragment : Fragment() {
         var rv = root.findViewById<RecyclerView>(R.id.rv_1)
         val sa = SportAdapter()
         rv.adapter = sa
+        rv.layoutManager = LinearLayoutManager(root.context)
 
 
         return root

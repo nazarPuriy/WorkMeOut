@@ -3,10 +3,13 @@ package com.example.workmeout.ui.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewDebug
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 
 class HomeFragment : Fragment() {
@@ -25,6 +28,11 @@ class HomeFragment : Fragment() {
         var pb = root.findViewById<ProgressBar>(R.id.progressBar1)
         pb.max = 30
         pb.progress = 6
+
+        var rv = root.findViewById<RecyclerView>(R.id.rv_1)
+        val sa = SportAdapter()
+        rv.adapter = sa
+        rv.layoutManager = LinearLayoutManager(root.context)
 
 
         return root

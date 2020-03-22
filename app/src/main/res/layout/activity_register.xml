@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EBEAFF"
-    tools:context=".Login_Activity">
+    tools:context=".identification.RegisterActivity">
 
     <Space
         android:id="@+id/space3"
@@ -50,7 +50,7 @@
                     app:layout_constraintVertical_bias="0.19">
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/edttxt_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/edtBG"
@@ -65,7 +65,7 @@
                         android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/edttxt_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/edtBG"
@@ -80,7 +80,7 @@
                         android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText3"
+                        android:id="@+id/edttxt_passwordConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/edtBG"
@@ -95,7 +95,7 @@
                         android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText4"
+                        android:id="@+id/edttxt_mail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/edtBG"
@@ -110,7 +110,7 @@
                         android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText5"
+                        android:id="@+id/edttxt_age"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/edtBG"
@@ -130,7 +130,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/radioButton"
+                            android:id="@+id/rbtn_male"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/male_stg"
@@ -142,7 +142,7 @@
                             android:layout_weight="1" />
 
                         <RadioButton
-                            android:id="@+id/radioButton2"
+                            android:id="@+id/rbtn_female"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/female_stg"
@@ -155,10 +155,11 @@
                         android:layout_height="50dp" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/btn_register"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/btnBG"
+                        android:onClick="register"
                         android:text="@string/registerBtn_stg"
                         android:textColor="@color/btnText" />
 

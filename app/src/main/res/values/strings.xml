@@ -16,7 +16,7 @@
     <string name="login_stg">"Usuario"</string>
     <string name="password_stg">"Contraseña"</string>
     <string name="forgotPassword_stg">"¿Recordar contraseña?"</string>
-    <string name="loginBtn_stg">Entra</string>
+    <string name="loginBtn_stg">  Entra  </string>
     <string name="registerBtn_stg">Registrame!</string>
     <string name="remember_stg">Recordar datos</string>
     <string name="realName_stg">Nombre</string>
@@ -27,6 +27,8 @@
     <string name="gender_stg">Género</string>
     <string name="male_stg">Hombre</string>
     <string name="female_stg">Mujer</string>
+    <string name="sendBtn_stg">Envía</string>
+    <string name="mailForgotMessage">Le enviaremos su contraseña al correo electrónico.</string>
     <string-array name="android_versions">
         <item>Sara</item>
         <item>Clara</item>

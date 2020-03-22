@@ -20,6 +20,12 @@ class Login_Activity : AppCompatActivity() {
          }
      }
 
+    //Function called when register button is clicked
+    fun registerBtn(view:View){
+        val regInt: Intent = Intent(this, RegisterActivity::class.java)
+        startActivity(regInt)
+    }
+
     //TODO
     private fun checkLogin() : Boolean{
         return true

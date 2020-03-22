@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGray"
+    android:background="#EBEAFF"
     tools:context=".Login_Activity">
 
     <Space
@@ -25,7 +25,8 @@
         app:layout_constraintBottom_toTopOf="@+id/space3"
         app:layout_constraintEnd_toStartOf="@+id/space"
         app:layout_constraintStart_toEndOf="@+id/space2"
-        app:layout_constraintTop_toBottomOf="@+id/space4">
+        app:layout_constraintTop_toBottomOf="@+id/space4"
+        app:layout_constraintVertical_bias="0.47000003">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,20 +34,9 @@
             android:background="#007E917B"
             android:orientation="vertical">
 
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="50dp" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:contentDescription="@string/loginIcon_stg_dsc"
-                app:srcCompat="@drawable/ic_fitness_center_black_24dp" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="351dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="325dp"
@@ -56,96 +46,124 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.19">
 
                     <EditText
-                        android:id="@+id/editText6"
+                        android:id="@+id/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/edtBG"
                         android:ems="10"
-                        android:hint="@string/login_stg"
+                        android:hint="@string/realName_stg"
                         android:inputType="textPersonName"
+                        android:textColor="@android:color/black"
                         android:textSize="24sp" />
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="15dp"
-                        android:background="#00FFFFFF" />
+                        android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText7"
+                        android:id="@+id/editText2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/edtBG"
                         android:ems="10"
                         android:hint="@string/password_stg"
                         android:inputType="textPassword"
+                        android:textColor="@android:color/black"
                         android:textSize="24sp" />
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="15dp"
-                        android:background="#00FFFFFF" />
+                        android:layout_height="25dp" />
 
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/editText3"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/edtBG"
+                        android:ems="10"
+                        android:hint="@string/passwordR_stg"
+                        android:inputType="textPassword"
+                        android:textColor="@android:color/black"
+                        android:textSize="24sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+
+                    <EditText
+                        android:id="@+id/editText4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/edtBG"
+                        android:ems="10"
+                        android:hint="@string/emailAdress_stg"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        android:textSize="24sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+
+                    <EditText
+                        android:id="@+id/editText5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/edtBG"
+                        android:ems="10"
+                        android:hint="@string/age_stg"
+                        android:inputType="number"
+                        android:textColor="@android:color/black"
+                        android:textSize="24sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <CheckBox
-                            android:id="@+id/checkBox4"
-                            android:layout_width="wrap_content"
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/remember_stg" />
-
-                        <Button
-                            android:id="@+id/button11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="#00FFFFFF"
-                            android:text="@string/forgotPassword_stg"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/button13"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/btnBG"
-                            android:fadeScrollbars="true"
-                            android:onClick="loginBtn"
-                            android:text="@string/loginBtn_stg"
-                            android:textColor="@color/btnText"
+                            android:text="@string/male_stg"
                             android:textSize="24sp" />
 
                         <Space
-                            android:layout_width="5dp"
-                            android:layout_height="24dp"
-                            android:layout_weight="0"
-                            android:background="#00FFFFFF" />
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
 
-                        <Button
-                            android:id="@+id/button12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/btnBG"
-                            android:onClick="registerBtn"
-                            android:text="@string/registerBtn_stg"
-                            android:textColor="@color/btnText"
-                            android:textSize="18sp" />
-                    </LinearLayout>
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/female_stg"
+                            android:textSize="24sp" />
+
+                    </RadioGroup>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp" />
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/btnBG"
+                        android:text="@string/registerBtn_stg"
+                        android:textColor="@color/btnText" />
 
                 </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.Guideline
@@ -162,14 +180,14 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="36dp" />
         </LinearLayout>
     </ScrollView>
 
     <Space
         android:id="@+id/space4"
         android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_height="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

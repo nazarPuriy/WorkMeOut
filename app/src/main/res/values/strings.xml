@@ -13,6 +13,20 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
+    <string name="login_stg">"Usuario"</string>
+    <string name="password_stg">"Contraseña"</string>
+    <string name="forgotPassword_stg">"¿Recordar contraseña?"</string>
+    <string name="loginBtn_stg">Entra</string>
+    <string name="registerBtn_stg">Registrame!</string>
+    <string name="remember_stg">Recordar datos</string>
+    <string name="realName_stg">Nombre</string>
+    <string name="passwordR_stg">Confirme la contraseña</string>
+    <string name="loginIcon_stg_dsc">Icono Entrada</string>
+    <string name="emailAdress_stg">Correo electrónico</string>
+    <string name="age_stg">Edad</string>
+    <string name="gender_stg">Género</string>
+    <string name="male_stg">Hombre</string>
+    <string name="female_stg">Mujer</string>
     <string-array name="android_versions">
         <item>Sara</item>
         <item>Clara</item>

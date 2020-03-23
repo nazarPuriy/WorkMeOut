@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="#00FF0000"
         app:layout_constraintBottom_toTopOf="@+id/space3"
@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -102,6 +102,21 @@
                         android:ems="10"
                         android:hint="@string/emailAdress_stg"
                         android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+
+                    <EditText
+                        android:id="@+id/edttxt_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="@color/edtBG"
+                        android:ems="10"
+                        android:hint="@string/telephone_stg"
+                        android:inputType="number"
                         android:textColor="@android:color/black"
                         android:textSize="20sp" />
 

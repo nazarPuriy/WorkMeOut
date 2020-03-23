@@ -65,7 +65,7 @@ class SportAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 currentWeight.isEnabled = !isChecked
             }
             name.setOnClickListener(View.OnClickListener {
-                val intent: Intent = Intent(itemView.context, ExerciseDetail::class.java)
+                val intent: Intent = Intent(itemView.context, ExerciciDetail::class.java)
                 itemView.context.startActivity(intent)
             })
 

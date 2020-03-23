@@ -23,6 +23,7 @@
     <string name="passwordR_stg">" Confirme la contraseña"</string>
     <string name="loginIcon_stg_dsc">Icono Entrada</string>
     <string name="emailAdress_stg">" Correo electrónico"</string>
+    <string name="telephone_stg">" Número de teléfono</string>
     <string name="age_stg">" Edad"</string>
     <string name="gender_stg">Género</string>
     <string name="male_stg">Hombre</string>

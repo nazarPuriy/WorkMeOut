@@ -7,7 +7,7 @@
     tools:context=".ui.notifications.SearchPeople">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_button"
+        android:id="@+id/goBack_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -17,7 +17,9 @@
         android:src="@drawable/ic_arrow_back_black_24dp"
         app:fabSize="normal"
         app:pressedTranslationZ="12dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="339dp"
+        tools:layout_editor_absoluteY="404dp" />
 
     <EditText
         android:id="@+id/editText1"
@@ -95,18 +97,21 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <EditText
+        <SearchView
             android:id="@+id/edittext_chatbox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:hint="Search People"
+            android:iconifiedByDefault="false"
             android:maxLines="6" />
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"/>
         <Button
             android:id="@+id/button_chatbox_send"
             android:layout_width="64dp"

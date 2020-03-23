@@ -1,12 +1,15 @@
 package com.example.workmeout.ui.notifications
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.workmeout.R
+import com.example.workmeout.ui.identification.RegisterActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class SearchPeople : AppCompatActivity() {
@@ -23,5 +26,11 @@ class SearchPeople : AppCompatActivity() {
             R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+    }
+
+    fun backbutton(view:View){
+        val goBack= Intent(this, NotificationsFragment::class.java)
+        startActivity(goBack)
     }
 }

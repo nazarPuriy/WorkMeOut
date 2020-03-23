@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EBEAFF"
-    tools:context=".Login_Activity">
+    tools:context=".identification.RegisterActivity">
 
     <Space
         android:id="@+id/space3"
@@ -50,75 +50,75 @@
                     app:layout_constraintVertical_bias="0.19">
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/edttxt_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
                         android:background="@color/edtBG"
                         android:ems="10"
                         android:hint="@string/realName_stg"
                         android:inputType="textPersonName"
                         android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/edttxt_password"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
                         android:background="@color/edtBG"
                         android:ems="10"
                         android:hint="@string/password_stg"
                         android:inputType="textPassword"
                         android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText3"
+                        android:id="@+id/edttxt_passwordConfirm"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
                         android:background="@color/edtBG"
                         android:ems="10"
                         android:hint="@string/passwordR_stg"
                         android:inputType="textPassword"
                         android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText4"
+                        android:id="@+id/edttxt_mail"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
                         android:background="@color/edtBG"
                         android:ems="10"
                         android:hint="@string/emailAdress_stg"
                         android:inputType="textEmailAddress"
                         android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="25dp" />
 
                     <EditText
-                        android:id="@+id/editText5"
+                        android:id="@+id/edttxt_age"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
                         android:background="@color/edtBG"
                         android:ems="10"
                         android:hint="@string/age_stg"
                         android:inputType="number"
                         android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -130,37 +130,39 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/radioButton"
+                            android:id="@+id/rbtn_male"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="32dp"
                             android:text="@string/male_stg"
-                            android:textSize="24sp" />
+                            android:textSize="20sp" />
 
                         <Space
-                            android:layout_width="40dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
                         <RadioButton
-                            android:id="@+id/radioButton2"
+                            android:id="@+id/rbtn_female"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="32dp"
                             android:text="@string/female_stg"
-                            android:textSize="24sp" />
+                            android:textSize="20sp" />
 
                     </RadioGroup>
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="50dp" />
+                        android:layout_height="75dp" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/btn_register"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/btnBG"
+                        android:onClick="register"
                         android:text="@string/registerBtn_stg"
-                        android:textColor="@color/btnText" />
+                        android:textColor="@color/btnText"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -187,7 +189,7 @@
     <Space
         android:id="@+id/space4"
         android:layout_width="15dp"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

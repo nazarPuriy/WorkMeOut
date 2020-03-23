@@ -1,5 +1,7 @@
 package com.example.workmeout.ui.notifications
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,14 +15,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
-
     private lateinit var blogAdapter: BlogRecyclerAdapter
-
     private var isOpen = false
 
     override fun onCreateView(
@@ -31,15 +32,19 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
+
         //floatting button
         val fabOpen = AnimationUtils.loadAnimation(context, R.anim.fab_open)
         val fabClose = AnimationUtils.loadAnimation(context, R.anim.fab_close)
         val fabRClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_clockwise)
         val fabRAntiClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_anticlockwise)
+
+        val add_button = root.findViewById<FloatingActionButton>(R.id.add_button)
+        val search_button = root.findViewById<FloatingActionButton>(R.id.search_button)
+        val add_people_button = root.findViewById<FloatingActionButton>(R.id.add_people_button)
+
+
 
         add_button.setOnClickListener {
 
@@ -64,13 +69,15 @@ class NotificationsFragment : Fragment() {
                 isOpen = true
             }
 
-            search_button.setOnClickListener {
-                Toast.makeText(context, "search button", Toast.LENGTH_LONG).show()
-            }
 
-            add_people_button.setOnClickListener{
-                Toast.makeText(context, "random people", Toast.LENGTH_LONG).show()
-            }
+        }
+
+
+        search_button.setOnClickListener {
+            Toast.makeText(context, "search button", Toast.LENGTH_LONG).show()
+        }
+        add_people_button.setOnClickListener{
+            Toast.makeText(context, "random people", Toast.LENGTH_LONG).show()
         }
 
         addDataSet()

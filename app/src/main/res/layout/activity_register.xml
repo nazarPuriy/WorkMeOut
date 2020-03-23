@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EBEAFF"
-    tools:context=".identification.RegisterActivity">
+    tools:context=".ui.identification.RegisterActivity">
 
     <Space
         android:id="@+id/space3"

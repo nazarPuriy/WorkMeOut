@@ -1,4 +1,4 @@
-package com.example.workmeout.identification
+package com.example.workmeout.ui.identification
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

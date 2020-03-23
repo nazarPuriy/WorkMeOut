@@ -4,6 +4,209 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightGray"
     tools:context=".ChangePersonalInformationActivity">
 
+    <Space
+        android:id="@+id/space9"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Space
+        android:id="@+id/space7"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Space
+        android:id="@+id/space8"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Space
+        android:id="@+id/space10"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        app:layout_constraintBottom_toTopOf="@+id/space8"
+        app:layout_constraintEnd_toStartOf="@+id/space9"
+        app:layout_constraintStart_toEndOf="@+id/space7"
+        app:layout_constraintTop_toBottomOf="@+id/space10">
+
+        <LinearLayout
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarAlwaysDrawVerticalTrack="false">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre" />
+
+            <EditText
+                android:id="@+id/edttxt_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/edtBG"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Armando Jaleo" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Teléfono" />
+
+            <EditText
+                android:id="@+id/edttxt_telefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/edtBG"
+                android:ems="10"
+                android:inputType="phone"
+                android:text="647342546" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edad" />
+
+            <EditText
+                android:id="@+id/edttxt_edad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/edtBG"
+                android:ems="10"
+                android:inputType="number"
+                android:text="21" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:scrollbars="none">
+
+                <RadioButton
+                    android:id="@+id/rb_hombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/male_stg" />
+
+                <RadioButton
+                    android:id="@+id/rb_mujer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female_stg" />
+
+            </RadioGroup>
+
+            <Space
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <CheckBox
+                android:id="@+id/chk_datosFragiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Datos Frágiles" />
+
+            <TextView
+                android:id="@+id/txtFr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Habrá que confirmar el nuevo correo."
+                android:textStyle="italic" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/txt_contrasenaAntigua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contraseña antigua"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/edt_contrasenaAntigua"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/edtBG"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/txtNuevaContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nueva contraseña"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/edt_nuevaContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/edtBG"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/txtCorreoElectronico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Correo electrónico"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/edt_correoElectronico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/edtBG"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:text="elmilloralumne@alumnes.ub.edu"
+                android:visibility="invisible" />
+
+            <Space
+                android:id="@+id/spcR"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btn_saveData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/btnBG"
+                android:onClick="save"
+                android:text="GUARDAR"
+                android:textColor="@color/btnText" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

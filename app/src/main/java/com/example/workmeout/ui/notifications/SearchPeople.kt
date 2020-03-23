@@ -17,18 +17,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class SearchPeople : AppCompatActivity() {
-    /*
+
     private lateinit var mySearchView: SearchView
     private lateinit var myList: ListView
 
-    private lateinit var list: ArrayList<String>
+    private var list: ArrayList<String> = ArrayList()
     private lateinit var adapter_: ArrayAdapter<String>
-    */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.search_people)
+        myList = findViewById(R.id.myList)
 
         /*
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -37,11 +39,10 @@ class SearchPeople : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-        */
-        /*
-        mySearchView = findViewById(R.id.search_view)
-        myList = findViewById(R.id.myList)
+        navView.setupWithNavController(navController)*/
+
+        //mySearchView = findViewById(R.id.search_view)
+        //myList = findViewById(R.id.myList)
 
         list.add("Maria")
         list.add("Pablo")
@@ -55,13 +56,13 @@ class SearchPeople : AppCompatActivity() {
 
         adapter_ = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list)
         myList.adapter = adapter_
-        */
 
-        val goBackbttn = findViewById<FloatingActionButton>(R.id.goBack_button)
-        goBackbttn.setOnClickListener {
-            //Toast.makeText(context, "search button", Toast.LENGTH_SHORT).show()
-            val goBack : Intent = Intent(this,NotificationsFragment::class.java)
-            startActivity(goBack)
+
+        fun goback(v: View){
+
+        }
+        fun backbutton(v: View){
+
         }
 
     }

@@ -66,6 +66,8 @@ class SportAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             name.setOnClickListener(View.OnClickListener {
                 val intent: Intent = Intent(itemView.context, ExerciciDetail::class.java)
+                intent.putExtra("exName",name.text.toString())
+                intent.putExtra("exWeight",currentWeight.value.div(1.0))
                 itemView.context.startActivity(intent)
             })
 

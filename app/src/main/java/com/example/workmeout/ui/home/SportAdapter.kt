@@ -1,13 +1,17 @@
 package com.example.workmeout.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import kotlinx.android.synthetic.main.sport_card.view.*
+
+
 
 import com.example.workmeout.R
 
@@ -15,6 +19,7 @@ import com.example.workmeout.R
 class SportAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
+    private var items: List<Exercise> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.sport_card, parent, false)
@@ -26,17 +31,46 @@ class SportAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return vh
     }
 
+    fun submitList(blogList: List<Exercise>){
+        items = blogList
+    }
+
     override fun getItemCount(): Int {
-        return 4 //TODO
+        return items.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
+        when(holder){
+
+            is SportViewHolder ->{
+                holder.bind(items.get(position))
+            }
+        }
+
 
     }
 
-    internal class SportViewHolder(itemView: View) :
-        ViewHolder(itemView) {
+    class SportViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val currentWeight = itemView.npicker
+        val name = itemView.textView5
+        val cb: CheckBox = itemView.checkBox
+
+
+        fun bind(exercise: Exercise) {
+            currentWeight.value = exercise.currentWeight
+            name.text = exercise.name
+            cb.setOnCheckedChangeListener { buttonView, isChecked ->
+                currentWeight.isEnabled = !isChecked
+            }
+            name.setOnClickListener(View.OnClickListener {
+                val intent: Intent = Intent(itemView.context, ExerciseDetail::class.java)
+                itemView.context.startActivity(intent)
+            })
+
+        }
+
     }
 
 

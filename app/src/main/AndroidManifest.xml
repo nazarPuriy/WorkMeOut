@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangePersonalInformationActivity"></activity>
+        <activity
+            android:name=".ui.home.ExerciseDetail"
+            android:label="@string/title_activity_exercise_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ChangePersonalInformationActivity" />
         <activity android:name=".ui.dashboard.myRoutines" />
         <activity android:name=".ui.identification.RecoverPasswordActivity" />
         <activity android:name=".ui.identification.RegisterActivity" />

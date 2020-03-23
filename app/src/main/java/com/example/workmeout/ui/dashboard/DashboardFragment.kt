@@ -17,6 +17,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.ChangePersonalInformationActivity
 import com.example.workmeout.R
 import java.io.BufferedReader
@@ -61,6 +63,12 @@ class DashboardFragment : Fragment() {
             startActivity(cambiarInfo)
 
         })
+
+        var rv = root.findViewById<RecyclerView>(R.id.rv_1)
+        val sa = RoutineAdapter()
+        sa.submitList(RoutineDataSource.createDataSet())
+        rv.adapter = sa
+        rv.layoutManager = LinearLayoutManager(root.context)
         return root
     }
 

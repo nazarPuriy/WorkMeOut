@@ -20,11 +20,12 @@
 
         <TextView
             android:id="@+id/textExerciseName"
-            android:layout_weight="0.5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:gravity="center"
-            android:text="Exercise name" />
+            android:text="Exercise name"
+            android:textSize="36sp" />
         <Space
             android:layout_weight="0.3"
             android:layout_width="match_parent"
@@ -38,7 +39,7 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/grafic"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <Space
@@ -56,14 +57,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="Torna" />
 
             <Button
                 android:id="@+id/buttonChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="Canvia pes" />
         </LinearLayout>
 
 

@@ -63,7 +63,6 @@
                 android:requiresFadingEdge="vertical"
                 android:fadingEdgeLength="10dp"
                 android:background="@drawable/recycler_border"
-
                 android:fadingEdge="vertical"
                 app:fastScrollEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewDebug
 import android.view.ViewGroup
+import android.widget.NumberPicker
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
         val sa = SportAdapter()
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
+
 
 
         return root

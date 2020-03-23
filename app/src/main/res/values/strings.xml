@@ -34,4 +34,7 @@
         <item>Clara</item>
         <item>Agustin</item>
     </string-array>
+
+    <string name="nombre_chat">Name</string>
+    <string name="last_message">Last Message</string>
 </resources>

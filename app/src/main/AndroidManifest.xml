@@ -11,11 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.dashboard.myRoutines"></activity>
-        <activity android:name="com.example.workmeout.ui.identification.RecoverPasswordActivity" />
-        <activity android:name="com.example.workmeout.ui.identification.RegisterActivity" />
+        <activity
+            android:name=".ui.home.ExerciseDetail"
+            android:label="@string/title_activity_exercise_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.dashboard.myRoutines" />
+        <activity android:name=".ui.identification.RecoverPasswordActivity" />
+        <activity android:name=".ui.identification.RegisterActivity" />
         <activity android:name=".Register_Activity" />
-        <activity android:name="com.example.workmeout.ui.identification.Login_Activity">
+        <activity android:name=".ui.identification.Login_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

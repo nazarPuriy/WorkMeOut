@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
 
         var rv = root.findViewById<RecyclerView>(R.id.rv_1)
         val sa = SportAdapter()
+        sa.submitList(ExerciseDataSource.createDataSet())
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
 

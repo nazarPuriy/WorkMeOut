@@ -75,8 +75,8 @@ class NotificationsFragment : Fragment() {
 
         search_button.setOnClickListener {
             //Toast.makeText(context, "search button", Toast.LENGTH_SHORT).show()
-            var buttonAdd= Intent(context, SearchPeople::class.java)
-            startActivity(buttonAdd)
+            val button_ppl : Intent = Intent(root.context,SearchPeople::class.java)
+            startActivity(button_ppl)
         }
         add_people_button.setOnClickListener{
             Toast.makeText(context, "random people", Toast.LENGTH_SHORT).show()

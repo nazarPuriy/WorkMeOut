@@ -22,7 +22,7 @@ class SportAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 10 //TODO
+        return 4 //TODO
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

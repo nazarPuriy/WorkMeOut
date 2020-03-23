@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".identification.RecoverPasswordActivity"></activity>
+        <activity android:name=".ui.dashboard.myRoutines"></activity>
+        <activity android:name=".identification.RecoverPasswordActivity" />
         <activity android:name=".identification.RegisterActivity" />
         <activity android:name=".Register_Activity" />
         <activity android:name=".identification.Login_Activity">

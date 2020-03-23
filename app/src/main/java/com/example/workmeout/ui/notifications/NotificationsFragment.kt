@@ -1,5 +1,6 @@
 package com.example.workmeout.ui.notifications
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -72,12 +73,13 @@ class NotificationsFragment : Fragment() {
 
         }
 
-
         search_button.setOnClickListener {
-            Toast.makeText(context, "search button", Toast.LENGTH_LONG).show()
+            //Toast.makeText(context, "search button", Toast.LENGTH_SHORT).show()
+            var buttonAdd= Intent(context, SearchPeople::class.java)
+            startActivity(buttonAdd)
         }
         add_people_button.setOnClickListener{
-            Toast.makeText(context, "random people", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "random people", Toast.LENGTH_SHORT).show()
         }
 
         addDataSet()

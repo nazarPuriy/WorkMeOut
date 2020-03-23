@@ -37,4 +37,6 @@
 
     <string name="nombre_chat">Name</string>
     <string name="last_message">Last Message</string>
+
+    <string name="search_ppl">Search People</string>
 </resources>

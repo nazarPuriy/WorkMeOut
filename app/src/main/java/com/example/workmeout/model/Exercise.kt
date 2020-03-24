@@ -1,4 +1,4 @@
-package com.example.workmeout.ui.home
+package com.example.workmeout.model
 
 class Exercise(currentWeight:Int, name:String){
 

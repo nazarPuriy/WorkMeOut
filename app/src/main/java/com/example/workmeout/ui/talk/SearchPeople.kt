@@ -1,20 +1,12 @@
-package com.example.workmeout.ui.notifications
+package com.example.workmeout.ui.talk
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.workmeout.R
-import com.example.workmeout.ui.identification.RegisterActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class SearchPeople : AppCompatActivity() {
 

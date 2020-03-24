@@ -1,6 +1,8 @@
-package com.example.workmeout.ui.dashboard
+package com.example.workmeout.data
 
-class RoutineDataSource{
+import com.example.workmeout.model.Routine
+
+class RoutineDataSourceDummy{
 
     companion object{
 

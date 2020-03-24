@@ -1,6 +1,8 @@
-package com.example.workmeout.ui.home
+package com.example.workmeout.data
 
-class ExerciseDataSource{
+import com.example.workmeout.model.Exercise
+
+class ExerciseDataSourceDummy{
 
     companion object{
 

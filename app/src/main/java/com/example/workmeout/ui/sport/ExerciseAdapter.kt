@@ -1,22 +1,21 @@
-package com.example.workmeout.ui.home
+package com.example.workmeout.ui.sport
 
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.sport_card.view.*
 
 
 
 import com.example.workmeout.R
+import com.example.workmeout.model.Exercise
 
 
-class SportAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
     private var items: List<Exercise> = ArrayList()
@@ -65,7 +64,7 @@ class SportAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 currentWeight.isEnabled = !isChecked
             }
             name.setOnClickListener(View.OnClickListener {
-                val intent: Intent = Intent(itemView.context, ExerciciDetail::class.java)
+                val intent: Intent = Intent(itemView.context, ExerciseActivity::class.java)
                 intent.putExtra("exName",name.text.toString())
                 intent.putExtra("exWeight",currentWeight.value.div(1.0))
                 itemView.context.startActivity(intent)

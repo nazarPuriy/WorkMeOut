@@ -1,13 +1,13 @@
-package com.example.workmeout.ui.dashboard
+package com.example.workmeout.ui.me
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
-import kotlinx.android.synthetic.main.routine.view.*
+import com.example.workmeout.model.Routine
+import kotlinx.android.synthetic.main.routine_card.view.*
 
 class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -15,7 +15,7 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<Routine> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.routine, parent, false)
+        var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.routine_card, parent, false)
         val vh = RoutineViewHolder(v)
         context = parent.context
         return vh
@@ -46,7 +46,7 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val days = itemView.textView3
         val name = itemView.textView5
 
-        fun bind(routine:Routine) {
+        fun bind(routine: Routine) {
 
             days.text = routine.days
             name.text = routine.name

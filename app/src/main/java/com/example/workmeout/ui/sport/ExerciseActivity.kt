@@ -1,8 +1,7 @@
-package com.example.workmeout.ui.home
+package com.example.workmeout.ui.sport
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.widget.TextView
 import com.example.workmeout.R
 import com.jjoe64.graphview.GraphView
@@ -10,11 +9,11 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.PointsGraphSeries
 import java.util.*
 
-class ExerciciDetail : AppCompatActivity() {
+class ExerciseActivity : AppCompatActivity() {
     lateinit var tvName: TextView;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exercici_detail)
+        setContentView(R.layout.activity_exercise)
         tvName = findViewById(R.id.textExerciseName)
         var exName: String = getIntent().getStringExtra("exName")
         var exWeight: Double = getIntent().getDoubleExtra("exWeight",0.0)

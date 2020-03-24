@@ -4,14 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.workmeout.MainActivity
+import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.R
 
-class Login_Activity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_)
+        setContentView(R.layout.activity_login)
     }
 
      //Function called when login button is clicked

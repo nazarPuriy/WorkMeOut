@@ -1,4 +1,4 @@
-package com.example.workmeout.ui.dashboard
+package com.example.workmeout.model
 
 class Routine(name:String, days:String){
 

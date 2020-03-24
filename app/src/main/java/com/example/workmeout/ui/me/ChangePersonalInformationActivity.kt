@@ -1,9 +1,10 @@
-package com.example.workmeout
+package com.example.workmeout.ui.me
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.example.workmeout.R
 
 class ChangePersonalInformationActivity : AppCompatActivity() {
     lateinit var correo : EditText

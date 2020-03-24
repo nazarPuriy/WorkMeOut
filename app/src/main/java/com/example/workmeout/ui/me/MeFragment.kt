@@ -1,34 +1,28 @@
-package com.example.workmeout.ui.dashboard
+package com.example.workmeout.ui.me
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workmeout.ChangePersonalInformationActivity
 import com.example.workmeout.R
+import com.example.workmeout.data.RoutineDataSourceDummy
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
-class DashboardFragment : Fragment() {
+class MeFragment : Fragment() {
 
     private var isImage = false
-    private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var uriImagePath : Uri
     private lateinit var contexto : Context
     private final var PICK_IMAGE = 1
@@ -38,8 +32,7 @@ class DashboardFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val root = inflater.inflate(R.layout.fragment_me, container, false)
         contexto = root.context
         //Vamos a cargar la pequeña información guardada sobre la app
         chargeStatus()
@@ -53,20 +46,22 @@ class DashboardFragment : Fragment() {
 
         val nombre : TextView = root.findViewById(R.id.txt_username)
         nombre.setOnClickListener({
-            val cambiarInfo : Intent = Intent(root.context,ChangePersonalInformationActivity::class.java)
+            val cambiarInfo : Intent = Intent(root.context,
+                ChangePersonalInformationActivity::class.java)
             startActivity(cambiarInfo)
 
         })
         val edit : TextView = root.findViewById(R.id.txt_editar)
         edit.setOnClickListener({
-            val cambiarInfo : Intent = Intent(root.context,ChangePersonalInformationActivity::class.java)
+            val cambiarInfo : Intent = Intent(root.context,
+                ChangePersonalInformationActivity::class.java)
             startActivity(cambiarInfo)
 
         })
 
         var rv = root.findViewById<RecyclerView>(R.id.rv_1)
         val sa = RoutineAdapter()
-        sa.submitList(RoutineDataSource.createDataSet())
+        sa.submitList(RoutineDataSourceDummy.createDataSet())
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
         return root

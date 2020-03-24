@@ -1,4 +1,4 @@
-package com.example.workmeout.ui.notifications
+package com.example.workmeout.ui.talk
 
 class DataSource{
 

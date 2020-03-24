@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGray"
+    android:background="@color/background"
     tools:context=".ui.identification.LoginActivity">
 
     <Space
@@ -74,7 +74,7 @@
                         android:id="@+id/edttxt_user"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
-                        android:background="@color/edtBG"
+                        android:background="#D3E0EA"
                         android:ems="10"
                         android:hint="@string/login_stg"
                         android:inputType="textPersonName"
@@ -134,16 +134,13 @@
 
                         <Button
                             android:id="@+id/btn_login"
-                            style="@android:style/Widget.Material.Button"
+                            style="@style/buttonDefault"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@color/btnBG"
                             android:fadeScrollbars="true"
                             android:onClick="loginBtn"
-                            android:text="@string/loginBtn_stg"
-                            android:textColor="@color/btnText"
-                            android:textSize="20sp" />
+                            android:text="@string/loginBtn_stg" />
 
                         <Space
                             android:layout_width="5dp"
@@ -153,14 +150,13 @@
 
                         <Button
                             android:id="@+id/btn_register"
+                            style="@style/buttonDefault"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="15dp"
                             android:layout_weight="1"
-                            android:background="@color/btnBG"
                             android:onClick="registerBtn"
-                            android:text="@string/registerBtn_stg"
-                            android:textColor="@color/btnText"
-                            android:textSize="18sp" />
+                            android:text="@string/registerBtn_stg" />
                     </LinearLayout>
 
                 </LinearLayout>

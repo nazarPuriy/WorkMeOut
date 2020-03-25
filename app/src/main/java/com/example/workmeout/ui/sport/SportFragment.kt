@@ -1,15 +1,18 @@
 package com.example.workmeout.ui.sport
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
+import com.example.workmeout.ui.me.RoutineActivity
 
 class SportFragment : Fragment() {
 
@@ -31,6 +34,12 @@ class SportFragment : Fragment() {
         sa.submitList(ExerciseDataSourceDummy.createDataSet())
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
+
+        var routine: TextView = root.findViewById<TextView>(R.id.routine)
+        routine.setOnClickListener(View.OnClickListener {
+            var intent:Intent = Intent(context, RoutineActivity::class.java)
+            startActivity(intent)
+        })
 
 
 

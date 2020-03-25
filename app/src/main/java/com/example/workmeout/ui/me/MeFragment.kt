@@ -11,11 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 import com.example.workmeout.data.RoutineDataSourceDummy
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -42,6 +44,11 @@ class MeFragment : Fragment() {
             galeria.setType("image/*")
             galeria.setAction(Intent.ACTION_GET_CONTENT)
             startActivityForResult(Intent.createChooser(galeria,"Selecciona una imagen"), PICK_IMAGE)
+        })
+
+        val fab:FloatingActionButton = root.findViewById(R.id.floatingActionButton2)
+        fab.setOnClickListener(View.OnClickListener {
+            Toast.makeText(context, "Add a new routine", Toast.LENGTH_SHORT).show()
         })
 
         val nombre : TextView = root.findViewById(R.id.txt_username)

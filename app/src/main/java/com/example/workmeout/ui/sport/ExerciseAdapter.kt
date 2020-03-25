@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.sport_card.view.*
 
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.sport_card.view.*
 
 import com.example.workmeout.R
 import com.example.workmeout.model.Exercise
+import com.example.workmeout.ui.me.RoutineActivity
 
 
 class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -56,6 +58,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val name = itemView.textView5
         val cb: CheckBox = itemView.checkBox
         val reps: TextView = itemView.reps
+        val card: CardView = itemView.cv
 
 
         fun bind(exercise: Exercise) {
@@ -65,14 +68,14 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             cb.setOnCheckedChangeListener { buttonView, isChecked ->
                 currentWeight.isEnabled = !isChecked
             }
-            name.setOnClickListener(View.OnClickListener {
+
+            card.setOnClickListener(View.OnClickListener {
                 val intent: Intent = Intent(itemView.context, ExerciseActivity::class.java)
                 intent.putExtra("exName",name.text.toString())
                 intent.putExtra("exWeight",currentWeight.value.div(1.0))
                 intent.putExtra("exReps", exercise.reps)
                 itemView.context.startActivity(intent)
             })
-
         }
 
     }

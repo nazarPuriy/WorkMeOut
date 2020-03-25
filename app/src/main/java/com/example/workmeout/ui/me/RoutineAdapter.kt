@@ -1,9 +1,11 @@
 package com.example.workmeout.ui.me
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 import com.example.workmeout.model.Routine
@@ -45,11 +47,16 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         val days = itemView.textView3
         val name = itemView.textView5
+        val card:CardView = itemView.findViewById(R.id.card)
 
         fun bind(routine: Routine) {
 
             days.text = routine.days
             name.text = routine.name
+            card.setOnClickListener(View.OnClickListener {
+                val intent:Intent = Intent(itemView.context, RoutineActivity::class.java)
+                itemView.context.startActivity(intent)
+            })
 
         }
 

@@ -10,14 +10,23 @@ class ExerciseDataSourceDummy{
             val list = ArrayList<Exercise>()
             list.add(
                 Exercise(
-                    25,
-                    "aasdf"
+                    10,
+                    "Bench Press",
+                    15
                 )
             )
             list.add(
+                    Exercise(
+                        12,
+                        "Squats",
+                        8
+                    )
+                    )
+            list.add(
                 Exercise(
-                    73,
-                    "funciona"
+                    22,
+                    "Pullover",
+                    8
                 )
             )
 

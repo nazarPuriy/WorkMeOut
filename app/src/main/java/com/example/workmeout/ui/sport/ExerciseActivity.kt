@@ -24,6 +24,7 @@ class ExerciseActivity : AppCompatActivity() {
         tvName = findViewById(R.id.textExerciseName)
         val exName: String = getIntent().getStringExtra("exName")
         val exWeight: Double = getIntent().getDoubleExtra("exWeight",0.0)
+        val exReps: Int = getIntent().getIntExtra("exReps", 0)
         val calendar: Calendar = Calendar.getInstance();
         val today: Date = calendar.time;
         tvName.setText(exName);

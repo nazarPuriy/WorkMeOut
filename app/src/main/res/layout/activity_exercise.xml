@@ -25,6 +25,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="Exercise name"
+            android:layout_margin="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="36sp" />
         <Space
@@ -40,7 +41,9 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/grafic"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="-16dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <Space

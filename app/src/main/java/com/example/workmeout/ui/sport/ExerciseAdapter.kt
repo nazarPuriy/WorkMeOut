@@ -55,11 +55,13 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val currentWeight = itemView.npicker
         val name = itemView.textView5
         val cb: CheckBox = itemView.checkBox
+        val reps: TextView = itemView.reps
 
 
         fun bind(exercise: Exercise) {
             currentWeight.value = exercise.currentWeight
             name.text = exercise.name
+            reps.text = "Reps: " + exercise.reps.toString()
             cb.setOnCheckedChangeListener { buttonView, isChecked ->
                 currentWeight.isEnabled = !isChecked
             }
@@ -67,6 +69,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val intent: Intent = Intent(itemView.context, ExerciseActivity::class.java)
                 intent.putExtra("exName",name.text.toString())
                 intent.putExtra("exWeight",currentWeight.value.div(1.0))
+                intent.putExtra("exReps", exercise.reps)
                 itemView.context.startActivity(intent)
             })
 

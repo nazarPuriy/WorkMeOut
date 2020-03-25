@@ -78,6 +78,7 @@ class SearchPeople : AppCompatActivity() {
                     image.visibility = View.VISIBLE
                 } else {
                     image.visibility = View.INVISIBLE
+                    initList()
                     searchItem(s.toString())
                 }
             }
@@ -107,17 +108,21 @@ class SearchPeople : AppCompatActivity() {
         listItems = ArrayList(items.size)
         listItems.addAll(items)
         adapter_ = ArrayAdapter<String>(this, R.layout.search_card, R.id.txtitem)
+        adapter_.addAll(listItems)
         listview.adapter = adapter_
     }
 
     fun searchItem(textToSearch: String) {
 
+        initList()
         for(item in items) {
-            if(!item.contains(textToSearch)) {
+            if(!item.toLowerCase().contains(textToSearch.toLowerCase())) {
                 listItems.remove(item)
-            }
-        }
 
-       adapter_.notifyDataSetChanged()
+            }
+            adapter_.clear()
+            adapter_.addAll(listItems)
+            adapter_.notifyDataSetChanged()
+        }
     }
 }

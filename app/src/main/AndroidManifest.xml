@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.talk.search_people_nou"></activity>
+        <activity android:name=".ui.me.RoutineActivity"></activity>
+        <activity android:name=".ui.talk.search_people_nou" />
         <activity
             android:name=".ui.sport.ExerciseDetail"
             android:label="@string/title_activity_exercise_detail"

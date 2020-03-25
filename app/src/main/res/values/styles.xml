@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -27,5 +27,18 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="buttonDefault">
+        <item name="android:background">@drawable/button_round_default</item>
+        <item name="android:textColor">@color/btnText</item>
+        <item name="android:textSize">@dimen/btnText</item>
+        <item name="android:layout_marginBottom">@dimen/btnMarginBottom</item>
+        <item name="android:layout_marginLeft">@dimen/btnMarginLeft</item>
+        <item name="android:layout_marginRight">@dimen/btnMarginRight</item>
+    </style>
+
+    <style name="editTextDefault">
+
+    </style>
 
 </resources>

@@ -3,4 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="btnText">18sp</dimen>
+    <dimen name="btnMarginBottom">15dp</dimen>
+    <dimen name="btnMarginLeft">10dp</dimen>
+    <dimen name="btnMarginRight">10dp</dimen>
 </resources>

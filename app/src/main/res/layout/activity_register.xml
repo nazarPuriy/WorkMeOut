@@ -171,13 +171,11 @@
 
                     <Button
                         android:id="@+id/btn_register"
+                        style="@style/buttonDefault"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/btnBG"
                         android:onClick="register"
-                        android:text="@string/registerBtn_stg"
-                        android:textColor="@color/btnText"
-                        android:textStyle="bold" />
+                        android:text="@string/registerBtn_stg" />
 
                 </LinearLayout>
 

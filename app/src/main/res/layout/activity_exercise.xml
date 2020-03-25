@@ -53,33 +53,66 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_weight="0.4"
+            android:weightSum="6"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonGo"
-                style="@style/buttonDefault"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="returnButton"
-                android:text="Torna" />
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/buttonChange"
-                style="@style/buttonDefault"
+                <Button
+                    android:id="@+id/buttonGo"
+                    style="@style/buttonDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:onClick="returnButton"
+                    android:text="Torna" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Canvia pes" />
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonChange"
+                    style="@style/buttonDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="cambiarPeso"
+                    android:text="Canvia pes" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <NumberPicker
+                    android:id="@+id/pickeryPeso"
+                    android:layout_width="30dp"
+                    android:layout_height="70dp"
+                    android:theme="@style/DefaultNumberPickerTheme"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_gravity="center"
+                    app:layout_constraintEnd_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="parent"></NumberPicker>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
-        <fragment
-            android:id="@+id/fragment2"
-            android:name="com.example.workmeout.ui.sport.changeWeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3" />
+
 
 
     </LinearLayout>

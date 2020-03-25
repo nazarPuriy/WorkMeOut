@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
+import android.widget.Button
+import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.graphics.component3
@@ -18,31 +20,70 @@ import java.util.*
 class ExerciseActivity : AppCompatActivity() {
     lateinit var tvName: TextView;
     lateinit var changing: DataPoint;
+    lateinit var cambiador: NumberPicker;
+    lateinit var botoChange: Button;
+    lateinit var graphView: GraphView;
+    lateinit var punts: Array<DataPoint>;
+    lateinit var series: PointsGraphSeries<DataPoint>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
         tvName = findViewById(R.id.textExerciseName)
+        botoChange = findViewById(R.id.buttonChange)
+        cambiador = findViewById(R.id.pickeryPeso)
         val exName: String = getIntent().getStringExtra("exName")
         val exWeight: Double = getIntent().getDoubleExtra("exWeight",0.0)
         val exReps: Int = getIntent().getIntExtra("exReps", 0)
         val calendar: Calendar = Calendar.getInstance();
         val today: Date = calendar.time;
         tvName.setText(exName);
-        val graphView: GraphView = findViewById(R.id.grafic);
-
-        val series: PointsGraphSeries<DataPoint> = PointsGraphSeries<DataPoint>(getDataPoints(exWeight,today));
+        cambiador.maxValue = 100
+        cambiador.minValue = 0
+        cambiador.visibility = View.INVISIBLE;
+        botoChange.isEnabled = false
+        graphView = findViewById(R.id.grafic);
+        getDataPoints(exWeight,today)
+        series = PointsGraphSeries<DataPoint>(punts);
 
         graphView.addSeries(series);
         acabargrafic(graphView,today)
 
+        tapeoGraf();
+
+
+    }
+
+    fun tapeoGraf(){
         series.setOnDataPointTapListener(OnDataPointTapListener(
             (@Override
             fun(series: PointsGraphSeries<DataPoint>, dataPoint: DataPoint){
+
                 Toast.makeText(this,dataPoint.y.toString(),Toast.LENGTH_LONG).show()
-                changing = dataPoint;
+                changing = dataPoint
+                activarCambiarPeso()
             }) as (Series<DataPointInterface>, DataPointInterface) -> Unit
         ))
+    }
 
+    fun activarCambiarPeso(){
+        cambiador.value = changing.y.toInt()
+        cambiador.visibility = View.VISIBLE
+        botoChange.isEnabled = true
+    }
+
+    fun cambiarPeso(view: View){
+        for (punto in punts.indices){
+            if(punts.get(punto) == changing){
+                val nouData: DataPoint = DataPoint(changing.x,cambiador.value.toDouble())
+                punts.set(punto,nouData)
+            }
+        }
+        graphView.removeAllSeries()
+        series = PointsGraphSeries<DataPoint>(punts);
+        graphView.addSeries(series);
+        cambiador.visibility = View.INVISIBLE
+        botoChange.isEnabled = false
+        tapeoGraf()
 
     }
 
@@ -52,7 +93,7 @@ class ExerciseActivity : AppCompatActivity() {
         }
 
 
-    fun getDataPoints(args: Double, today: Date): Array<DataPoint>{
+    fun getDataPoints(args: Double, today: Date){
 
         //De momento solo salen los ultimos 5 dias.
         //Las Y deberan de ser los pesos de la base de datos.
@@ -62,9 +103,7 @@ class ExerciseActivity : AppCompatActivity() {
         val quart: DataPoint = DataPoint(sumarRestarDiasFecha(today,-1),32.0)
         val cinc: DataPoint = DataPoint(today,args)
 
-        val dp: Array<DataPoint> = arrayOf(primer,segon,tercer,quart,cinc)
-
-        return dp;
+        punts = arrayOf(primer,segon,tercer,quart,cinc)
 
     }
 

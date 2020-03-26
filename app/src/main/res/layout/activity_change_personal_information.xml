@@ -201,11 +201,11 @@
 
             <Button
                 android:id="@+id/btn_saveData"
+                style="@style/buttonDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/btnBG"
                 android:onClick="save"
-                android:text="GUARDAR"
+                android:text="@string/btn_save_stg"
                 android:textColor="@color/btnText" />
         </LinearLayout>
     </ScrollView>

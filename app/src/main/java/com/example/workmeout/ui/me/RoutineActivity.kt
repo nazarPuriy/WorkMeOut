@@ -1,5 +1,6 @@
 package com.example.workmeout.ui.me
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
 import com.example.workmeout.ui.sport.ExerciseAdapter
+import com.example.workmeout.ui.sport.ExerciseDescriptionActivity
 
 class RoutineActivity : AppCompatActivity() {
 
@@ -27,5 +29,11 @@ class RoutineActivity : AppCompatActivity() {
 
     fun delete(v: View) {
         Toast.makeText(this, "Delete this routine", Toast.LENGTH_SHORT).show()
+    }
+
+    fun addExercise(view:View){
+        val descriptionIntent = Intent(this, ExerciseDescriptionActivity::class.java)
+        descriptionIntent.putExtra("MODE","1")
+        startActivity(descriptionIntent)
     }
 }

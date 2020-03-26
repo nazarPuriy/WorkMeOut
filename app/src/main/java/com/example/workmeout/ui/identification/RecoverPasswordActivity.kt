@@ -13,8 +13,6 @@ class RecoverPasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recover_password)
     }
 
-
-    //TODO
     fun sendMessage(view: View){
         if(checkMail()){
             finish()

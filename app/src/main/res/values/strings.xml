@@ -1,4 +1,16 @@
 <resources>
+
+
+    <string name="default_tittle">Título</string>
+    <string name="default_description">If you can keep your head when all about you
+    Are losing theirs and blaming it on you,
+    If you can trust yourself when all men doubt you,
+    But make allowance for their doubting too;
+    If you can wait and not be tired by waiting,
+    Or being lied about, don’t deal in lies,
+    Or being hated, don’t give way to hating,
+    And yet don’t look too good, nor talk too wise:</string>
+
     <string name="app_name">WorkMeOut</string>
     <string name="title_home">Sport</string>
     <string name="title_dashboard">Me</string>
@@ -12,6 +24,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <string name="btn_save_stg">"Guardar"</string>
 
     <string name="login_stg">" Usuario"</string>
     <string name="password_stg">" Contraseña"</string>

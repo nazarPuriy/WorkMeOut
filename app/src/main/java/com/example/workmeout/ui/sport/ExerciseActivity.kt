@@ -74,7 +74,7 @@ class ExerciseActivity : AppCompatActivity() {
     fun cambiarPeso(view: View){
         for (punto in punts.indices){
             if(punts.get(punto) == changing){
-                val nouData: DataPoint = DataPoint(changing.x,cambiador.value.toDouble())
+                val nouData = DataPoint(changing.x,cambiador.value.toDouble())
                 punts.set(punto,nouData)
             }
         }
@@ -130,6 +130,10 @@ class ExerciseActivity : AppCompatActivity() {
         graphView.gridLabelRenderer.setHumanRounding(false)
     }
 
-
+    fun openDescription(view:View){
+        val descriptionIntent = Intent(this,ExerciseDescriptionActivity::class.java)
+        descriptionIntent.putExtra("MODE","0")
+        startActivity(descriptionIntent)
+    }
 
 }

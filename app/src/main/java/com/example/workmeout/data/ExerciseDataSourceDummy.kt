@@ -4,9 +4,10 @@ import com.example.workmeout.model.Exercise
 
 class ExerciseDataSourceDummy{
 
-    companion object{
+    //Para tal de que sea un método de clase
+    companion object {
 
-        fun createDataSet(): ArrayList<Exercise>{
+        fun createDataSet(): ArrayList<Exercise> {
             val list = ArrayList<Exercise>()
             list.add(
                 Exercise(
@@ -16,12 +17,12 @@ class ExerciseDataSourceDummy{
                 )
             )
             list.add(
-                    Exercise(
-                        12,
-                        "Squats",
-                        8
-                    )
-                    )
+                Exercise(
+                    12,
+                    "Squats",
+                    8
+                )
+            )
             list.add(
                 Exercise(
                     22,

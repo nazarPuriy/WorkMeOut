@@ -13,6 +13,8 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
+    <string name="btn_save_stg">"Guardar"</string>
+
     <string name="login_stg">" Usuario"</string>
     <string name="password_stg">" Contraseña"</string>
     <string name="forgotPassword_stg">"¿Recordar contraseña?"</string>

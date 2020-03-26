@@ -29,16 +29,16 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
         contrasenaTxt = findViewById(R.id.txtNuevaContrasena)
         espaciado = findViewById(R.id.spcR)
 
-        hide()
         val per : CheckBox = findViewById(R.id.chk_datosFragiles)
-        per.setOnClickListener({
+        per.setOnClickListener {
             if(per.isChecked()){
                 show()
             }else{
                 hide()
             }
-        })
+        }
     }
+
 
     fun show(){
         correo.visibility= View.VISIBLE
@@ -70,7 +70,6 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
         contrasenaTxt.visibility= View.INVISIBLE
         contrasenaTxt.height=0
         espaciado.visibility=View.INVISIBLE
-
     }
 
 

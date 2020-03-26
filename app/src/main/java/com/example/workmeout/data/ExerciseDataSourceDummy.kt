@@ -1,36 +1,43 @@
 package com.example.workmeout.data
 
 import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.Routine
 
 class ExerciseDataSourceDummy{
 
     companion object{
 
-        fun createDataSet(): ArrayList<Exercise>{
+        fun createDataSet(): Routine {
             val list = ArrayList<Exercise>()
             list.add(
                 Exercise(
                     10,
                     "Bench Press",
-                    15
+                    15,
+                    true
                 )
             )
             list.add(
                     Exercise(
                         12,
                         "Squats",
-                        8
+                        8,
+                        false
                     )
                     )
             list.add(
                 Exercise(
                     22,
                     "Pullover",
-                    8
+                    8,
+                    false
                 )
             )
 
-            return list
+            var routine:Routine = Routine("Routine 1", "Mon, Thu, Sat")
+            routine.exercises = list
+
+            return routine
         }
     }
 }

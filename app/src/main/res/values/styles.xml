@@ -7,16 +7,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColorHighlight">@color/lightGray</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+
 
 
     </style>
 
     <style name="DefaultNumberPickerTheme">
         <item name="colorControlNormal">#00FFFFFF</item>
-    </style>
-
-    <style name="DefaultCheckboxTheme">
-        <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

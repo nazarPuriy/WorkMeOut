@@ -17,8 +17,8 @@ class RoutineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_routine)
         var rv = findViewById<RecyclerView>(R.id.rv_1)
-        val sa = ExerciseAdapter()
-        sa.submitList(ExerciseDataSourceDummy.createDataSet())
+        val sa = ExerciseAdapterRoutine()
+        sa.submitRoutine(ExerciseDataSourceDummy.createDataSet())
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(this)
         var button1:Button = findViewById(R.id.dlt)
@@ -27,6 +27,5 @@ class RoutineActivity : AppCompatActivity() {
 
     fun delete(v: View) {
         Toast.makeText(this, "Delete this routine", Toast.LENGTH_SHORT).show()
-        finish()
     }
 }

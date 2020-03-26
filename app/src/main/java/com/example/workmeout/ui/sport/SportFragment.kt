@@ -7,14 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
+import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.me.RoutineActivity
 
 class SportFragment : Fragment() {
+
+    lateinit var pb:ProgressBar
+    lateinit var reps: TextView
+    lateinit var routine: Routine
 
 
     override fun onCreateView(
@@ -24,14 +30,15 @@ class SportFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-
-        var pb = root.findViewById<ProgressBar>(R.id.progressBar1)
-        pb.max = 30
-        pb.progress = 6
+        routine = ExerciseDataSourceDummy.createDataSet()
+        pb = root.findViewById<ProgressBar>(R.id.progressBar1)
+        reps = root.findViewById(R.id.reps)
+        notifyBar()
 
         var rv = root.findViewById<RecyclerView>(R.id.rv_1)
         val sa = ExerciseAdapter()
-        sa.submitList(ExerciseDataSourceDummy.createDataSet())
+        sa.submitFragment(this)
+        sa.submitRoutine(routine)
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
 
@@ -43,6 +50,15 @@ class SportFragment : Fragment() {
 
 
 
-        return root
+            return root
+    }
+
+    fun notifyBar(){
+        var total = routine.getTotalReps()
+        pb.max = total
+        var done = routine.getDoneReps()
+        pb.progress = done
+
+        reps.text = "Today's reps: " + done.toString() + "/" + total.toString()
     }
 }

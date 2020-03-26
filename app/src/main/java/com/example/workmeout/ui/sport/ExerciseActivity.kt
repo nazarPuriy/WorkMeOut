@@ -30,7 +30,7 @@ class ExerciseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_exercise)
         tvName = findViewById(R.id.textExerciseName)
         botoChange = findViewById(R.id.buttonChange)
-        cambiador = findViewById(R.id.pickeryPeso)
+        cambiador = findViewById(R.id.numpicker_1)
         val exName: String = getIntent().getStringExtra("exName")
         val exWeight: Double = getIntent().getDoubleExtra("exWeight",0.0)
         val exReps: Int = getIntent().getIntExtra("exReps", 0)

@@ -20,6 +20,8 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.routine_card, parent, false)
         val vh = RoutineViewHolder(v)
         context = parent.context
+
+
         return vh
     }
 

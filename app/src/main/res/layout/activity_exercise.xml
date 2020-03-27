@@ -7,8 +7,8 @@
     tools:context=".ui.sport.ExerciseActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="587dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="1dp"
         android:paddingLeft="1dp"
@@ -20,11 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3" />
 
         <TextView
             android:id="@+id/textExerciseName"
@@ -66,6 +61,11 @@
                 android:id="@+id/grafic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="-16dp" />
 

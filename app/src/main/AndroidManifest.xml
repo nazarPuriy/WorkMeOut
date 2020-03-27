@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.workmeout">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -12,19 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.sport.ExerciseDescriptionActivity"></activity>
-        <activity android:name=".ui.me.RoutineActivity" />
-        <activity android:name=".ui.MainActivity" />
-        <activity
-            android:name=".ui.sport.ExerciseActivity"
-            android:label="@string/title_activity_exercise_detail"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.me.ChangePersonalInformationActivity" />
-        <activity android:name=".ui.identification.RecoverPasswordActivity" />
-        <activity android:name=".ui.identification.RegisterActivity" />
-        <activity android:name=".ui.talk.SearchPeople" />
+
         <activity
             android:name=".ui.identification.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +26,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.identification.RecoverPasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.identification.RegisterActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.me.ChangePersonalInformationActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.me.ExerciseRoutineAdapter" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.me.MeFragment" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.me.RoutineActivity" android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.sport.ExerciseActivity"
+            android:label="@string/title_activity_exercise_detail"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.sport.ExerciseDescriptionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.sport.SportFragment" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.talk.SearchPeople" android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.MainActivity" android:screenOrientation="portrait"/>
     </application>
+
 
 </manifest>

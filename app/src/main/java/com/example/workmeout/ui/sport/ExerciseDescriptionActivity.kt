@@ -58,7 +58,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     fun editMode(){
         if(modoHint){
             title_edit.hint=title_text.text.toString()
-            description_edit.hint=description_text.text.toString()
+            description_edit.hint="Descripción del ejercicio"
             title_edit.setText("")
             description_edit.setText("")
             modoHint=false

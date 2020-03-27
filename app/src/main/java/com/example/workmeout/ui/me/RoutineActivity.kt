@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
-import com.example.workmeout.ui.sport.ExerciseAdapter
 import com.example.workmeout.ui.sport.ExerciseDescriptionActivity
 
 class RoutineActivity : AppCompatActivity() {
@@ -19,7 +18,7 @@ class RoutineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_routine)
         var rv = findViewById<RecyclerView>(R.id.rv_1)
-        val sa = ExerciseAdapterRoutine()
+        val sa = ExerciseRoutineAdapter()
         sa.submitRoutine(ExerciseDataSourceDummy.createDataSet())
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(this)

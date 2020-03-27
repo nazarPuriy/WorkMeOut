@@ -83,19 +83,7 @@ class SearchPeople : AppCompatActivity() {
                 }
             }
         })
-
-        val backbutton = findViewById<FloatingActionButton>(R.id.back_button)
-        backbutton.setOnClickListener {
-            //Toast.makeText(context, "search button", Toast.LENGTH_SHORT).show()
-            finish()
-        }
-        /*
-        fun goback(v: View){
-
-        }
-        fun backbutton(v: View){
-
-        }*/
+        
 
     }
 

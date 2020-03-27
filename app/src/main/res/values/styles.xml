@@ -9,8 +9,6 @@
         <item name="android:textColorHighlight">@color/lightGray</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
 
-
-
     </style>
 
     <style name="DefaultNumberPickerTheme">
@@ -33,6 +31,14 @@
         <item name="android:layout_marginBottom">@dimen/btnMarginBottom</item>
         <item name="android:layout_marginLeft">@dimen/btnMarginLeft</item>
         <item name="android:layout_marginRight">@dimen/btnMarginRight</item>
+    </style>
+
+    <style name="fabDefault">
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="elevation">6dp</item>
+        <item name="android:src">@drawable/ic_add_white_24dp</item>
     </style>
 
     <style name="editTextDefault">

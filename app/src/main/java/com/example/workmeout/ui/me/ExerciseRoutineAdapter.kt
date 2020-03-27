@@ -20,7 +20,7 @@ import com.example.workmeout.ui.sport.ExerciseActivity
 import com.example.workmeout.ui.sport.SportFragment
 
 
-class ExerciseAdapterRoutine : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
     private lateinit var routine:Routine

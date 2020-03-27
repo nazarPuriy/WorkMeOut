@@ -1,10 +1,15 @@
 package com.example.workmeout.ui.sport
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.BounceInterpolator
+import android.view.animation.Interpolator
+import android.view.animation.OvershootInterpolator
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -56,8 +61,13 @@ class SportFragment : Fragment() {
     fun notifyBar(){
         var total = routine.getTotalReps()
         pb.max = total
+
         var done = routine.getDoneReps()
-        pb.progress = done
+        val animator: ObjectAnimator = ObjectAnimator.ofInt(pb, "progress", pb.progress, done)
+        animator.setDuration(150)
+        val ip: Interpolator = AccelerateDecelerateInterpolator()
+        animator.interpolator = ip
+        animator.start()
 
         reps.text = "Today's reps: " + done.toString() + "/" + total.toString()
     }

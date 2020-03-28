@@ -12,9 +12,9 @@ import com.example.workmeout.R
 import kotlinx.android.synthetic.main.layout_blog_list_item.view.*
 import kotlin.collections.ArrayList
 
-class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: List<BlogPost> = ArrayList()
+    private var items: List<DataChat> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BlogViewHolder(
@@ -36,7 +36,7 @@ class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
-    fun submitList(blogList: List<BlogPost>){
+    fun submitList(blogList: List<DataChat>){
         items = blogList
     }
 
@@ -45,9 +45,9 @@ class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val blogTitle:TextView = itemView.blog_title
         val blogAuthor = itemView.blog_author
 
-        fun bind(blogPost: BlogPost) {
-            blogTitle.text = blogPost.title
-            blogAuthor.text = blogPost.last_message
+        fun bind(dataChat: DataChat) {
+            blogTitle.text = dataChat.title
+            blogAuthor.text = dataChat.last_message
 
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
@@ -55,7 +55,7 @@ class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             Glide.with(itemView.context)
                 .applyDefaultRequestOptions(requestOptions)
-                .load(blogPost.image)
+                .load(dataChat.image)
                 .into(blogImage)
         }
     }

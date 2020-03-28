@@ -12,19 +12,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
-import com.example.workmeout.util.FirestoreUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.ListenerRegistration
-import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
-import com.xwray.groupie.kotlinandroidextensions.Item
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-import kotlinx.android.synthetic.main.fragment_talk.*
 
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
-    private lateinit var blogAdapter: BlogRecyclerAdapter
+    private lateinit var blogAdapter: DataChatAdapter
     private var isOpen = false
 
     //variables nuevas vistas
@@ -101,8 +96,8 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun addDataSet() {
-        val data: ArrayList<BlogPost> = DataSource.createDataSet()
-        blogAdapter = BlogRecyclerAdapter()
+        val data: ArrayList<DataChat> = DataSource.createDataSet()
+        blogAdapter = DataChatAdapter()
         blogAdapter.submitList(data)
     }
 

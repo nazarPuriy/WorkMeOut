@@ -135,9 +135,9 @@ class SearchPeople : AppCompatActivity() {
                 if(s.toString().equals("")) {
                     adapter = MyAdapter(this@SearchPeople, items, last_message)
                     listview.adapter = adapter
-                    image.visibility = View.VISIBLE
-                } else {
                     image.visibility = View.INVISIBLE
+                } else {
+                    image.visibility = View.VISIBLE
 
                     var itemsTemp:ArrayList<String> = ArrayList()
                     var lastMessageTemp:ArrayList<String> = ArrayList()

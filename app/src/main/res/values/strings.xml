@@ -1,7 +1,7 @@
 <resources>
 
 
-    <string name="default_tittle">Título</string>
+    <string name="default_tittle">Title</string>
     <string name="default_description">
     If you can keep your head when all about you
     Are losing theirs and blaming it on you,
@@ -26,25 +26,25 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-    <string name="btn_save_stg">"Guardar"</string>
+    <string name="btn_save_stg">"Save"</string>
 
-    <string name="login_stg">" Usuario"</string>
-    <string name="password_stg">" Contraseña"</string>
-    <string name="forgotPassword_stg">"¿Recordar contraseña?"</string>
-    <string name="loginBtn_stg">"   Entra   "</string>
-    <string name="registerBtn_stg">Registrame!</string>
-    <string name="remember_stg">Recordar datos</string>
-    <string name="realName_stg">" Nombre"</string>
-    <string name="passwordR_stg">" Confirme la contraseña"</string>
+    <string name="login_stg">" Username"</string>
+    <string name="password_stg">" Password"</string>
+    <string name="forgotPassword_stg">"Remind Password?"</string>
+    <string name="loginBtn_stg">"   Log in   "</string>
+    <string name="registerBtn_stg">Register me!</string>
+    <string name="remember_stg">Remember me</string>
+    <string name="realName_stg">" Name"</string>
+    <string name="passwordR_stg">" Retype Password"</string>
     <string name="loginIcon_stg_dsc">Icono Entrada</string>
-    <string name="emailAdress_stg">" Correo electrónico"</string>
-    <string name="telephone_stg">" Número de teléfono</string>
-    <string name="age_stg">" Edad"</string>
-    <string name="gender_stg">Género</string>
-    <string name="male_stg">Hombre</string>
-    <string name="female_stg">Mujer</string>
-    <string name="sendBtn_stg">Envía</string>
-    <string name="mailForgotMessage">Le enviaremos su contraseña al correo electrónico.</string>
+    <string name="emailAdress_stg">" Email"</string>
+    <string name="telephone_stg">" Phone number</string>
+    <string name="age_stg">" Age"</string>
+    <string name="gender_stg">Gender</string>
+    <string name="male_stg">Male</string>
+    <string name="female_stg">Female</string>
+    <string name="sendBtn_stg">Send</string>
+    <string name="mailForgotMessage">We will send you an email with your login details</string>
     <string-array name="android_versions">
         <item>Sara</item>
         <item>Clara</item>

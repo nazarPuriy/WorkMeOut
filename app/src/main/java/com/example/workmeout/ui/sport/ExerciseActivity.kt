@@ -1,5 +1,6 @@
 package com.example.workmeout.ui.sport
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,21 +23,30 @@ class ExerciseActivity : AppCompatActivity() {
     lateinit var changing: DataPoint;
     lateinit var cambiador: NumberPicker;
     lateinit var botoChange: Button;
+    lateinit var tvReps: TextView;
     lateinit var graphView: GraphView;
     lateinit var punts: Array<DataPoint>;
     lateinit var series: PointsGraphSeries<DataPoint>
+    lateinit var exName: String
+    var exWeight: Double = 0.toDouble()
+    var exReps: Int = 0
+    val calendar: Calendar = Calendar.getInstance();
+    val today: Date = calendar.time;
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        exName = getIntent().getStringExtra("exName")
+        exWeight = getIntent().getDoubleExtra("exWeight",0.0)
+        exReps = getIntent().getIntExtra("exReps", 0)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
         tvName = findViewById(R.id.textExerciseName)
         botoChange = findViewById(R.id.buttonChange)
         cambiador = findViewById(R.id.numpicker_1)
-        val exName: String = getIntent().getStringExtra("exName")
-        val exWeight: Double = getIntent().getDoubleExtra("exWeight",0.0)
-        val exReps: Int = getIntent().getIntExtra("exReps", 0)
-        val calendar: Calendar = Calendar.getInstance();
-        val today: Date = calendar.time;
+        tvReps = findViewById(R.id.textReps)
+
         tvName.setText(exName);
+        tvReps.setText("Reps: " + exReps.toString())
         cambiador.maxValue = 100
         cambiador.minValue = 0
         cambiador.visibility = View.INVISIBLE;
@@ -132,6 +142,8 @@ class ExerciseActivity : AppCompatActivity() {
 
     fun openDescription(view:View){
         val descriptionIntent = Intent(this,ExerciseDescriptionActivity::class.java)
+        descriptionIntent.putExtra("title", exName)
+        descriptionIntent.putExtra("reps", exReps)
         descriptionIntent.putExtra("MODE","0")
         startActivity(descriptionIntent)
     }

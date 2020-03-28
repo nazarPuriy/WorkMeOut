@@ -28,11 +28,13 @@ class RoutineActivity : AppCompatActivity() {
 
     fun delete(v: View) {
         Toast.makeText(this, "Delete this routine", Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     fun addExercise(view:View){
         val descriptionIntent = Intent(this, ExerciseDescriptionActivity::class.java)
         descriptionIntent.putExtra("MODE","1")
+        descriptionIntent.putExtra("title", "Exercise Title")
         startActivity(descriptionIntent)
     }
 }

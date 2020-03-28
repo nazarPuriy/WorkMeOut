@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.sport_card.view.*
 import com.example.workmeout.R
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
-import com.example.workmeout.ui.me.RoutineActivity
 
 
 class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -26,7 +25,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.sport_card, parent, false)
-        val npicker = v.findViewById<NumberPicker>(R.id.npicker)
+        val npicker = v.findViewById<NumberPicker>(R.id.npicker_1)
         npicker.maxValue = 100
         npicker.minValue = 0
         val vh = SportViewHolder(v, sf)
@@ -60,7 +59,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class SportViewHolder constructor(itemView: View, sf:SportFragment) : RecyclerView.ViewHolder(itemView) {
 
-        val currentWeight = itemView.npicker
+        val currentWeight = itemView.npicker_1
         val name = itemView.textView5
         val cb: CheckBox = itemView.checkBox
         val reps: TextView = itemView.reps

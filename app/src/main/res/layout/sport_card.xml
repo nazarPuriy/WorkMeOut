@@ -24,13 +24,11 @@
             android:layout_height="wrap_content">
 
             <NumberPicker
-                android:id="@+id/npicker"
+                android:id="@+id/npicker_1"
                 android:layout_width="30dp"
                 android:layout_height="70dp"
                 android:theme="@style/DefaultNumberPickerTheme"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="parent"></NumberPicker>
+                app:layout_constraintEnd_toStartOf="@+id/textView4"></NumberPicker>
 
             <TextView
                 android:id="@+id/textView5"
@@ -62,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="Weight:"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/npicker"
+                app:layout_constraintEnd_toStartOf="@+id/npicker_1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

@@ -138,20 +138,32 @@ class SearchPeople : AppCompatActivity() {
                     image.visibility = View.VISIBLE
                 } else {
                     image.visibility = View.INVISIBLE
-                    items2 = items
-                    last_message2 = last_message
 
-                    for(item in items) {
-                        if(!item.toLowerCase().contains(s.toString().toLowerCase())) {
-                            last_message2.filterNot{it == last_message2.elementAt(items2.lastIndexOf(item))}
-                            items2.filterNot { it == item }
+                    var itemsTemp:ArrayList<String> = ArrayList()
+                    var lastMessageTemp:ArrayList<String> = ArrayList()
 
-                        }/*
-                        adapter.clear()
-                        adapter = MyAdapter(this@SearchPeople, items2, last_message2)
-                        adapter.notifyDataSetChanged()*/
+
+                    for(i in 0..(items.size - 1)) {
+                        var item = items[i]
+                        var lastMessage = last_message[i]
+
+                        if(item.toLowerCase().contains(s.toString().toLowerCase())) {
+                            itemsTemp.add(item)
+                            lastMessageTemp.add(lastMessage)
+                        }
+
+                        items2 = itemsTemp.toArray(arrayOfNulls<String>(itemsTemp.size))
+                        last_message2 = lastMessageTemp.toArray(arrayOfNulls<String>(lastMessageTemp.size))
+
                     }
+                    adapter = MyAdapter(this@SearchPeople, items2, last_message2)
+                    listview.adapter = adapter
+                    adapter.notifyDataSetChanged()
+
                 }
+
+
+
             }
         })
 

@@ -9,9 +9,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.workmeout.ChatPackage.Model.Routine
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
-import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.sport.ExerciseDescriptionActivity
 
 class RoutineActivity : AppCompatActivity() {

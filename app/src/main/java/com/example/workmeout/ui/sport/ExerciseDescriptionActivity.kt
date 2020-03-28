@@ -3,10 +3,7 @@ package com.example.workmeout.ui.sport
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.workmeout.R
 
 class ExerciseDescriptionActivity : AppCompatActivity() {
@@ -28,6 +25,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
             modoHint=true
         }
         title_text=findViewById(R.id.txt_tittle_EV)
+        title_text.text = intent.getStringExtra("title")
         description_text=findViewById(R.id.txt_description_EV)
         title_edit=findViewById(R.id.edttxt_tittle_EV)
         description_edit=findViewById(R.id.edttxt_description_EV)
@@ -49,7 +47,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
         description_text.visibility=View.VISIBLE
         title_edit.visibility=View.INVISIBLE
         description_edit.visibility=View.INVISIBLE
-        button.text = "Editar"
+        button.text = "Edit"
     }
 
     /***
@@ -58,7 +56,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     fun editMode(){
         if(modoHint){
             title_edit.hint=title_text.text.toString()
-            description_edit.hint="Descripción del ejercicio"
+            description_edit.hint="Exercice description"
             title_edit.setText("")
             description_edit.setText("")
             modoHint=false
@@ -71,7 +69,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
         description_text.visibility=View.INVISIBLE
         title_edit.visibility=View.VISIBLE
         description_edit.visibility=View.VISIBLE
-        button.text = "Guardar"
+        button.text = "Save"
     }
 
     /***
@@ -84,7 +82,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
                 descriptionMode()
                 //TODO crear toda la lógica de verificar información y añadir el objeto o editarlo.
             }else{
-                Toast.makeText(this,"Faltan campos por llenar",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Some fields are still empty",Toast.LENGTH_SHORT).show()
             }
         }else{
             modo=1

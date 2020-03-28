@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
@@ -55,10 +57,14 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             days.text = routine.days
             name.text = routine.name
+
             card.setOnClickListener(View.OnClickListener {
                 val intent:Intent = Intent(itemView.context, RoutineActivity::class.java)
+                intent.putExtra("isNew", false)
+                intent.putExtra("name", routine.name)
                 itemView.context.startActivity(intent)
             })
+
 
         }
 

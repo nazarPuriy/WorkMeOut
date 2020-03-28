@@ -49,6 +49,11 @@ class MeFragment : Fragment() {
         val fab:FloatingActionButton = root.findViewById(R.id.floatingActionButton2)
         fab.setOnClickListener(View.OnClickListener {
             Toast.makeText(context, "Add a new routine", Toast.LENGTH_SHORT).show()
+            val intent:Intent = Intent(root.context, RoutineActivity::class.java)
+            intent.putExtra("isNew", true)
+            intent.putExtra("name", "New routine")
+            startActivity(intent)
+
         })
 
         val nombre : TextView = root.findViewById(R.id.txt_username)

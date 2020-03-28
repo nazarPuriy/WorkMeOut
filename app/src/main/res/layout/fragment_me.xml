@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Editar perfil"
+                    android:text="Edit profile"
                     android:textSize="10sp"
                     android:textStyle="italic"
                     app:layout_constraintStart_toStartOf="@+id/txt_username"
@@ -89,7 +89,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="101dp"
                     android:layout_height="23dp"
-                    android:text="18 años"
+                    android:text="Age: 18"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/txt_username"
                     app:layout_constraintTop_toBottomOf="@+id/txt_username" />

@@ -73,6 +73,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             name.text = exercise.name
             reps.text = "Reps: " + exercise.reps.toString()
             cb.isChecked = exercise.done
+            currentWeight.isEnabled = !exercise.done
             cb.setOnCheckedChangeListener { buttonView, isChecked ->
                 currentWeight.isEnabled = !isChecked
                 exercise.done = isChecked

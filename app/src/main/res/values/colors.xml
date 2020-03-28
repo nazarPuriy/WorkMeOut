@@ -9,6 +9,8 @@
 
     <color name="background">#FFFFFF</color>
 
+    <color name="edtBG">#D3E0EA</color>
+
     <color name="btnBG">#A0A4F4</color>
     <color name="btnBG2">#8D92F3</color>
     <color name="btnBGP">#858AE3</color>
@@ -16,6 +18,5 @@
 
     <color name="btnText">#363942</color>
 
-    <color name="edtBG">#D3E0EA</color>
 
 </resources>

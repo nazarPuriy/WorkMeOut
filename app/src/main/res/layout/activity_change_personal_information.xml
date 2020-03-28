@@ -64,6 +64,7 @@
 
             <EditText
                 android:id="@+id/edttxt_nombre"
+                style="@style/editTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/edtBG"
@@ -79,6 +80,7 @@
 
             <EditText
                 android:id="@+id/edttxt_telefono"
+                style="@style/editTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/edtBG"
@@ -99,7 +101,8 @@
                 android:background="@color/edtBG"
                 android:ems="10"
                 android:inputType="number"
-                android:text="21" />
+                android:text="21"
+                style="@style/editTextDefault" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -147,51 +150,45 @@
             <TextView
                 android:id="@+id/txt_contrasenaAntigua"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Contraseña antigua"
-                android:visibility="invisible" />
+                android:layout_height="20dp"
+                android:text="Contraseña antigua" />
 
             <EditText
                 android:id="@+id/edt_contrasenaAntigua"
+                style="@style/editTextDefault"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:background="@color/edtBG"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:visibility="invisible" />
+                android:inputType="textPassword" />
 
             <TextView
                 android:id="@+id/txtNuevaContrasena"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nueva contraseña"
-                android:visibility="invisible" />
+                android:layout_height="20dp"
+                android:text="Nueva contraseña" />
 
             <EditText
                 android:id="@+id/edt_nuevaContrasena"
+                style="@style/editTextDefault"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:background="@color/edtBG"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:visibility="invisible" />
+                android:inputType="textPassword" />
 
             <TextView
                 android:id="@+id/txtCorreoElectronico"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Correo electrónico"
-                android:visibility="invisible" />
+                android:layout_height="20dp"
+                android:text="Correo electrónico" />
 
             <EditText
                 android:id="@+id/edt_correoElectronico"
+                style="@style/editTextDefault"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:background="@color/edtBG"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:text="elmilloralumne@alumnes.ub.edu"
-                android:visibility="invisible" />
+                android:text="elmilloralumne@alumnes.ub.edu" />
 
             <Space
                 android:id="@+id/spcR"

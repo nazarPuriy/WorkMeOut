@@ -14,7 +14,8 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
     lateinit var contrasenaViejaTxt : TextView
     lateinit var contrasenaTxt : TextView
     lateinit var espaciado : Space
-
+    var height = 0
+    var heightTxt=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +29,7 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
         contrasenaViejaTxt = findViewById(R.id.txt_contrasenaAntigua)
         contrasenaTxt = findViewById(R.id.txtNuevaContrasena)
         espaciado = findViewById(R.id.spcR)
-
+        hide()
         val per : CheckBox = findViewById(R.id.chk_datosFragiles)
         per.setOnClickListener {
             if(per.isChecked()){
@@ -42,27 +43,30 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
 
     fun show(){
         correo.visibility= View.VISIBLE
-        correo.height=49
+        correo.height=height
         contrasena.visibility= View.VISIBLE
-        contrasena.height=49
+        contrasena.height=height
         contrasenaVieja.visibility= View.VISIBLE
-        contrasenaVieja.height=49
+        contrasenaVieja.height=height
         correoTxt.visibility= View.VISIBLE
-        correoTxt.height=38
+        correoTxt.height=heightTxt
         contrasenaViejaTxt.visibility= View.VISIBLE
-        contrasenaViejaTxt.height=38
+        contrasenaViejaTxt.height=heightTxt
         contrasenaTxt.visibility= View.VISIBLE
-        contrasenaTxt.height=38
+        contrasenaTxt.height=heightTxt
         espaciado.visibility=View.VISIBLE
     }
 
     fun hide(){
+        height = correo.height
         correo.visibility= View.INVISIBLE
         correo.height=0
         contrasena.visibility= View.INVISIBLE
         contrasena.height=0
         contrasenaVieja.visibility= View.INVISIBLE
         contrasenaVieja.height=0
+
+        heightTxt=correoTxt.height
         correoTxt.visibility= View.INVISIBLE
         correoTxt.height=0
         contrasenaViejaTxt.visibility= View.INVISIBLE

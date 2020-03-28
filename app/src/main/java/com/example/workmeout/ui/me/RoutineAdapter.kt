@@ -60,6 +60,8 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             card.setOnClickListener(View.OnClickListener {
                 val intent:Intent = Intent(itemView.context, RoutineActivity::class.java)
+                intent.putExtra("isNew", false)
+                intent.putExtra("name", routine.name)
                 itemView.context.startActivity(intent)
             })
 

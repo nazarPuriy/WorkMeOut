@@ -51,6 +51,7 @@ class SportFragment : Fragment() {
         var routine: TextView = root.findViewById<TextView>(R.id.routine)
         routine.setOnClickListener(View.OnClickListener {
             var intent:Intent = Intent(context, RoutineActivity::class.java)
+            intent.putExtra("name", "Routine 1")
             startActivity(intent)
         })
 

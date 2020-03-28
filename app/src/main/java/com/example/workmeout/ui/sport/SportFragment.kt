@@ -10,6 +10,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.BounceInterpolator
 import android.view.animation.Interpolator
 import android.view.animation.OvershootInterpolator
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -53,6 +54,12 @@ class SportFragment : Fragment() {
             startActivity(intent)
         })
 
+        var next: ImageButton = root.findViewById(R.id.right_arrow)
+        var previous: ImageButton = root.findViewById(R.id.left_arrow)
+
+        next.setOnClickListener(View.OnClickListener { Toast.makeText(context, "Next day", Toast.LENGTH_SHORT).show() })
+        previous.setOnClickListener(View.OnClickListener { Toast.makeText(context, "Previous day", Toast.LENGTH_SHORT).show() })
+
 
 
             return root
@@ -71,4 +78,6 @@ class SportFragment : Fragment() {
 
         reps.text = "Today's reps: " + done.toString() + "/" + total.toString()
     }
+
+
 }

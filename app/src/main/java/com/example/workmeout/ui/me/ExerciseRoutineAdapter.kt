@@ -56,6 +56,7 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val name = itemView.textView5
         val reps: TextView = itemView.reps
         val card: CardView = itemView.cv
+        val del:ImageButton = itemView.findViewById(R.id.deleteIcon)
 
         fun bind(exercise: Exercise) {
             name.text = exercise.name
@@ -66,6 +67,10 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 intent.putExtra("exName",name.text.toString())
                 intent.putExtra("exReps", exercise.reps)
                 itemView.context.startActivity(intent)
+            })
+
+            del.setOnClickListener(View.OnClickListener {
+                Toast.makeText(itemView.context, "Delete this exercise", Toast.LENGTH_SHORT).show()
             })
         }
 

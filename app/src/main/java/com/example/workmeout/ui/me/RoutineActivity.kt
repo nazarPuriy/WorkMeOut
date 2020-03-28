@@ -28,6 +28,7 @@ class RoutineActivity : AppCompatActivity() {
 
     fun delete(v: View) {
         Toast.makeText(this, "Delete this routine", Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     fun addExercise(view:View){

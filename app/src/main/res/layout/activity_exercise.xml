@@ -6,140 +6,132 @@
     android:layout_height="match_parent"
     tools:context=".ui.sport.ExerciseActivity">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:padding="1dp"
-        android:paddingLeft="1dp"
-        android:paddingTop="1dp"
-        android:paddingRight="1dp"
-        android:paddingBottom="1dp"
-        android:weightSum="4"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textExerciseName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:text="Exercise name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="36sp" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:background="#00DFBEBE"
-            android:onClick="openDescription"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:padding="1dp"
             android:paddingLeft="1dp"
             android:paddingTop="1dp"
             android:paddingRight="1dp"
             android:paddingBottom="1dp"
-            android:text="Información"
-            android:textStyle="italic" />
+            android:weightSum="4">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2">
-
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/grafic"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="-16dp" />
+                android:layout_height="wrap_content">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:orientation="horizontal"
-            android:weightSum="6">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/buttonGo"
-                    style="@style/buttonDefault"
+                <TextView
+                    android:id="@+id/textReps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:onClick="returnButton"
-                    android:text="Torna" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
+                    android:text="TextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textExerciseName" />
 
                 <Button
-                    android:id="@+id/buttonChange"
-                    style="@style/buttonDefault"
+                    android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="cambiarPeso"
-                    android:text="Canvia pes" />
+                    android:layout_weight="0.3"
+                    android:background="#00DFBEBE"
+                    android:onClick="openDescription"
+                    android:padding="1dp"
+                    android:paddingLeft="1dp"
+                    android:paddingTop="1dp"
+                    android:paddingRight="1dp"
+                    android:paddingBottom="1dp"
+                    android:text="Información"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textReps" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/textExerciseName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Exercise name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="36sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/grafic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
 
                 <NumberPicker
                     android:id="@+id/numpicker_1"
                     android:layout_width="30dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
                     android:theme="@style/DefaultNumberPickerTheme"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView4"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></NumberPicker>
 
-            </LinearLayout>
+                <Button
+                    android:id="@+id/buttonChange"
+                    style="@style/buttonDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="cambiarPeso"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Change weight"
+                    app:layout_constraintBottom_toBottomOf="@+id/numpicker_1"
+                    app:layout_constraintEnd_toStartOf="@+id/numpicker_1"
+                    app:layout_constraintTop_toTopOf="@+id/numpicker_1"
+                    app:layout_constraintVertical_bias="0.69" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </LinearLayout>
-
-
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

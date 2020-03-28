@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.coordinatorlayout.widget.CoordinatorLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,7 +22,7 @@
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"
         android:backgroundTint="@color/cardview_light_background"
-        android:src="@drawable/ic_add_black_24dp"
+        app:srcCompat="@drawable/ic_add_black_24dp"
         android:visibility="invisible"
         />
 
@@ -41,19 +40,11 @@
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"
         android:backgroundTint="@color/cardview_light_background"
-        android:src="@drawable/ic_search_black_24dp"
+        app:srcCompat="@drawable/ic_search_black_24dp"
         android:visibility="invisible"
 
         />
 
-
-    <!--
-
-   android:src="@drawable/ic_add_white_24dp"
-   app:fabSize="normal"
-   app:pressedTranslationZ="12dp"
-   android:backgroundTint="@color/colorPrimary"
-   -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
@@ -73,3 +64,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!--
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.talk.NotificationsFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_people"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>
+-->

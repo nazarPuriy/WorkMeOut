@@ -12,13 +12,28 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
+import com.example.workmeout.util.FirestoreUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.firestore.ListenerRegistration
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Section
+import com.xwray.groupie.kotlinandroidextensions.Item
+import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import kotlinx.android.synthetic.main.fragment_talk.*
 
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
     private lateinit var blogAdapter: BlogRecyclerAdapter
     private var isOpen = false
+
+    //variables nuevas vistas
+
+
+    //variables chat: Firebase Firestore Chat App: Show a List of Users (Ep 3)
+    private lateinit var userListenerRegistration: ListenerRegistration
+    private var shouldInitRecyclerView = true
+    private lateinit var peopleSection: Section
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -77,6 +92,8 @@ class NotificationsFragment : Fragment() {
             Toast.makeText(context, "random people", Toast.LENGTH_SHORT).show()
         }
 
+
+
         addDataSet()
         initRecycleView(root)
 
@@ -96,4 +113,33 @@ class NotificationsFragment : Fragment() {
             adapter = blogAdapter
         }
     }
+/*FIREBASE CHAT
+    override fun onDestroyView() {
+        super.onDestroyView()
+        FirestoreUtil.removeListener(userListenerRegistration)
+        shouldInitRecyclerView = true
+    }
+
+    private fun updateRecyclerView(items: List<Item>) {
+
+        fun init() {
+            recycler_view_people.apply {
+                layoutManager = LinearLayoutManager(this@NotificationsFragment.context)
+                adapter = GroupAdapter<ViewHolder>().apply {
+                    peopleSection = Section(items)
+                    add(peopleSection)
+                    setOnItemClickListener(onItemClick)
+                }
+            }
+            shouldInitRecyclerView = false
+        }
+
+        fun updateItems() = peopleSection.update(items)
+
+        if (shouldInitRecyclerView)
+            init()
+        else
+            updateItems()
+
+    }*/
 }

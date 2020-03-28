@@ -7,7 +7,7 @@ data class BlogPost (
 
     var image: String,
 
-    var username: String
+    var last_message: String
 ) {
 
 }

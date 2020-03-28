@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
-import com.example.workmeout.model.Routine
+import com.example.workmeout.ChatPackage.Model.Routine
 import kotlinx.android.synthetic.main.routine_card.view.*
 
 class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

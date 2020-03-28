@@ -1,4 +1,4 @@
-package com.example.workmeout.model
+package com.example.workmeout.ChatPackage.Model
 
 class Routine(name:String, days:String){
 

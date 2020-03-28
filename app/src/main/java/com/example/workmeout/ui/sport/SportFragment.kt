@@ -7,18 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.BounceInterpolator
 import android.view.animation.Interpolator
-import android.view.animation.OvershootInterpolator
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
-import com.example.workmeout.model.Routine
+import com.example.workmeout.ChatPackage.Model.Routine
 import com.example.workmeout.ui.me.RoutineActivity
 
 class SportFragment : Fragment() {

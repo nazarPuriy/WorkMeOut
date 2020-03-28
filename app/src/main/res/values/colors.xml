@@ -17,5 +17,6 @@
     <color name="btnText">#363942</color>
 
     <color name="edtBG">#D3E0EA</color>
+    <color name ="text_black">#000000</color>
 
 </resources>

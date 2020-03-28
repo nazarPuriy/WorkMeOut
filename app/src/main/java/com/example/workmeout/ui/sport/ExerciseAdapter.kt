@@ -13,9 +13,8 @@ import kotlinx.android.synthetic.main.sport_card.view.*
 
 
 import com.example.workmeout.R
-import com.example.workmeout.model.Exercise
-import com.example.workmeout.model.Routine
-import com.example.workmeout.ui.me.RoutineActivity
+import com.example.workmeout.ChatPackage.Model.Exercise
+import com.example.workmeout.ChatPackage.Model.Routine
 
 
 class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

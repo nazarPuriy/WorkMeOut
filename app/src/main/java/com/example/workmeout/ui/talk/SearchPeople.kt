@@ -1,64 +1,106 @@
 package com.example.workmeout.ui.talk
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
+import android.widget.AdapterView
+import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workmeout.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_people.*
-import java.util.*
-import kotlin.collections.ArrayList
+import com.firebase.ui.auth.AuthUI.getApplicationContext as getApplicationContext1
+
 
 class SearchPeople : AppCompatActivity() {
 
 
     private lateinit var items: Array<String>
+    private lateinit var items2: Array<String>
     private var listItems: ArrayList<String> = ArrayList()
     private lateinit var adapter_: ArrayAdapter<String>
     private lateinit var myList: ListView
     private lateinit var mySearchView: EditText
 
+    private lateinit var last_message: Array<String>
+    private lateinit var last_message2: Array<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_people)
+
+        items = arrayOf("Maria", "Pablo", "Paula", "Carlos", "Pascual", "Eugenia",
+            "Carmen", "Jeremias", "Nacho")
+        last_message = arrayOf("Maria, it's okey", "hahahah I guess", "Yeaaaaaah", "No, it is going to be impossible :(", "Richelle", "Maria is the best. Have you heard from her lately?", "I'm asking Alfonso about Maria", "Keep Calm hahahah", "Okey")
+
+        myList = findViewById<View>(R.id.listview) as ListView
+        // now create an adapter class
+
+        // now create an adapter class
+        var adapter = MyAdapter(this, items, last_message)
+        listview.adapter = adapter
+        // there is my mistake...
+        // now again check this..
+
+        // now set item click on list view
+        // there is my mistake...
+        // now again check this..
+
+        // now set item click on list view
+        listview.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+            if (position == 0) {
+                /*
+                val buttonppl : Intent = Intent(applicationContext, SharedChat::class.java)
+                startActivity(buttonppl)*/
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (position == 1) {
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (position == 2) {
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (position == 3) {
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (position == 4) {
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (position == 5) {
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (position == 6) {
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (position == 7) {
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            if (position == 8) {
+                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
+        // so item click is done now check list view
+    /*
         myList = findViewById(R.id.listview)
         mySearchView = findViewById(R.id.txtsearch)
 
-        /*
-
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation adapter_ = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems)
-        myList.adapter = adapter__dashboard, R.id.navigation_notifications))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)*/
-
-        //mySearchView = findViewById(R.id.search_view)
-        //myList = findViewById(R.id.myList)
-
-        /*
-        listItems.add("Maria")
-        listItems.add("Pablo")
-        listItems.add("Paula")
-        listItems.add("Carlos")
-        listItems.add("Pascual")
-        listItems.add("Eugenia")
-        listItems.add("Carmen")
-        listItems.add("Jeremias")
-        listItems.add("Nacho")
-*/
-        //initList()
-        val fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         val image = findViewById<ImageView>(R.id.imageView)
         mySearchView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -66,11 +108,6 @@ class SearchPeople : AppCompatActivity() {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
-            /*
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Toast.makeText(this@SearchPeople, "random people", Toast.LENGTH_SHORT).show()
-            }*/
-
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if(s.toString().equals("")) {
@@ -82,26 +119,54 @@ class SearchPeople : AppCompatActivity() {
                     searchItem(s.toString())
                 }
             }
-        })
+        })*/
 
+        mySearchView = findViewById(R.id.txtsearch)
+
+        val image = findViewById<ImageView>(R.id.imageView)
+        mySearchView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(s.toString().equals("")) {
+                    adapter = MyAdapter(this@SearchPeople, items, last_message)
+                    listview.adapter = adapter
+                    image.visibility = View.VISIBLE
+                } else {
+                    image.visibility = View.INVISIBLE
+                    items2 = items
+                    last_message2 = last_message
+
+                    for(item in items) {
+                        if(!item.toLowerCase().contains(s.toString().toLowerCase())) {
+                            last_message2.filterNot{it == last_message2.elementAt(items2.lastIndexOf(item))}
+                            items2.filterNot { it == item }
+
+                        }/*
+                        adapter.clear()
+                        adapter = MyAdapter(this@SearchPeople, items2, last_message2)
+                        adapter.notifyDataSetChanged()*/
+                    }
+                }
+            }
+        })
 
     }
 
     fun initList() {
-        /*
-        adapter_ = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems)
-        myList.adapter = adapter_*/
-        items = arrayOf("Maria", "Pablo", "Paula", "Carlos", "Pascual", "Eugenia",
-            "Carmen", "Jeremias", "Nacho")
         listItems = ArrayList(items.size)
         listItems.addAll(items)
         adapter_ = ArrayAdapter<String>(this, R.layout.search_card, R.id.txtitem)
         adapter_.addAll(listItems)
         listview.adapter = adapter_
+
     }
 
     fun searchItem(textToSearch: String) {
-
         initList()
         for(item in items) {
             if(!item.toLowerCase().contains(textToSearch.toLowerCase())) {
@@ -111,6 +176,40 @@ class SearchPeople : AppCompatActivity() {
             adapter_.clear()
             adapter_.addAll(listItems)
             adapter_.notifyDataSetChanged()
+        }
+
+    }
+
+    internal class MyAdapter(
+        c: Context,
+        title: Array<String>,
+        description: Array<String>
+    ) :
+        ArrayAdapter<String?>(c, R.layout.row_chat, R.id.textview_name_row, title) {
+        var cont: Context
+        var rTitle: Array<String>
+        var rDescription: Array<String>
+        override fun getView(
+            position: Int,
+            @Nullable convertView: View?,
+            parent: ViewGroup
+        ): View {
+            val layoutInflater : LayoutInflater =
+               LayoutInflater.from(cont)
+            val row: View = layoutInflater.inflate(R.layout.row_chat, parent, false)
+            val myTitle = row.findViewById<TextView>(R.id.textview_name_row)
+            val myDescription = row.findViewById<TextView>(R.id.textview_mes_row)
+
+            // now set our resources on views
+            myTitle.text = rTitle[position]
+            myDescription.text = rDescription[position]
+            return row
+        }
+
+        init {
+            cont = c
+            rTitle = title
+            rDescription = description
         }
     }
 }

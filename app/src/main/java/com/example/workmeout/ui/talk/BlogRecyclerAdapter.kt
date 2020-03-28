@@ -47,7 +47,7 @@ class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(blogPost: BlogPost) {
             blogTitle.text = blogPost.title
-            blogAuthor.text = blogPost.username
+            blogAuthor.text = blogPost.last_message
 
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)

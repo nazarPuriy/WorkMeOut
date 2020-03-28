@@ -56,7 +56,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     fun editMode(){
         if(modoHint){
             title_edit.hint=title_text.text.toString()
-            description_edit.hint="Descripción del ejercicio"
+            description_edit.hint="Exercice description"
             title_edit.setText("")
             description_edit.setText("")
             modoHint=false
@@ -82,7 +82,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
                 descriptionMode()
                 //TODO crear toda la lógica de verificar información y añadir el objeto o editarlo.
             }else{
-                Toast.makeText(this,"Faltan campos por llenar",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Some fields are still empty",Toast.LENGTH_SHORT).show()
             }
         }else{
             modo=1

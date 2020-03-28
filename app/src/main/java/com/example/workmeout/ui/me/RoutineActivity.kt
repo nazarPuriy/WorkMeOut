@@ -34,6 +34,7 @@ class RoutineActivity : AppCompatActivity() {
     fun addExercise(view:View){
         val descriptionIntent = Intent(this, ExerciseDescriptionActivity::class.java)
         descriptionIntent.putExtra("MODE","1")
+        descriptionIntent.putExtra("title", "Exercise Title")
         startActivity(descriptionIntent)
     }
 }

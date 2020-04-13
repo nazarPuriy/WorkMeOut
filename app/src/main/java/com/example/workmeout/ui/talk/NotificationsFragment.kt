@@ -12,9 +12,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
+import com.example.workmeout.util.FirestoreUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.ListenerRegistration
+import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
+import com.xwray.groupie.kotlinandroidextensions.Item
+import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import kotlinx.android.synthetic.main.fragment_talk.*
 
 class NotificationsFragment : Fragment() {
 
@@ -30,13 +35,14 @@ class NotificationsFragment : Fragment() {
     private var shouldInitRecyclerView = true
     private lateinit var peopleSection: Section
 
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
+            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_talk, container, false)
 
 
@@ -87,10 +93,13 @@ class NotificationsFragment : Fragment() {
             Toast.makeText(context, "random people", Toast.LENGTH_SHORT).show()
         }
 
+        userListenerRegistration =
+            FirestoreUtil.addUsersListener(this.activity!!, this::updateRecyclerView)
 
 
+        /*
         addDataSet()
-        initRecycleView(root)
+        initRecycleView(root)*/
 
         return root
     }
@@ -108,7 +117,7 @@ class NotificationsFragment : Fragment() {
             adapter = blogAdapter
         }
     }
-/*FIREBASE CHAT
+    //FIREBASE CHAT
     override fun onDestroyView() {
         super.onDestroyView()
         FirestoreUtil.removeListener(userListenerRegistration)
@@ -118,23 +127,23 @@ class NotificationsFragment : Fragment() {
     private fun updateRecyclerView(items: List<Item>) {
 
         fun init() {
-            recycler_view_people.apply {
+            recycler_view.apply {
                 layoutManager = LinearLayoutManager(this@NotificationsFragment.context)
                 adapter = GroupAdapter<ViewHolder>().apply {
                     peopleSection = Section(items)
                     add(peopleSection)
-                    setOnItemClickListener(onItemClick)
+                    //PARAMÁSADELANTEsetOnItemClickListener(onItemClick)
                 }
             }
             shouldInitRecyclerView = false
         }
 
-        fun updateItems() = peopleSection.update(items)
+        fun updateItems() {}//PARAMÁSADELANTE= peopleSection.update(items)
 
         if (shouldInitRecyclerView)
             init()
         else
             updateItems()
 
-    }*/
+    }
 }

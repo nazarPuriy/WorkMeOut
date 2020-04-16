@@ -1,4 +1,4 @@
-package com.example.workmeout.ChatPackage.Model
+package com.example.workmeout.chatPackage.model
 
 class Exercise(currentWeight:Int, name:String, reps:Int, done:Boolean){
 

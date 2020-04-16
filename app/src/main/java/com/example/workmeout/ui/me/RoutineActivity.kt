@@ -4,12 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workmeout.ChatPackage.Model.Routine
+import com.example.workmeout.chatPackage.model.Routine
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
 import com.example.workmeout.ui.sport.ExerciseDescriptionActivity

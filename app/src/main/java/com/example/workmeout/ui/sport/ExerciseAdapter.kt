@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workmeout.ChatPackage.Model.Exercise
-import com.example.workmeout.ChatPackage.Model.Routine
+import com.example.workmeout.chatPackage.model.Exercise
+import com.example.workmeout.chatPackage.model.Routine
 import kotlinx.android.synthetic.main.sport_card.view.*
 
 

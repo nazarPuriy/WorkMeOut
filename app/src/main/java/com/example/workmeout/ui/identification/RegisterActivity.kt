@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.EditTextPreference
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -21,6 +22,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.clearTask
@@ -58,7 +60,12 @@ class RegisterActivity : AppCompatActivity() {
     private var age:String = ""
 
     private lateinit var mAuth:FirebaseAuth
-    private lateinit var mDataBase:DatabaseReference
+    //private lateinit var mDataBase:DatabaseReference
+    private lateinit var mDataBase:FirebaseFirestore
+
+    companion object {
+        private val TAG = "ClassName"
+    }
     //fin
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +74,8 @@ class RegisterActivity : AppCompatActivity() {
 
         //inicio
         mAuth = FirebaseAuth.getInstance()
-        mDataBase = FirebaseDatabase.getInstance().reference
+        //mDataBase = FirebaseDatabase.getInstance().reference
+        mDataBase = FirebaseFirestore.getInstance()
 
         editTextName = findViewById(R.id.edttxt_name)
         editTextGmail = findViewById(R.id.edttxt_mail)
@@ -91,7 +99,7 @@ class RegisterActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(
                         this,
-                        "El password debe tener al menos 4 carácteres",
+                        "El password debe tener al menos 6 carácteres",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -107,16 +115,22 @@ class RegisterActivity : AppCompatActivity() {
     private fun registerUser() {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                val map: HashMap<String, Any> = HashMap()
-                map["name"] = name
-                map["email"] = email
-                map["password"] = password
-                map["phone"] = phone
-                map["age"] = age
+                val user: HashMap<String, Any> = HashMap()
+                user["name"] = name
+                user["email"] = email
+                user["password"] = password
+                user["phone"] = phone
+                user["age"] = age
 
                 val uid: String = mAuth.currentUser!!.uid
 
-                mDataBase.child("Users").child(uid).setValue(map)
+                mDataBase.collection("users").document(user["name"] as String)
+                    .set(user)
+                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+                    .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+                finish()
+                /*
+                mDataBase.child("Users").child(uid).setValue(user)
                     .addOnCompleteListener(this) { task2 ->
                         if (task2.isSuccessful) {
                             finish()
@@ -129,7 +143,7 @@ class RegisterActivity : AppCompatActivity() {
                             ).show()
                         }
 
-                    }
+                    }*/
             } else {
                 Toast.makeText(this, "No se ha creado el usuario", Toast.LENGTH_SHORT).show()
             }

@@ -1,4 +1,4 @@
-package com.example.workmeout.ChatPackage.Item
+package com.example.workmeout.chatPackage.Item
 
 import android.content.Context
 import com.bumptech.glide.Glide
@@ -9,10 +9,8 @@ import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_person.*
 
 // AppGlidModule.kt
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
-import com.example.workmeout.ChatPackage.Model.User
+import com.example.workmeout.chatPackage.model.User
 import com.example.workmeout.util.StorageUtil
 
 class PersonItem(val person: User,

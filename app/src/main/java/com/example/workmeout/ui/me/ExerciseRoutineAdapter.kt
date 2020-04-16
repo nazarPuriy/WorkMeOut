@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.sport_card.view.*
 
 
 import com.example.workmeout.R
-import com.example.workmeout.ChatPackage.Model.Exercise
-import com.example.workmeout.ChatPackage.Model.Routine
+import com.example.workmeout.chatPackage.model.Exercise
+import com.example.workmeout.chatPackage.model.Routine
 import com.example.workmeout.ui.sport.ExerciseActivity
 
 

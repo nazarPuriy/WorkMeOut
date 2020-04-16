@@ -5,16 +5,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.workmeout.R
+import com.example.workmeout.chatPackage.model.User
+import com.example.workmeout.chatPackage.model.User2
 import kotlinx.android.synthetic.main.layout_blog_list_item.view.*
 import kotlin.collections.ArrayList
+import kotlin.coroutines.coroutineContext
 
 class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: List<DataChat> = ArrayList()
+    private var items: List<User2> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BlogViewHolder(
@@ -36,11 +40,12 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
-    fun submitList(blogList: List<DataChat>){
+    fun submitList(blogList: List<User2>){
         items = blogList
     }
 
     class BlogViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        /*
         val blogImage: ImageView = itemView.blog_image
         val blogTitle:TextView = itemView.blog_title
         val blogAuthor = itemView.blog_author
@@ -56,6 +61,27 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             Glide.with(itemView.context)
                 .applyDefaultRequestOptions(requestOptions)
                 .load(dataChat.image)
+                .into(blogImage)*/
+        val blogImage: ImageView = itemView.blog_image
+        val blogTitle:TextView = itemView.blog_title
+        val blogAuthor = itemView.blog_author
+
+        fun bind(dataChat: User2) {
+            blogTitle.text = dataChat.name//variable nombre
+            blogAuthor.text = dataChat.bio//variable last_message
+
+
+            Toast.makeText(itemView.context, dataChat.name + "" + dataChat.bio, Toast.LENGTH_SHORT).show()
+
+
+
+            val requestOptions = RequestOptions()
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background)
+
+            Glide.with(itemView.context)
+                .applyDefaultRequestOptions(requestOptions)
+                .load(dataChat.image)//variable imagen
                 .into(blogImage)
         }
     }

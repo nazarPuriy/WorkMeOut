@@ -2,8 +2,8 @@ package com.example.workmeout.util
 
 import android.content.Context
 import android.util.Log
-import com.example.workmeout.ChatPackage.Item.PersonItem
-import com.example.workmeout.ChatPackage.Model.User
+import com.example.workmeout.chatPackage.Item.PersonItem
+import com.example.workmeout.chatPackage.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore

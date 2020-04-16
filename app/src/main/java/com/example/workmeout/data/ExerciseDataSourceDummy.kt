@@ -1,7 +1,7 @@
 package com.example.workmeout.data
 
-import com.example.workmeout.ChatPackage.Model.Exercise
-import com.example.workmeout.ChatPackage.Model.Routine
+import com.example.workmeout.chatPackage.model.Exercise
+import com.example.workmeout.chatPackage.model.Routine
 
 class ExerciseDataSourceDummy{
 

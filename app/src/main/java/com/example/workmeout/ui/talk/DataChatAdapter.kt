@@ -40,8 +40,8 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
-    fun submitList(blogList: List<User2>){
-        items = blogList
+    fun submitList(list: List<User2>){
+        items = list
     }
 
     class BlogViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -71,7 +71,7 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             blogAuthor.text = dataChat.bio//variable last_message
 
 
-            Toast.makeText(itemView.context, dataChat.name + "" + dataChat.bio, Toast.LENGTH_SHORT).show()
+            Toast.makeText(itemView.context, dataChat.name + "yieeeee" + dataChat.bio, Toast.LENGTH_SHORT).show()
 
 
 

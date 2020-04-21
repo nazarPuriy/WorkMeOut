@@ -71,7 +71,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
-                        android:id="@+id/edttxt_user"
+                        android:id="@+id/edttxt_user_login"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="#D3E0EA"
@@ -86,7 +86,7 @@
                         android:background="#00FFFFFF" />
 
                     <EditText
-                        android:id="@+id/edttxt_password"
+                        android:id="@+id/edttxt_password_login"
                         style="@style/editTextDefault"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"

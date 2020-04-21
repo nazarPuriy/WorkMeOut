@@ -47,6 +47,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var editTextName: EditText
     private lateinit var editTextGmail: EditText
     private lateinit var editTextPassword: EditText
+    private lateinit var editTextPasswordConfirm: EditText
     private lateinit var editTextPhone: EditText
     private lateinit var editTextAge: EditText
     private lateinit var radioButtonGender: RadioButton
@@ -56,17 +57,15 @@ class RegisterActivity : AppCompatActivity() {
     private var name:String = ""
     private var email:String = ""
     private var password:String = ""
+    private var passwordConfirm:String = ""
     private var phone:String = ""
     private var age:String = ""
 
     private lateinit var mAuth:FirebaseAuth
-    //private lateinit var mDataBase:DatabaseReference
     private lateinit var mDataBase:FirebaseFirestore
-
     companion object {
-        private val TAG = "ClassName"
+        private val TAG = "RegisterActivity"
     }
-    //fin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +79,7 @@ class RegisterActivity : AppCompatActivity() {
         editTextName = findViewById(R.id.edttxt_name)
         editTextGmail = findViewById(R.id.edttxt_mail)
         editTextPassword = findViewById(R.id.edttxt_password)
+        editTextPasswordConfirm = findViewById(R.id.edttxt_passwordConfirm)
         editTextPhone = findViewById(R.id.edttxt_phone)
         editTextAge = findViewById(R.id.edttxt_age)
         buttonRegister = findViewById(R.id.btn_register)
@@ -89,13 +89,22 @@ class RegisterActivity : AppCompatActivity() {
             name = editTextName.text.toString()
             email = editTextGmail.text.toString()
             password = editTextPassword.text.toString()
+            passwordConfirm = editTextPasswordConfirm.text.toString()
             phone = editTextPhone.text.toString()
             age = editTextPassword.text.toString()
 
             if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !phone.isEmpty() && !age.isEmpty()) {
 
                 if (password.length >= 4) {
-                    registerUser()
+                    if(password != passwordConfirm) {
+                        Toast.makeText(
+                            this,
+                            "Las dos contraseñas deben coincidir",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }else {
+                        registerUser()
+                    }
                 } else {
                     Toast.makeText(
                         this,

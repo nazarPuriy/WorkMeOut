@@ -119,9 +119,9 @@ class NotificationsFragment : Fragment() {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d("exist", "${document.id} => ${document.data}")
-                    val usuario = User2(document.getString("name"), document.getString("email"), null, null)
+                    var usuario = User2(document.getString("name"), document.getString("email"), null, null)
                     data.add(usuario)
-                    Toast.makeText(context, usuario.name + "" + usuario.bio, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, usuario.name + " " + usuario.bio, Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { exception ->
@@ -133,13 +133,15 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun initRecycleView(root:View) {
-
-        root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+        root.findViewById<RecyclerView>(R.id.recycler_view).apply{
             layoutManager = LinearLayoutManager(root.context)
             adapter = blogAdapter
+            Toast.makeText(context, "uppppp", Toast.LENGTH_SHORT).show()
         }
     }
+
     //FIREBASE CHAT
+    /* CHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTT
     override fun onDestroyView() {
         super.onDestroyView()
         FirestoreUtil.removeListener(userListenerRegistration)
@@ -167,5 +169,5 @@ class NotificationsFragment : Fragment() {
         else
             updateItems()
 
-    }
+    }*/
 }

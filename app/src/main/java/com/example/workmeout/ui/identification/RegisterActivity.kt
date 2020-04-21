@@ -89,7 +89,7 @@ class RegisterActivity : AppCompatActivity() {
             name = editTextName.text.toString()
             email = editTextGmail.text.toString()
             password = editTextPassword.text.toString()
-            phone = editTextGmail.text.toString()
+            phone = editTextPhone.text.toString()
             age = editTextPassword.text.toString()
 
             if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !phone.isEmpty() && !age.isEmpty()) {
@@ -115,6 +115,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun registerUser() {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
+
                 val user: HashMap<String, Any> = HashMap()
                 user["name"] = name
                 user["email"] = email
@@ -128,6 +129,8 @@ class RegisterActivity : AppCompatActivity() {
                     .set(user)
                     .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
                     .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+                verificationEmail()
                 finish()
                 /*
                 mDataBase.child("Users").child(uid).setValue(user)
@@ -153,7 +156,16 @@ class RegisterActivity : AppCompatActivity() {
     //fin
 
 
+    private fun verificationEmail()  {
+        val user = mAuth.currentUser
 
+        user?.sendEmailVerification()
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "Email enviado.")
+                }
+            }
+    }
 /*
     //TODO
     fun register(view: View){

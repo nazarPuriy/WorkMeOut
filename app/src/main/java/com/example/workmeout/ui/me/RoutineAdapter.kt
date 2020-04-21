@@ -5,12 +5,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
-import com.example.workmeout.ChatPackage.Model.Routine
+import com.example.workmeout.chatPackage.model.Routine
 import kotlinx.android.synthetic.main.routine_card.view.*
 
 class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

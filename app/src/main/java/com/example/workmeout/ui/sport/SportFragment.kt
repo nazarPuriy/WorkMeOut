@@ -27,6 +27,7 @@ class SportFragment : Fragment() {
     lateinit var pb:ProgressBar
     lateinit var reps: TextView
     lateinit var routine: Routine
+    val progressMultiplier: Int = 1000
 
 
     override fun onCreateView(
@@ -68,11 +69,11 @@ class SportFragment : Fragment() {
 
     fun notifyBar(){
         var total = routine.getTotalReps()
-        pb.max = total
+        pb.max = total*progressMultiplier
 
         var done = routine.getDoneReps()
-        val animator: ObjectAnimator = ObjectAnimator.ofInt(pb, "progress", pb.progress, done)
-        animator.setDuration(150)
+        val animator: ObjectAnimator = ObjectAnimator.ofInt(pb, "progress", pb.progress, done*progressMultiplier)
+        animator.setDuration(200)
         val ip: Interpolator = AccelerateDecelerateInterpolator()
         animator.interpolator = ip
         animator.start()

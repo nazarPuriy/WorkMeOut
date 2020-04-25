@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.identification.RegisterActivity">
+    tools:context=".ui.identification.RegisterActivity"
+    android:id="@+id/register_layout">
 
     <Space
         android:id="@+id/space3"
@@ -179,7 +180,6 @@
                         style="@style/buttonDefault"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="register"
                         android:text="@string/registerBtn_stg" />
 
                 </LinearLayout>

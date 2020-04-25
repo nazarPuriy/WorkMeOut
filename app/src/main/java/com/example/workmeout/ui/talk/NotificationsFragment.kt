@@ -2,31 +2,54 @@ package com.example.workmeout.ui.talk
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
+import com.example.workmeout.chatPackage.model.User
+import com.example.workmeout.chatPackage.model.User2
+import com.example.workmeout.util.FirestoreUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Section
+import com.xwray.groupie.kotlinandroidextensions.Item
+import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import kotlinx.android.synthetic.main.fragment_talk.*
 
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
-    private lateinit var blogAdapter: BlogRecyclerAdapter
+    private lateinit var blogAdapter: DataChatAdapter
     private var isOpen = false
 
+    //variables nuevas vistas
+
+
+    //variables chat: Firebase Firestore Chat App: Show a List of Users (Ep 3)
+    private lateinit var userListenerRegistration: ListenerRegistration
+    private var shouldInitRecyclerView = true
+    private lateinit var peopleSection: Section
+    private lateinit var mDataBase: FirebaseFirestore
+    //private lateinit var data: ArrayList<String>
+    //private lateinit var dataUser: ArrayList<User>
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
+            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_talk, container, false)
 
 
@@ -77,6 +100,9 @@ class NotificationsFragment : Fragment() {
             Toast.makeText(context, "random people", Toast.LENGTH_SHORT).show()
         }
 
+        //userListenerRegistration = FirestoreUtil.addUsersListener(this.activity!!, this::updateRecyclerView)
+        mDataBase = FirebaseFirestore.getInstance()
+
         addDataSet()
         initRecycleView(root)
 
@@ -84,16 +110,64 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun addDataSet() {
-        val data: ArrayList<BlogPost> = DataSource.createDataSet()
-        blogAdapter = BlogRecyclerAdapter()
+        //val data: ArrayList<DataChat> = DataSource.createDataSet()
+        val data: ArrayList<User2> = ArrayList<User2>()
+
+        val docRef = mDataBase.collection("users")
+
+        docRef.get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("exist", "${document.id} => ${document.data}")
+                    var usuario = User2(document.getString("name"), document.getString("email"), null, null)
+                    data.add(usuario)
+                    Toast.makeText(context, usuario.name + " " + usuario.bio, Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("no_exist", "Error getting documents: ", exception)
+            }
+        val data2: ArrayList<DataChat> = DataSource.createDataSet()
+        blogAdapter = DataChatAdapter()
         blogAdapter.submitList(data)
     }
 
     private fun initRecycleView(root:View) {
-
-        root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+        root.findViewById<RecyclerView>(R.id.recycler_view).apply{
             layoutManager = LinearLayoutManager(root.context)
             adapter = blogAdapter
+            Toast.makeText(context, "uppppp", Toast.LENGTH_SHORT).show()
         }
     }
+
+    //FIREBASE CHAT
+    /* CHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATTTTTTTTTTTT
+    override fun onDestroyView() {
+        super.onDestroyView()
+        FirestoreUtil.removeListener(userListenerRegistration)
+        shouldInitRecyclerView = true
+    }
+
+    private fun updateRecyclerView(items: List<Item>) {
+
+        fun init() {
+            recycler_view.apply {
+                layoutManager = LinearLayoutManager(this@NotificationsFragment.context)
+                adapter = GroupAdapter<ViewHolder>().apply {
+                    peopleSection = Section(items)
+                    add(peopleSection)
+                    //PARAMÁSADELANTEsetOnItemClickListener(onItemClick)
+                }
+            }
+            shouldInitRecyclerView = false
+        }
+
+        fun updateItems() {}//PARAMÁSADELANTE= peopleSection.update(items)
+
+        if (shouldInitRecyclerView)
+            init()
+        else
+            updateItems()
+
+    }*/
 }

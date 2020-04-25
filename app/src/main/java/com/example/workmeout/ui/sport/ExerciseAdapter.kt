@@ -8,19 +8,20 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.workmeout.chatPackage.model.Exercise
+import com.example.workmeout.chatPackage.model.Routine
 import kotlinx.android.synthetic.main.sport_card.view.*
 
 
 
 import com.example.workmeout.R
-import com.example.workmeout.model.Exercise
-import com.example.workmeout.model.Routine
+
 
 
 class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
-    private lateinit var routine:Routine
+    private lateinit var routine: Routine
     private lateinit var sf:SportFragment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -72,6 +73,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             name.text = exercise.name
             reps.text = "Reps: " + exercise.reps.toString()
             cb.isChecked = exercise.done
+            currentWeight.isEnabled = !exercise.done
             cb.setOnCheckedChangeListener { buttonView, isChecked ->
                 currentWeight.isEnabled = !isChecked
                 exercise.done = isChecked

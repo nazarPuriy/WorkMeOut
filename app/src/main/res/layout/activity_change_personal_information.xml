@@ -151,7 +151,7 @@
                 android:id="@+id/txt_contrasenaAntigua"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="Contraseña antigua" />
+                android:text="Current password" />
                 android:layout_height="wrap_content"
                 android:text="Current password"
                 android:visibility="invisible" />
@@ -169,7 +169,7 @@
                 android:id="@+id/txtNuevaContrasena"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="Nueva contraseña" />
+                android:text="New password" />
                 android:layout_height="wrap_content"
                 android:text="New password"
                 android:visibility="invisible" />
@@ -187,7 +187,7 @@
                 android:id="@+id/txtCorreoElectronico"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:text="Correo electrónico" />
+                android:text="Email" />
                 android:layout_height="wrap_content"
                 android:text="Email"
                 android:visibility="invisible" />

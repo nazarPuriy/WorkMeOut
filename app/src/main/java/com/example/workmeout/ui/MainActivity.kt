@@ -28,9 +28,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /*Notification Code---------------------------------*/
         if (!mNotified) {
             NotificationUtils().setNotification(mNotificationTime, this@MainActivity)
         }//show a notification a day after you entered in the app.
+        /*--------------------------------------------------*/
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)

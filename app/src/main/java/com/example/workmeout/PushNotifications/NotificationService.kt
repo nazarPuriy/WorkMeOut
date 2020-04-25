@@ -44,7 +44,7 @@ class NotificationService : IntentService("NotificationService") {
 
     companion object {
 
-        const val CHANNEL_ID = "samples.notification.devdeeds.com.CHANNEL_ID"
+        const val CHANNEL_ID = "CHANNEL_ID"
         const val CHANNEL_NAME = "Sample Notification"
     }
 

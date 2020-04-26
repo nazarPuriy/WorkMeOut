@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.R
 import com.google.firebase.auth.FirebaseAuth
@@ -16,15 +17,14 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var editTextEmail: EditText
     private lateinit var editTextPassword: EditText
-
     private var email:String = ""
     private var password:String = ""
     private lateinit var mAuth: FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         editTextEmail = findViewById(R.id.edttxt_user_login)
         editTextPassword = findViewById(R.id.edttxt_password_login)
 
@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
     fun loginBtn(view: View){
          email = editTextEmail.text.toString()
          password = editTextPassword.text.toString()
+         Controlador.login(email,password); //Probamos que se guarde el user en el controlador que es un Object
          /*
          mAuth.signInWithEmailAndPassword(email, password)
              .addOnCompleteListener(this) { task ->

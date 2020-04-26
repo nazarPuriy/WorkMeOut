@@ -14,8 +14,10 @@ class Usuari(id:Int,userName: String,password: String,email: String,phoneNumber:
     var height: Int = height;
     var RutineList: ArrayList<Routine> = RutineList
 
-    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, RutineList: ArrayList<Routine>) : this(id,userName,password, email, phoneNumber, age, 0,0,ArrayList())
-
+    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, RutineList: ArrayList<Routine>) : this(id,userName,password, email, phoneNumber, age, 0,0,
+        RutineList
+    )
+    constructor(email:String, password:String):this(0,"a",password,email,0,0,ArrayList())
     fun addRutine(Rutine: Routine){
         if(!isRutine(Rutine.name)){
             RutineList.add(Rutine)

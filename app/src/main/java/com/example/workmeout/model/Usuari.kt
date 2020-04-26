@@ -2,35 +2,19 @@ package com.example.workmeout.model
 
 import com.example.workmeout.model.Routine
 
-class Usuari{
+class Usuari(id:Int,userName: String,password: String,email: String,phoneNumber: Int,age: Int, weight: Int, height: Int, RutineList: ArrayList<Routine>){
 
-    var id: Int;
-    var userName: String
-    var password: String
-    var email: String
-    var phoneNumber: Int
-    var age: Int
-    var weight: Int = 0;
-    var height: Int = 0;
-    var RutineList: ArrayList<Routine> = ArrayList();
+    var id: Int = id;
+    var userName: String = userName
+    var password: String = password
+    var email: String = email
+    var phoneNumber: Int = phoneNumber
+    var age: Int = age
+    var weight: Int = weight;
+    var height: Int = height;
+    var RutineList: ArrayList<Routine> = RutineList
 
-    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int){
-        this.id = id;
-        this.userName = userName
-        this.password = password
-        this.email = email
-        this.phoneNumber = phoneNumber
-        this.age = age
-    }
-    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, RutineList: ArrayList<Routine>){
-        this.id = id;
-        this.userName = userName
-        this.password = password
-        this.email = email
-        this.phoneNumber = phoneNumber
-        this.age = age
-        this.RutineList = RutineList;
-    }
+    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, RutineList: ArrayList<Routine>) : this(id,userName,password, email, phoneNumber, age, 0,0,ArrayList())
 
     fun addRutine(Rutine: Routine){
         if(!isRutine(Rutine.name)){

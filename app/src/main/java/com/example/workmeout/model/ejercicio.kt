@@ -1,14 +1,15 @@
 package com.example.workmeout.model
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ejercicio {
     var id: Int
     var name: String
     var typeExercise: String
-    var fecha: Date;
+    var fecha: Date
     var weight: Int
-    var repetitions: Int;
+    var repetitions: Int
 
     constructor(id: Int, name: String, typeExercise: String,fecha: Date, weight: Int, repetitions: Int){
         this.id = id;

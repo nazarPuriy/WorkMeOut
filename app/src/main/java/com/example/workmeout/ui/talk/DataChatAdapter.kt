@@ -68,11 +68,6 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             blogTitle.text = dataChat.name//variable nombre
             blogAuthor.text = dataChat.bio//variable last_message
 
-
-            Toast.makeText(itemView.context, dataChat.name + "yieeeee" + dataChat.bio, Toast.LENGTH_SHORT).show()
-
-
-
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)

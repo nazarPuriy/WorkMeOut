@@ -118,7 +118,6 @@ class NotificationsFragment : Fragment() {
                         null
                     )
                     data.add(usuario)
-                    Toast.makeText(context, usuario.name + " " + usuario.bio, Toast.LENGTH_SHORT).show()
                 }
                 blogAdapter.submitList(data)
                 blogAdapter.notifyDataSetChanged()

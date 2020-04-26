@@ -134,7 +134,6 @@ class NotificationsFragment : Fragment() {
         //val data2: ArrayList<DataChat> = DataSource.createDataSet()
         blogAdapter = DataChatAdapter()
         blogAdapter.submitList(data)
-        Toast.makeText(context, data.size.toString(), Toast.LENGTH_LONG).show()
     }
 
     private fun initRecycleView(root:View) {

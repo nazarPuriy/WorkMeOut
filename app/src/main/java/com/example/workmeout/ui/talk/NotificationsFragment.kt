@@ -92,7 +92,6 @@ class NotificationsFragment : Fragment() {
         }
 
         search_button.setOnClickListener {
-            //Toast.makeText(context, "search button", Toast.LENGTH_SHORT).show()
             val button_ppl : Intent = Intent(root.context,SearchPeople::class.java)
             startActivity(button_ppl)
         }
@@ -123,11 +122,14 @@ class NotificationsFragment : Fragment() {
                     data.add(usuario)
                     Toast.makeText(context, usuario.name + " " + usuario.bio, Toast.LENGTH_SHORT).show()
                 }
+                blogAdapter.submitList(data)
+                blogAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.d("no_exist", "Error getting documents: ", exception)
             }
         val data2: ArrayList<DataChat> = DataSource.createDataSet()
+
         blogAdapter = DataChatAdapter()
         blogAdapter.submitList(data)
     }
@@ -136,7 +138,6 @@ class NotificationsFragment : Fragment() {
         root.findViewById<RecyclerView>(R.id.recycler_view).apply{
             layoutManager = LinearLayoutManager(root.context)
             adapter = blogAdapter
-            Toast.makeText(context, "uppppp", Toast.LENGTH_SHORT).show()
         }
     }
 

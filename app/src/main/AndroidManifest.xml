@@ -46,7 +46,6 @@
 
         <activity android:name=".ui.MainActivity" android:screenOrientation="portrait"/>
 
-        //Push Notification
         <receiver
             android:name=".PushNotifications.AlarmReceiver"
             android:enabled="true" />

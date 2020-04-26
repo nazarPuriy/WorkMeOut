@@ -102,7 +102,6 @@ class NotificationsFragment : Fragment() {
 
         //userListenerRegistration = FirestoreUtil.addUsersListener(this.activity!!, this::updateRecyclerView)
         mDataBase = FirebaseFirestore.getInstance()
-
         addDataSet()
         initRecycleView(root)
 
@@ -117,26 +116,32 @@ class NotificationsFragment : Fragment() {
 
         docRef.get()
             .addOnSuccessListener { result ->
+                Toast.makeText(context, "chat", Toast.LENGTH_LONG);
                 for (document in result) {
+
                     Log.d("exist", "${document.id} => ${document.data}")
                     var usuario = User2(document.getString("name"), document.getString("email"), null, null)
                     data.add(usuario)
-                    Toast.makeText(context, usuario.name + " " + usuario.bio, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, usuario.name + " " + usuario.bio, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, data.size.toString(), Toast.LENGTH_SHORT).show()
                 }
+                blogAdapter.submitList(data)
+                blogAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.d("no_exist", "Error getting documents: ", exception)
             }
-        val data2: ArrayList<DataChat> = DataSource.createDataSet()
+        //val data2: ArrayList<DataChat> = DataSource.createDataSet()
         blogAdapter = DataChatAdapter()
         blogAdapter.submitList(data)
+        Toast.makeText(context, data.size.toString(), Toast.LENGTH_LONG).show()
     }
 
     private fun initRecycleView(root:View) {
         root.findViewById<RecyclerView>(R.id.recycler_view).apply{
             layoutManager = LinearLayoutManager(root.context)
             adapter = blogAdapter
-            Toast.makeText(context, "uppppp", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "uppppp", Toast.LENGTH_SHORT).show()
         }
     }
 

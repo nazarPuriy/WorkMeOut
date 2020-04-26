@@ -13,15 +13,15 @@ import kotlinx.android.synthetic.main.sport_card.view.*
 
 
 import com.example.workmeout.R
-import com.example.workmeout.chatPackage.model.Exercise
-import com.example.workmeout.chatPackage.model.Routine
+import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.sport.ExerciseActivity
 
 
 class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
-    private lateinit var routine:Routine
+    private lateinit var routine: Routine
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.sport_card_routine, parent, false)
@@ -36,7 +36,7 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun getItemCount(): Int {
-        return routine.exercises.size
+        return routine.exerciseList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -44,7 +44,7 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
 
             is SportViewHolderRoutine ->{
-                holder.bind(routine.exercises.get(position))
+                holder.bind(routine.exerciseList.get(position))
             }
         }
     }

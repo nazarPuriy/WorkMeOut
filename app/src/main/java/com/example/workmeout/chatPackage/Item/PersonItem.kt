@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_person.*
 
 // AppGlidModule.kt
 import com.bumptech.glide.request.RequestOptions
-import com.example.workmeout.chatPackage.model.User
+import com.example.workmeout.model.User
 import com.example.workmeout.util.StorageUtil
 
 class PersonItem(val person: User,

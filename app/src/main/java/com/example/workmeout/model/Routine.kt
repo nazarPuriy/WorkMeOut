@@ -2,29 +2,44 @@ package com.example.workmeout.model
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import java.lang.Exception
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+import com.example.workmeout.model.Exercise;
 
-class rutina {
-    var id: Int
-    var name: String
-    var fecha: Date
-    var userFather: Usuari
-    var exerciseList: ArrayList<ejercicio> = ArrayList()
+class Routine(name:String, days:String){
+
+    var id = 0;
+    var name = name
+    var days = days
+    var exerciseList: ArrayList<Exercise> = ArrayList()
+    var ticks: List<Boolean> = ArrayList()
     var daysToDo: HashMap<String,Boolean> = mapOf(Pair("Monday",false),
         Pair("Tuesday",false),Pair("Wednesday",false),Pair("Thursday",false),Pair("Friday",false),Pair("Saturday",false),Pair("Sunday",false)) as HashMap<String, Boolean>
 
-    constructor(id: Int, name: String, fecha: Date, userFather: Usuari, exerciseList: ArrayList<ejercicio>){
-        this.id = id
-        this.name = name
-        this.fecha = fecha
-        this.userFather = userFather
-        this.exerciseList = exerciseList;
+
+    fun getTotalReps(): Int{
+
+        var total = 0
+
+        for(exercise in exerciseList){
+            total += exercise.reps
+        }
+
+        return total
     }
 
-    fun addExercise(ex: ejercicio){
+    fun getDoneReps(): Int{
+
+        var done = 0
+
+        for(exercise in exerciseList){
+            if(exercise.done){
+                done += exercise.reps
+            }
+        }
+
+        return done
+    }
+
+    fun addExercise(ex: Exercise){
         if(!isExercise(ex.name)){
             exerciseList.add(ex)
         }else{
@@ -53,7 +68,7 @@ class rutina {
     fun exPosition(exName: String): Int{
         val exerciseListIterator = exerciseList.iterator()
         while(exerciseListIterator.hasNext()){
-            var mom : ejercicio = exerciseListIterator.next()
+            var mom : Exercise = exerciseListIterator.next()
             if(mom.name == exName){
                 return exerciseList.indexOf(mom)
             }
@@ -70,6 +85,5 @@ class rutina {
     fun deleteDay(nameDay: String){
         daysToDo.replace(nameDay,false)
     }
-
 
 }

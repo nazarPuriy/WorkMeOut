@@ -1,5 +1,7 @@
-package com.example.workmeout.chatPackage.model
+package com.example.workmeout.model
 
+import com.example.workmeout.model.Message
+import com.example.workmeout.model.MessageType
 import java.util.*
 
 data class TextMessage(

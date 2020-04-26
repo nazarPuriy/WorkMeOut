@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workmeout.chatPackage.model.Routine
+import com.example.workmeout.model.Routine
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
 import com.example.workmeout.ui.sport.ExerciseDescriptionActivity
@@ -26,7 +26,9 @@ class RoutineActivity : AppCompatActivity() {
         var rv = findViewById<RecyclerView>(R.id.rv_1)
         val sa = ExerciseRoutineAdapter()
         var routine: Routine = ExerciseDataSourceDummy.createDataSet()
-        if(isNew){routine = Routine("New Routine", "")}
+        if(isNew){routine =
+            Routine("New Routine", "")
+        }
         sa.submitRoutine(routine)
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(this)

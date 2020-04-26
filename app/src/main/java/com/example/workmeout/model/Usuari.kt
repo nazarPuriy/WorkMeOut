@@ -1,6 +1,8 @@
 package com.example.workmeout.model
 
-class Usuari {
+import com.example.workmeout.model.Routine
+
+class Usuari{
 
     var id: Int;
     var userName: String
@@ -10,7 +12,7 @@ class Usuari {
     var age: Int
     var weight: Int = 0;
     var height: Int = 0;
-    var RutineList: ArrayList<rutina> = ArrayList();
+    var RutineList: ArrayList<Routine> = ArrayList();
 
     constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int){
         this.id = id;
@@ -20,7 +22,7 @@ class Usuari {
         this.phoneNumber = phoneNumber
         this.age = age
     }
-    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, RutineList: ArrayList<rutina>){
+    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, RutineList: ArrayList<Routine>){
         this.id = id;
         this.userName = userName
         this.password = password
@@ -30,7 +32,7 @@ class Usuari {
         this.RutineList = RutineList;
     }
 
-    fun addRutine(Rutine: rutina){
+    fun addRutine(Rutine: Routine){
         if(!isRutine(Rutine.name)){
             RutineList.add(Rutine)
         }else{
@@ -41,7 +43,7 @@ class Usuari {
     fun deleteRutine(rutineName: String){
         var positionRutine = rutinePosition(rutineName);
         if(positionRutine == -1){
-            //Mensaje de que no existe la rutina i no se puede eliminar
+            //Mensaje de que no existe la Routine i no se puede eliminar
         }else{
             RutineList.removeAt(positionRutine)
         }
@@ -59,7 +61,7 @@ class Usuari {
     fun rutinePosition(RutineName: String): Int{
         val RutineListIterator = RutineList.iterator()
         while(RutineListIterator.hasNext()){
-            var mom : rutina = RutineListIterator.next()
+            var mom : Routine = RutineListIterator.next()
             if(mom.name == RutineName){
                 return RutineList.indexOf(mom)
             }

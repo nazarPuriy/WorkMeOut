@@ -7,24 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
-import com.example.workmeout.chatPackage.model.User
-import com.example.workmeout.chatPackage.model.User2
-import com.example.workmeout.util.FirestoreUtil
+import com.example.workmeout.model.User2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
-import com.xwray.groupie.kotlinandroidextensions.Item
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-import kotlinx.android.synthetic.main.fragment_talk.*
 
 class NotificationsFragment : Fragment() {
 
@@ -118,7 +111,12 @@ class NotificationsFragment : Fragment() {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d("exist", "${document.id} => ${document.data}")
-                    var usuario = User2(document.getString("name"), document.getString("email"), null, null)
+                    var usuario = User2(
+                        document.getString("name"),
+                        document.getString("email"),
+                        null,
+                        null
+                    )
                     data.add(usuario)
                     Toast.makeText(context, usuario.name + " " + usuario.bio, Toast.LENGTH_SHORT).show()
                 }

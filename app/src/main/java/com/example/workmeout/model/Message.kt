@@ -1,4 +1,4 @@
-package com.example.workmeout.chatPackage.model
+package com.example.workmeout.model
 
 import java.util.*
 

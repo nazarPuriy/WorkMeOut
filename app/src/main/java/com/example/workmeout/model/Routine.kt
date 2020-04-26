@@ -6,15 +6,29 @@ import com.example.workmeout.model.Exercise;
 
 class Routine(name:String, days:String){
 
-    var id = 0;
-    var name = name
-    var days = days
+    var id: Int = 0;
+    var name:String = name
+    var days: String = days
     var exerciseList: ArrayList<Exercise> = ArrayList()
     var ticks: List<Boolean> = ArrayList()
-    var daysToDo: HashMap<String,Boolean> = mapOf(Pair("Monday",false),
-        Pair("Tuesday",false),Pair("Wednesday",false),Pair("Thursday",false),Pair("Friday",false),Pair("Saturday",false),Pair("Sunday",false)) as HashMap<String, Boolean>
+    var daysSet: HashSet<String> = createSetDays(days)
 
-
+    fun createSetDays(days: String): HashSet<String>{
+        var daysS : HashSet<String> = HashSet()
+        if(days == ""){
+            return daysS
+        }else{
+            var ini : Int = 0
+            var fin : Int = 2
+            while(fin<days.length){
+                var newDay : String = days.substring(ini,fin);
+                daysS.add(newDay)
+                ini = ini + 5
+                fin = fin + 5
+            }
+        }
+        return daysS;
+    }
     fun getTotalReps(): Int{
 
         var total = 0
@@ -76,14 +90,8 @@ class Routine(name:String, days:String){
         return -1;
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun acceptDay(nameDay: String){
-        daysToDo.replace(nameDay,true);
-    }
+    //TODO ADD DAY, REMOVE DAY ( OF THE SET )
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun deleteDay(nameDay: String){
-        daysToDo.replace(nameDay,false)
-    }
+
 
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import android.widget.AdapterView
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workmeout.R
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_people.*
 import com.firebase.ui.auth.AuthUI.getApplicationContext as getApplicationContext1
@@ -22,39 +24,60 @@ import com.firebase.ui.auth.AuthUI.getApplicationContext as getApplicationContex
 class SearchPeople : AppCompatActivity() {
 
 
-    private lateinit var items: Array<String>
-    private lateinit var items2: Array<String>
-    private var listItems: ArrayList<String> = ArrayList()
+    private lateinit var items: Array<String?>
+    private lateinit var items2: Array<String?>
+    //private var listItems: ArrayList<String> = ArrayList()
     private lateinit var adapter_: ArrayAdapter<String>
     private lateinit var myList: ListView
     private lateinit var mySearchView: EditText
 
-    private lateinit var last_message: Array<String>
-    private lateinit var last_message2: Array<String>
+    private lateinit var last_message: Array<String?>
+    private lateinit var last_message2: Array<String?>
+
+    private lateinit var mDataBase: FirebaseFirestore
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_people)
 
+        /*
         items = arrayOf("Maria", "Pablo", "Paula", "Carlos", "Pascual", "Eugenia",
             "Carmen", "Jeremias", "Nacho")
         last_message = arrayOf("Maria, it's okey", "hahahah I guess", "Yeaaaaaah", "No, it is going to be impossible :(", "Richelle", "Maria is the best. Have you heard from her lately?", "I'm asking Alfonso about Maria", "Keep Calm hahahah", "Okey")
+        */
+        var listItems:ArrayList<String?> =  ArrayList()
+        var listLast_message:ArrayList<String?> =  ArrayList()
+
+        mDataBase = FirebaseFirestore.getInstance()
+        val docRef = mDataBase.collection("users")
+
+        docRef.get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("exist", "${document.id} => ${document.data}")
+
+                        listItems.add(document.getString("name"))
+                        listLast_message.add(document.getString("email"))
+                        Toast.makeText(this@SearchPeople, document.getString("email"), Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("no_exist", "Error getting documents: ", exception)
+            }
+
+        Toast.makeText(this@SearchPeople, listItems.size.toString(), Toast.LENGTH_SHORT).show()
+        items = arrayOfNulls<String?>(listItems.size)
+        listItems.toArray(items)
+        last_message = arrayOfNulls<String?>(listLast_message.size)
+        listLast_message.toArray(last_message)
 
         myList = findViewById<View>(R.id.listview) as ListView
-        // now create an adapter class
 
-        // now create an adapter class
         var adapter = MyAdapter(this, items, last_message)
         listview.adapter = adapter
-        // there is my mistake...
-        // now again check this..
 
-        // now set item click on list view
-        // there is my mistake...
-        // now again check this..
-
-        // now set item click on list view
+        /*
         listview.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
             if (position == 0) {
                 /*
@@ -95,8 +118,8 @@ class SearchPeople : AppCompatActivity() {
                 Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
                     .show()
             }
-        })
-        // so item click is done now check list view
+        })*/
+
     /*
         myList = findViewById(R.id.listview)
         mySearchView = findViewById(R.id.txtsearch)
@@ -139,15 +162,15 @@ class SearchPeople : AppCompatActivity() {
                 } else {
                     image.visibility = View.VISIBLE
 
-                    var itemsTemp:ArrayList<String> = ArrayList()
-                    var lastMessageTemp:ArrayList<String> = ArrayList()
+                    var itemsTemp:ArrayList<String?> = ArrayList()
+                    var lastMessageTemp:ArrayList<String?> = ArrayList()
 
 
                     for(i in 0..(items.size - 1)) {
                         var item = items[i]
                         var lastMessage = last_message[i]
 
-                        if(item.toLowerCase().contains(s.toString().toLowerCase())) {
+                        if(item!!.toLowerCase().contains(s.toString().toLowerCase())) {
                             itemsTemp.add(item)
                             lastMessageTemp.add(lastMessage)
                         }
@@ -168,7 +191,7 @@ class SearchPeople : AppCompatActivity() {
         })
 
     }
-
+    /*
     fun initList() {
         listItems = ArrayList(items.size)
         listItems.addAll(items)
@@ -190,17 +213,17 @@ class SearchPeople : AppCompatActivity() {
             adapter_.notifyDataSetChanged()
         }
 
-    }
+    }*/
 
     internal class MyAdapter(
         c: Context,
-        title: Array<String>,
-        description: Array<String>
+        title: Array<String?>,
+        description: Array<String?>
     ) :
         ArrayAdapter<String?>(c, R.layout.row_chat, R.id.textview_name_row, title) {
         var cont: Context
-        var rTitle: Array<String>
-        var rDescription: Array<String>
+        var rTitle: Array<String?>
+        var rDescription: Array<String?>
         override fun getView(
             position: Int,
             @Nullable convertView: View?,

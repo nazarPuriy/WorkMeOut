@@ -5,6 +5,5 @@ class Aplicacion(currentUser: Usuari) {
 
 
     fun addUserRoutine(){
-
     }
 }

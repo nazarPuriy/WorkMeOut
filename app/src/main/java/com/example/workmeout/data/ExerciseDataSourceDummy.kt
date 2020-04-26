@@ -2,6 +2,7 @@ package com.example.workmeout.data
 
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
+import java.util.Date
 
 class ExerciseDataSourceDummy{
 
@@ -15,7 +16,8 @@ class ExerciseDataSourceDummy{
                     10,
                     "Bench Press",
                     15,
-                    true
+                    true,
+                    Date()
                 )
             )
             list.add(
@@ -24,7 +26,8 @@ class ExerciseDataSourceDummy{
                     12,
                     "Squats",
                     8,
-                    false
+                    false,
+                    Date()
                 )
                     )
             list.add(
@@ -33,7 +36,8 @@ class ExerciseDataSourceDummy{
                     22,
                     "Pullover",
                     8,
-                    false
+                    false,
+                    Date()
                 )
             )
 

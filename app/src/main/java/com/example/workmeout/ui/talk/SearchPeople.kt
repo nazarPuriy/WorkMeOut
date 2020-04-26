@@ -59,14 +59,22 @@ class SearchPeople : AppCompatActivity() {
 
                         listItems.add(document.getString("name"))
                         listLast_message.add(document.getString("email"))
-                        Toast.makeText(this@SearchPeople, document.getString("email"), Toast.LENGTH_SHORT).show()
+
                 }
+                items = arrayOfNulls<String?>(listItems.size)
+                listItems.toArray(items)
+                last_message = arrayOfNulls<String?>(listLast_message.size)
+                listLast_message.toArray(last_message)
+                var adapter = MyAdapter(this, items, last_message)
+                listview.adapter = adapter
+                adapter.notifyDataSetChanged()
+
+
             }
             .addOnFailureListener { exception ->
                 Log.d("no_exist", "Error getting documents: ", exception)
             }
-
-        Toast.makeText(this@SearchPeople, listItems.size.toString(), Toast.LENGTH_SHORT).show()
+        
         items = arrayOfNulls<String?>(listItems.size)
         listItems.toArray(items)
         last_message = arrayOfNulls<String?>(listLast_message.size)

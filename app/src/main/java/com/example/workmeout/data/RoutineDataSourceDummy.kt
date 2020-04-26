@@ -1,6 +1,6 @@
 package com.example.workmeout.data
 
-import com.example.workmeout.chatPackage.model.Routine
+import com.example.workmeout.model.Routine
 
 class RoutineDataSourceDummy{
 

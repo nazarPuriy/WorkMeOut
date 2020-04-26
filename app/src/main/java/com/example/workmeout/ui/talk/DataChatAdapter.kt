@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.workmeout.R
-import com.example.workmeout.chatPackage.model.User
-import com.example.workmeout.chatPackage.model.User2
+import com.example.workmeout.model.User2
 import kotlinx.android.synthetic.main.layout_blog_list_item.view.*
 import kotlin.collections.ArrayList
-import kotlin.coroutines.coroutineContext
 
 class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

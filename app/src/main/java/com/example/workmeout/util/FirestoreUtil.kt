@@ -3,7 +3,7 @@ package com.example.workmeout.util
 import android.content.Context
 import android.util.Log
 import com.example.workmeout.chatPackage.Item.PersonItem
-import com.example.workmeout.chatPackage.model.User
+import com.example.workmeout.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,8 +23,10 @@ object FirestoreUtil {
     fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
             if (!documentSnapshot.exists()) {
-                val newUser = User(FirebaseAuth.getInstance().currentUser?.displayName ?: "",
-                    "", null, mutableListOf())
+                val newUser = User(
+                    FirebaseAuth.getInstance().currentUser?.displayName ?: "",
+                    "", null, mutableListOf()
+                )
                 currentUserDocRef.set(newUser).addOnSuccessListener {
                     onComplete()
                 }

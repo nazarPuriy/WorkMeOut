@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workmeout.chatPackage.model.Exercise
-import com.example.workmeout.chatPackage.model.Routine
+import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.Routine
 import kotlinx.android.synthetic.main.sport_card.view.*
 
 
@@ -43,7 +43,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return routine.exercises.size
+        return routine.exerciseList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -51,7 +51,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
 
             is SportViewHolder ->{
-                holder.bind(routine.exercises.get(position))
+                holder.bind(routine.exerciseList.get(position))
             }
         }
 

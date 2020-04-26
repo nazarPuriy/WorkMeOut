@@ -1,7 +1,7 @@
 package com.example.workmeout.data
 
-import com.example.workmeout.chatPackage.model.Exercise
-import com.example.workmeout.chatPackage.model.Routine
+import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.Routine
 
 class ExerciseDataSourceDummy{
 
@@ -18,12 +18,12 @@ class ExerciseDataSourceDummy{
                 )
             )
             list.add(
-                    Exercise(
-                        12,
-                        "Squats",
-                        8,
-                        false
-                    )
+                Exercise(
+                    12,
+                    "Squats",
+                    8,
+                    false
+                )
                     )
             list.add(
                 Exercise(
@@ -34,8 +34,9 @@ class ExerciseDataSourceDummy{
                 )
             )
 
-            var routine:Routine = Routine("Routine 1", "Mon, Thu, Sat")
-            routine.exercises = list
+            var routine: Routine =
+                Routine("Routine 1", "Mon, Thu, Sat")
+            routine.exerciseList = list
 
             return routine
         }

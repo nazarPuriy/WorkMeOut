@@ -11,6 +11,7 @@ class ExerciseDataSourceDummy{
             val list = ArrayList<Exercise>()
             list.add(
                 Exercise(
+                    0,
                     10,
                     "Bench Press",
                     15,
@@ -19,6 +20,7 @@ class ExerciseDataSourceDummy{
             )
             list.add(
                 Exercise(
+                    1,
                     12,
                     "Squats",
                     8,
@@ -27,6 +29,7 @@ class ExerciseDataSourceDummy{
                     )
             list.add(
                 Exercise(
+                    2,
                     22,
                     "Pullover",
                     8,

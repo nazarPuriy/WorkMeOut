@@ -44,7 +44,7 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
 
             is SportViewHolderRoutine ->{
-                holder.bind(routine.exerciseList.get(position))
+                holder.bind(routine.exerciseList.get(position), routine, this)
             }
         }
     }
@@ -56,7 +56,7 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val card: CardView = itemView.cv
         val del:ImageButton = itemView.findViewById(R.id.deleteIcon)
 
-        fun bind(exercise: Exercise) {
+        fun bind(exercise: Exercise, routine: Routine, era:ExerciseRoutineAdapter) {
             name.text = exercise.name
             reps.text = "Reps: " + exercise.reps.toString()
 
@@ -68,7 +68,8 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             })
 
             del.setOnClickListener(View.OnClickListener {
-                Toast.makeText(itemView.context, "Delete this exercise", Toast.LENGTH_SHORT).show()
+                routine.deleteExercise(exercise.name)
+                era.notifyDataSetChanged()
             })
         }
 

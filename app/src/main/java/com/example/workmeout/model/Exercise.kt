@@ -1,17 +1,29 @@
 package com.example.workmeout.model
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.util.*
+import kotlin.collections.ArrayList
+import java.time.LocalDateTime
+
 var calendar : Calendar = Calendar.getInstance();
-class Exercise (id:Int, currentWeight:Int, name:String, reps:Int, done:Boolean, fecha: Date){
+class Exercise {
 
-    var id:Int = id
-    var currentWeight:Int = currentWeight
-    var name: String = name
-    var reps: Int = reps
-    var done: Boolean = done
-    var fecha: Date = fecha;
+    var id:Int = 0
+    var currentWeight:Int = 0
+    var name: String = "name"
+    var reps: Int = 0
+    var done: Boolean = false
+    var history: ArrayList<ExerciseEvent>
 
-    constructor(currentWeight: Int, name: String, reps: Int, done: Boolean) : this(0,currentWeight,name,reps,done,
-        calendar.time)
+    constructor(id:Int, currentWeight: Int, name: String, reps: Int, done: Boolean){
+        this.id = id
+        this.currentWeight = currentWeight
+        this.name = name
+        this.reps = reps
+        this.done = done
+        this.history = ArrayList()
+        history.add(ExerciseEvent(Date(), currentWeight))
+    }
 
 }

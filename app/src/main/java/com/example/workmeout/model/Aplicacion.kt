@@ -1,4 +1,10 @@
 package com.example.workmeout.model
 
-class Aplicacion {
+class Aplicacion(currentUser: Usuari) {
+    val currentUser: Usuari = currentUser;
+
+
+    fun addUserRoutine(){
+
+    }
 }

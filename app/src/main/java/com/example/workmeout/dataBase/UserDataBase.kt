@@ -8,6 +8,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.workmeout.Controlador.Controlador
 import org.json.JSONArray
 import org.json.JSONObject
 import com.example.workmeout.model.User
@@ -22,7 +23,12 @@ class UserDataBase {
         val URL : String = "http://192.168.1.41:8080/websercv/registrar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context,"OPERACION EXITOSA DE POST", Toast.LENGTH_SHORT).show()
+                if(response.length>4){ //Nos informa la base de datos que el usuario ya existe
+                    Toast.makeText(context,"There is already a user with the given username", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(context,"User registered", Toast.LENGTH_SHORT).show()
+                }
+
 
             }, Response.ErrorListener { error ->
                 Toast.makeText(context,"ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
@@ -46,7 +52,7 @@ class UserDataBase {
     }
 
     //Método que utilizamos para buscar usuarios en la base de datos.
-    fun buscarUsuario(context: Context, username : String) : User?{
+    fun buscarUsuario(context: Context, username : String, oldPassword : String) : User?{
         var ret : Boolean = true
         var user : User? = null
         var name : String
@@ -59,7 +65,7 @@ class UserDataBase {
         var height : Int
 
 
-        val URL : String = "http://192.168.1.41:8080/websercv/buscar.php?name="+username
+        val URL : String = "http://192.168.1.41:8080/websercv/buscar.php?username="+username
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject
@@ -74,21 +80,17 @@ class UserDataBase {
                     weight = jsonObject.getString("weight").toInt()
                     height = jsonObject.getString("height").toInt()
 
-                    user = User(username,name,password,email,phoneNumber,age,gender,weight,height);
+                    Controlador.currentUser = User(username,name,password,email,phoneNumber,age,gender,weight,height);
+                    Controlador.login(context,oldPassword);
                 }
-                ret = false
             }, Response.ErrorListener { error->
-                Toast.makeText(context,"ERROR " + error.toString(), Toast.LENGTH_LONG).show()
-                ret = false
+                Controlador.login(context,oldPassword);
             })
+
         requestQ= Volley.newRequestQueue(context);
         requestQ.add(jsonArrayRequest)
 
-        while(ret){
-            //Esperem a tenir una resposta de la base de dades.
-        }
         return user
-
     }
 
     //Método que utilizamos para sobreescribir información.
@@ -96,7 +98,7 @@ class UserDataBase {
         val URL : String = "http://192.168.1.41:8080/websercv/editar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context,"OPERACION EXITOSA DE POST", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"OPERACION EXITOSA DE EDIT", Toast.LENGTH_SHORT).show()
 
             }, Response.ErrorListener { error ->
                 Toast.makeText(context,"ERROR : " + error.toString(), Toast.LENGTH_LONG).show()

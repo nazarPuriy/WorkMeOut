@@ -4,7 +4,7 @@ import com.example.workmeout.model.Routine
 
 class Usuari(id:Int,userName: String,password: String,email: String,phoneNumber: Int,age: Int, weight: Int, height: Int, RutineList: ArrayList<Routine>){
 
-    var id: Int = id;
+
     var userName: String = userName
     var password: String = password
     var email: String = email

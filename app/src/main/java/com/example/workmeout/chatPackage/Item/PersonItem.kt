@@ -10,10 +10,10 @@ import kotlinx.android.synthetic.main.item_person.*
 
 // AppGlidModule.kt
 import com.bumptech.glide.request.RequestOptions
-import com.example.workmeout.model.User
+import com.example.workmeout.model.UserOld
 import com.example.workmeout.util.StorageUtil
 
-class PersonItem(val person: User,
+class PersonItem(val person: UserOld,
                  val userId: String,
                  private val context: Context)
     : Item() {

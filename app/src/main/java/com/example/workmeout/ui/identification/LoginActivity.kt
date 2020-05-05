@@ -27,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         editTextEmail = findViewById(R.id.edttxt_user_login)
         editTextPassword = findViewById(R.id.edttxt_password_login)
-
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -35,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
     fun loginBtn(view: View){
          email = editTextEmail.text.toString()
          password = editTextPassword.text.toString()
-         Controlador.login(email,password); //Probamos que se guarde el user en el controlador que es un Object
+
          /*
          mAuth.signInWithEmailAndPassword(email, password)
              .addOnCompleteListener(this) { task ->

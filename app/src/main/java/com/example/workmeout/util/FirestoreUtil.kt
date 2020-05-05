@@ -3,7 +3,7 @@ package com.example.workmeout.util
 import android.content.Context
 import android.util.Log
 import com.example.workmeout.chatPackage.Item.PersonItem
-import com.example.workmeout.model.User
+import com.example.workmeout.model.UserOld
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,7 +23,7 @@ object FirestoreUtil {
     fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
             if (!documentSnapshot.exists()) {
-                val newUser = User(
+                val newUser = UserOld(
                     FirebaseAuth.getInstance().currentUser?.displayName ?: "",
                     "", null, mutableListOf()
                 )
@@ -45,10 +45,10 @@ object FirestoreUtil {
         currentUserDocRef.update(userFieldMap)
     }
 
-    fun getCurrentUser(onComplete: (User) -> Unit) {
+    fun getCurrentUser(onComplete: (UserOld) -> Unit) {
         currentUserDocRef.get()
             .addOnSuccessListener {
-                onComplete(it.toObject(User::class.java)!!)
+                onComplete(it.toObject(UserOld::class.java)!!)
             }
     }
 
@@ -63,7 +63,7 @@ object FirestoreUtil {
                 val items = mutableListOf<Item>()
                 querySnapshot!!.documents.forEach {
                     if (it.id != FirebaseAuth.getInstance().currentUser?.uid)
-                        items.add(PersonItem(it.toObject(User::class.java)!!, it.id, context))
+                        items.add(PersonItem(it.toObject(UserOld::class.java)!!, it.id, context))
                 }
                 onListen(items)
             }

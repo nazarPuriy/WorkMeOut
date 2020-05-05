@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
+import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.util.FirestoreUtil
@@ -44,6 +45,8 @@ class RegisterActivity : AppCompatActivity() {
             .build())
     -------------*/
     //inicio
+
+    private lateinit var editTextUsername : EditText
     private lateinit var editTextName: EditText
     private lateinit var editTextGmail: EditText
     private lateinit var editTextPassword: EditText
@@ -71,11 +74,14 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+
+
         //inicio
         mAuth = FirebaseAuth.getInstance()
         //mDataBase = FirebaseDatabase.getInstance().reference
         mDataBase = FirebaseFirestore.getInstance()
 
+        editTextUsername = findViewById(R.id.edttxt_username)
         editTextName = findViewById(R.id.edttxt_name)
         editTextGmail = findViewById(R.id.edttxt_mail)
         editTextPassword = findViewById(R.id.edttxt_password)
@@ -84,7 +90,7 @@ class RegisterActivity : AppCompatActivity() {
         editTextAge = findViewById(R.id.edttxt_age)
         buttonRegister = findViewById(R.id.btn_register)
 
-
+        /*
         buttonRegister.setOnClickListener {
             name = editTextName.text.toString()
             email = editTextGmail.text.toString()
@@ -117,6 +123,8 @@ class RegisterActivity : AppCompatActivity() {
                     .show()
             }
         }
+        */
+
         //fin
     }
 
@@ -175,23 +183,20 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
-/*
-    //TODO
+
+
     fun register(view: View){
         if(checkData()){
-            /*Nacho's doing
-            val intent = AuthUI.getInstance().createSignInIntentBuilder()
-                .setAvailableProviders(signInProviders)
-                .build()
-            startActivityForResult(intent, RC_SIGN_IN)
-            -------------*/
-            finish() //Nacho commented this but it was Nazar's
+            //TODO mirar lo del sex bien hacerlo
+            Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),true.toString(),"0","0")
+            finish()
         }
-    }*/
+
+    }
 
     //Check if the given arguments are correct. Makes a toast if there is any error.
     private fun checkData() : Boolean{
-        //TODO
+
         return true
     }
 

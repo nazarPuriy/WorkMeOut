@@ -26,6 +26,10 @@ object Controlador{
         baseDatos.buscarUsuario(context,username,password)
     }
 
+    fun editarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
+        baseDatos.editarUsuario(context,username,name,password,email,phone,age,gender,weight,height)
+    }
+
     //Loguea el usuario. Es llamada des de la base de datos.
     fun login(context:Context,password:String){
         if (currentUser == null) {

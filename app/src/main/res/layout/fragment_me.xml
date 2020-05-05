@@ -83,10 +83,10 @@
                     android:textSize="10sp"
                     android:textStyle="italic"
                     app:layout_constraintStart_toStartOf="@+id/txt_username"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtViewAge" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/txtViewAge"
                     android:layout_width="101dp"
                     android:layout_height="23dp"
                     android:text="Age: 18"

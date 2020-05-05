@@ -76,7 +76,7 @@ class UserDataBase {
                     email = jsonObject.getString("email")
                     phoneNumber = jsonObject.getString("phone").toInt()
                     age = jsonObject.getString("age").toInt()
-                    gender = jsonObject.getString("age").toBoolean()
+                    gender = jsonObject.getString("gender") == "true"
                     weight = jsonObject.getString("weight").toInt()
                     height = jsonObject.getString("height").toInt()
 

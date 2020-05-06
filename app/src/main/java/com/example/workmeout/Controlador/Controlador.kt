@@ -57,6 +57,10 @@ object Controlador{
         baseDatos.guardarEjercicio(context,name,description)
     }
 
+    fun matchExercise(context: Context, name:String){
+        baseDatos.matchExercise(context, name)
+    }
+
 
 
 

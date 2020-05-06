@@ -29,4 +29,8 @@ class BaseDatos {
         exerciseDataBase.guardarEjercicio(context,name,description)
     }
 
+    fun matchExercise(context: Context, name:String){
+        exerciseDataBase.matchExercise(context, name)
+    }
+
 }

@@ -38,6 +38,26 @@ class ExerciseDataBase {
         requestQ.add(stringRequest);
     }
 
+    fun matchExercise(context: Context, partialName:String){
+        var name : String
+        val URL : String = "http://192.168.1.41:8080/websercv/exercise/buscar_match.php?search="+partialName
+        val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
+            Response.Listener<JSONArray>{ response->
+                var jsonObject: JSONObject
+                for(i in 0..response.length()-1){
+                    jsonObject=response.getJSONObject(i);
+                    name = jsonObject.getString("name")
+                    Toast.makeText(context, name, Toast.LENGTH_SHORT).show()
+
+                }
+            }, Response.ErrorListener { error->
+                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
+            })
+
+        requestQ= Volley.newRequestQueue(context);
+        requestQ.add(jsonArrayRequest)
+    }
+
     //Método que utilizamos para buscar ejercicios en la base de datos.
     fun buscarEjercicio(context: Context, id : Int){
         var name : String

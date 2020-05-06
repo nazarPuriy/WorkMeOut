@@ -76,14 +76,17 @@ class RoutineActivity : AppCompatActivity() {
                 isOpen = true
             }
 
+            add_people_button.setOnClickListener{
+                addExerciseNew()
+            }
+
 
         }
 
         search_button.setOnClickListener {
-            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show()
+            searchExercise()
         }
         add_people_button.setOnClickListener{
-            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -92,10 +95,15 @@ class RoutineActivity : AppCompatActivity() {
         finish()
     }
 
-    fun addExercise(view:View){
+    fun addExerciseNew(){
         val descriptionIntent = Intent(this, ExerciseDescriptionActivity::class.java)
         descriptionIntent.putExtra("MODE","1")
         descriptionIntent.putExtra("title", "Exercise Title")
         startActivity(descriptionIntent)
+    }
+
+    fun searchExercise(){
+        val searchIntent = Intent(this, SearchExercises::class.java)
+        startActivity(intent)
     }
 }

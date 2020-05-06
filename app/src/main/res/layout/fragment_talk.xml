@@ -47,10 +47,10 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_button"
+        style="@style/fabDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        style="@style/fabDefault" />
+        android:layout_gravity="bottom|end" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

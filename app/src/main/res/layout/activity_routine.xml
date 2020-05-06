@@ -67,12 +67,15 @@
 
     <EditText
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Routine 1"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +106,7 @@
                 android:layout_weight="1">
 
                 <CheckBox
-                    android:id="@+id/checkBox8"
+                    android:id="@+id/MON"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MON"
@@ -117,7 +120,7 @@
                 android:layout_weight="1">
 
                 <CheckBox
-                    android:id="@+id/checkBox7"
+                    android:id="@+id/TUE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TUE"
@@ -131,7 +134,7 @@
                 android:layout_weight="1">
 
                 <CheckBox
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/WED"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="WED"
@@ -145,7 +148,7 @@
                 android:layout_weight="1">
 
                 <CheckBox
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/THU"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="THU"
@@ -165,7 +168,7 @@
                 android:layout_weight="1">
 
                 <CheckBox
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/FRI"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="FRI"
@@ -180,7 +183,7 @@
                 android:layout_weight="1">
 
                 <CheckBox
-                    android:id="@+id/checkBox4"
+                    android:id="@+id/SAT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SAT"
@@ -194,7 +197,7 @@
                 android:layout_weight="1">
 
                 <CheckBox
-                    android:id="@+id/checkBox9"
+                    android:id="@+id/SUN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SUN"
@@ -211,30 +214,36 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:onClick="delete"
-        android:text="  Delete routine  "
+        android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/edt_description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <Button
         android:id="@+id/btnsave"
+        style="@style/buttonDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:onClick="addRoutine"
-        android:text="SAVE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fab"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="@+id/dlt"
         app:layout_constraintStart_toEndOf="@+id/dlt"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toTopOf="@+id/dlt"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

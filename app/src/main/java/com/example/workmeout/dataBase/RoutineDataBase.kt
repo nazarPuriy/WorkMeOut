@@ -12,6 +12,7 @@ import com.example.workmeout.model.Exercise
 import org.json.JSONArray
 import org.json.JSONObject
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import com.example.workmeout.ui.me.RoutineActivity
 
 class RoutineDataBase {
 
@@ -20,6 +21,7 @@ class RoutineDataBase {
 
     //Método que utilizaremos para guardar la descripcion de la rutina en una base de datos.
     fun guardarRutina(
+
         context: Context,
         name: String,
         description: String,
@@ -67,11 +69,14 @@ class RoutineDataBase {
                 parametros["exercise13"]=exercise13.toString()
                 parametros["exercise14"]=exercise14.toString()
                 parametros["exercise15"]=exercise15.toString()
+
                 return parametros
             }
         }
         requestQ = Volley.newRequestQueue(context)
         requestQ.add(stringRequest);
+
+
     }
 
     //Método que utilizaremos para guardas las rutinas correspndietnes a los usuarios

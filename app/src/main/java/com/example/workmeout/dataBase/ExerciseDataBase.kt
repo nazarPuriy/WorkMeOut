@@ -8,12 +8,9 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.model.Exercise
-import com.example.workmeout.model.ExerciseDescription
 import org.json.JSONArray
 import org.json.JSONObject
-import com.example.workmeout.model.User
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
 class ExerciseDataBase {
@@ -45,7 +42,7 @@ class ExerciseDataBase {
         var name: String
         var description: String
         val URL : String = "http://192.168.1.41:8080/websercv/exercise/buscar_match.php?search="+partialName
-        var list: ArrayList<ExerciseDescription>
+        var list: ArrayList<Exercise>
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject
@@ -54,7 +51,7 @@ class ExerciseDataBase {
                     jsonObject=response.getJSONObject(i);
                     name = jsonObject.getString("name")
                     description = jsonObject.getString("description")
-                    list.add(ExerciseDescription(name, description))
+                    list.add(Exercise(name, description))
 
                     adapter.submitList(list)
                     adapter.notifyDataSetChanged()

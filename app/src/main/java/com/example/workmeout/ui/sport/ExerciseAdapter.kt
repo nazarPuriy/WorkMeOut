@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workmeout.model.Exercise
-import com.example.workmeout.model.Routine
+import com.example.workmeout.model.ExerciseOLD
+import com.example.workmeout.model.RoutineOLD
 import kotlinx.android.synthetic.main.sport_card.view.*
 
 
@@ -21,7 +21,7 @@ import com.example.workmeout.R
 class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
-    private lateinit var routine: Routine
+    private lateinit var routineOLD: RoutineOLD
     private lateinit var sf:SportFragment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -34,8 +34,8 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return vh
     }
 
-    fun submitRoutine(routine: Routine){
-        this.routine= routine
+    fun submitRoutine(routineOLD: RoutineOLD){
+        this.routineOLD= routineOLD
     }
 
     fun submitFragment(sf:SportFragment){
@@ -43,7 +43,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return routine.exerciseList.size
+        return routineOLD.exerciseOLDList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -51,7 +51,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
 
             is SportViewHolder ->{
-                holder.bind(routine.exerciseList.get(position))
+                holder.bind(routineOLD.exerciseOLDList.get(position))
             }
         }
 
@@ -68,16 +68,16 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val sf: SportFragment = sf
 
 
-        fun bind(exercise: Exercise) {
-            currentWeight.value = exercise.currentWeight
-            name.text = exercise.name
-            reps.text = "Reps: " + exercise.reps.toString()
-            cb.isChecked = exercise.done
-            currentWeight.isEnabled = !exercise.done
+        fun bind(exerciseOLD: ExerciseOLD) {
+            currentWeight.value = exerciseOLD.currentWeight
+            name.text = exerciseOLD.name
+            reps.text = "Reps: " + exerciseOLD.reps.toString()
+            cb.isChecked = exerciseOLD.done
+            currentWeight.isEnabled = !exerciseOLD.done
             cb.setOnCheckedChangeListener { buttonView, isChecked ->
                 currentWeight.isEnabled = !isChecked
-                exercise.done = isChecked
-                exercise.currentWeight = currentWeight.value
+                exerciseOLD.done = isChecked
+                exerciseOLD.currentWeight = currentWeight.value
                 sf.notifyBar()
             }
 
@@ -85,7 +85,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val intent: Intent = Intent(itemView.context, ExerciseActivity::class.java)
                 intent.putExtra("exName",name.text.toString())
                 intent.putExtra("exWeight",currentWeight.value.div(1.0))
-                intent.putExtra("exReps", exercise.reps)
+                intent.putExtra("exReps", exerciseOLD.reps)
                 itemView.context.startActivity(intent)
             })
         }

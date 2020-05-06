@@ -10,12 +10,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.Controlador.Controlador
-import com.example.workmeout.model.Routine
+import com.example.workmeout.model.RoutineOLD
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
 import com.example.workmeout.ui.sport.ExerciseDescriptionActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.jetbrains.anko.find
 
 class RoutineActivity : AppCompatActivity() {
     private var isOpen = false
@@ -33,11 +32,11 @@ class RoutineActivity : AppCompatActivity() {
 
         var rv = findViewById<RecyclerView>(R.id.rv_1)
         val sa = ExerciseRoutineAdapter()
-        var routine: Routine = ExerciseDataSourceDummy.createDataSet()
-        if(isNew){routine =
-            Routine("New Routine", "")
+        var routineOLD: RoutineOLD = ExerciseDataSourceDummy.createDataSet()
+        if(isNew){routineOLD =
+            RoutineOLD("New Routine", "")
         }
-        sa.submitRoutine(routine)
+        sa.submitRoutine(routineOLD)
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(this)
 

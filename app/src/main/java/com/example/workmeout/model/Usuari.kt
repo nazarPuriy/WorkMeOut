@@ -1,8 +1,6 @@
 package com.example.workmeout.model
 
-import com.example.workmeout.model.Routine
-
-class Usuari(id:Int,userName: String,password: String,email: String,phoneNumber: Int,age: Int, weight: Int, height: Int, RutineList: ArrayList<Routine>){
+class Usuari(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, weight: Int, height: Int, rutineList: ArrayList<RoutineOLD>){
 
 
     var userName: String = userName
@@ -12,15 +10,15 @@ class Usuari(id:Int,userName: String,password: String,email: String,phoneNumber:
     var age: Int = age
     var weight: Int = weight;
     var height: Int = height;
-    var RutineList: ArrayList<Routine> = RutineList
+    var rutineList: ArrayList<RoutineOLD> = rutineList
 
-    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, RutineList: ArrayList<Routine>) : this(id,userName,password, email, phoneNumber, age, 0,0,
-        RutineList
+    constructor(id:Int, userName: String, password: String, email: String, phoneNumber: Int, age: Int, rutineList: ArrayList<RoutineOLD>) : this(id,userName,password, email, phoneNumber, age, 0,0,
+        rutineList
     )
     constructor(email:String, password:String):this(0,"a",password,email,0,0,ArrayList())
-    fun addRutine(Rutine: Routine){
-        if(!isRutine(Rutine.name)){
-            RutineList.add(Rutine)
+    fun addRutine(rutine: RoutineOLD){
+        if(!isRutine(rutine.name)){
+            rutineList.add(rutine)
         }else{
             //NOTIFICACION QUE NO SE PUEDE AÑADIR PORQUE YA ESTA
         }
@@ -31,12 +29,12 @@ class Usuari(id:Int,userName: String,password: String,email: String,phoneNumber:
         if(positionRutine == -1){
             //Mensaje de que no existe la Routine i no se puede eliminar
         }else{
-            RutineList.removeAt(positionRutine)
+            rutineList.removeAt(positionRutine)
         }
     }
 
     fun isRutine(RutineName: String): Boolean {
-        val RutineListIterator = RutineList.iterator()
+        val RutineListIterator = rutineList.iterator()
         while(RutineListIterator.hasNext()){
             if(RutineListIterator.next().name == RutineName)
                 return true
@@ -45,11 +43,11 @@ class Usuari(id:Int,userName: String,password: String,email: String,phoneNumber:
     }
 
     fun rutinePosition(RutineName: String): Int{
-        val RutineListIterator = RutineList.iterator()
+        val RutineListIterator = rutineList.iterator()
         while(RutineListIterator.hasNext()){
-            var mom : Routine = RutineListIterator.next()
+            var mom : RoutineOLD = RutineListIterator.next()
             if(mom.name == RutineName){
-                return RutineList.indexOf(mom)
+                return rutineList.indexOf(mom)
             }
         }
         return -1;

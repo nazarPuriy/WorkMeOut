@@ -1,17 +1,17 @@
 package com.example.workmeout.data
 
-import com.example.workmeout.model.Exercise
-import com.example.workmeout.model.Routine
+import com.example.workmeout.model.ExerciseOLD
+import com.example.workmeout.model.RoutineOLD
 import java.util.Date
 
 class ExerciseDataSourceDummy{
 
     companion object{
 
-        fun createDataSet(): Routine {
-            val list = ArrayList<Exercise>()
+        fun createDataSet(): RoutineOLD {
+            val list = ArrayList<ExerciseOLD>()
             list.add(
-                Exercise(
+                ExerciseOLD(
                     0,
                     10,
                     "Bench Press",
@@ -21,7 +21,7 @@ class ExerciseDataSourceDummy{
                 )
             )
             list.add(
-                Exercise(
+                ExerciseOLD(
                     1,
                     12,
                     "Squats",
@@ -31,7 +31,7 @@ class ExerciseDataSourceDummy{
                 )
                     )
             list.add(
-                Exercise(
+                ExerciseOLD(
                     2,
                     22,
                     "Pullover",
@@ -41,11 +41,11 @@ class ExerciseDataSourceDummy{
                 )
             )
 
-            var routine: Routine =
-                Routine("Routine 1", "Mon, Thu, Sat")
-            routine.exerciseList = list
+            var routineOLD: RoutineOLD =
+                RoutineOLD("Routine 1", "Mon, Thu, Sat")
+            routineOLD.exerciseOLDList = list
 
-            return routine
+            return routineOLD
         }
     }
 }

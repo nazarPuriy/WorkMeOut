@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.Controlador.Controlador
-import com.example.workmeout.model.Routine
+import com.example.workmeout.model.RoutineOLD
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
 import com.example.workmeout.ui.me.RoutineActivity
@@ -25,7 +25,7 @@ class SportFragment : Fragment() {
 
     lateinit var pb:ProgressBar
     lateinit var reps: TextView
-    lateinit var routine: Routine
+    lateinit var routineOLD: RoutineOLD
     val progressMultiplier: Int = 1000
 
 
@@ -36,7 +36,7 @@ class SportFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        routine = ExerciseDataSourceDummy.createDataSet()
+        routineOLD = ExerciseDataSourceDummy.createDataSet()
         pb = root.findViewById<ProgressBar>(R.id.progressBar1)
         reps = root.findViewById(R.id.reps)
         notifyBar()
@@ -44,7 +44,7 @@ class SportFragment : Fragment() {
         var rv = root.findViewById<RecyclerView>(R.id.rv_1)
         val sa = ExerciseAdapter()
         sa.submitFragment(this)
-        sa.submitRoutine(routine)
+        sa.submitRoutine(routineOLD)
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
 
@@ -69,10 +69,10 @@ class SportFragment : Fragment() {
     }
 
     fun notifyBar(){
-        var total = routine.getTotalReps()
+        var total = routineOLD.getTotalReps()
         pb.max = total*progressMultiplier
 
-        var done = routine.getDoneReps()
+        var done = routineOLD.getDoneReps()
         val animator: ObjectAnimator = ObjectAnimator.ofInt(pb, "progress", pb.progress, done*progressMultiplier)
         animator.setDuration(200)
         val ip: Interpolator = AccelerateDecelerateInterpolator()

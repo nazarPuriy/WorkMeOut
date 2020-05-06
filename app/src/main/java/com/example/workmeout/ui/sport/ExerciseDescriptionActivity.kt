@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 
 class ExerciseDescriptionActivity : AppCompatActivity() {
@@ -78,6 +79,8 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     fun save(view:View){
         if(modo==EDITAR){
             if(checkInfo()){
+                Controlador.registerExercise(this, title_edit.text.toString(), description_edit.text.toString())
+
                 modo=0
                 descriptionMode()
                 //TODO crear toda la lógica de verificar información y añadir el objeto o editarlo.

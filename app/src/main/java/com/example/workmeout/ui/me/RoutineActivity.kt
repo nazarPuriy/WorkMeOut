@@ -86,6 +86,7 @@ class RoutineActivity : AppCompatActivity() {
         search_button.setOnClickListener {
             searchExercise()
         }
+
         add_people_button.setOnClickListener{
         }
     }
@@ -104,6 +105,6 @@ class RoutineActivity : AppCompatActivity() {
 
     fun searchExercise(){
         val searchIntent = Intent(this, SearchExercises::class.java)
-        startActivity(intent)
+        startActivity(searchIntent)
     }
 }

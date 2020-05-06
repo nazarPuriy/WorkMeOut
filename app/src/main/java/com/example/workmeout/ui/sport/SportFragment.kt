@@ -50,7 +50,7 @@ class SportFragment : Fragment() {
 
         var routine: TextView = root.findViewById<TextView>(R.id.routine)
         routine.setOnClickListener(View.OnClickListener {
-            var s : String = Controlador.currentUser.email;
+            var s : String = Controlador.currentUser!!.email;
             Toast.makeText(context,s,Toast.LENGTH_LONG).show() //Prubea de que el controlador es del tipo singleton.
             var intent:Intent = Intent(context, RoutineActivity::class.java)
             intent.putExtra("name", "Routine 1")

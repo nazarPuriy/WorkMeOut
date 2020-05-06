@@ -15,26 +15,26 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var editTextEmail: EditText
+    private lateinit var editTextUsername: EditText
     private lateinit var editTextPassword: EditText
-    private var email:String = ""
-    private var password:String = ""
     private lateinit var mAuth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        editTextEmail = findViewById(R.id.edttxt_user_login)
+        editTextUsername = findViewById(R.id.edttxt_user_login)
         editTextPassword = findViewById(R.id.edttxt_password_login)
         mAuth = FirebaseAuth.getInstance();
     }
 
      //Function called when login button is clicked
     fun loginBtn(view: View){
-         email = editTextEmail.text.toString()
-         password = editTextPassword.text.toString()
-
+        if(editTextPassword.text.isEmpty() || editTextUsername.text.isEmpty()){
+            Toast.makeText(this,"Please fill all fields",Toast.LENGTH_SHORT).show()
+        }else{
+            Controlador.loginRequest(view.context,editTextUsername.text.toString(),editTextPassword.text.toString())
+        }
          /*
          mAuth.signInWithEmailAndPassword(email, password)
              .addOnCompleteListener(this) { task ->
@@ -51,11 +51,6 @@ class LoginActivity : AppCompatActivity() {
                          Toast.LENGTH_SHORT).show()
                  }
              }*/
-
-         if(checkLogin()) {
-             val logInt= Intent(this, MainActivity::class.java)
-             startActivity(logInt)
-         }
      }
 
     //Function called when register button is clicked
@@ -71,13 +66,4 @@ class LoginActivity : AppCompatActivity() {
         startActivity(regFInt)
     }
 
-    //TODO
-    /***
-     * Habría que ver que las casilla no esten vacias al principio.
-     * Luego habría que comprovar en la base de datos las cosas.
-     * Finalmente meterle al intent de la pantalla siguiente el nombre del usuario o su id.
-     */
-    private fun checkLogin() : Boolean{
-        return true
-    }
 }

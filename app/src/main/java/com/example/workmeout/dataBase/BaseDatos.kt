@@ -15,8 +15,8 @@ class BaseDatos {
     }
 
     //Método que utilizamos para buscar usuarios en la base de datos.
-    fun buscarUsuario(context: Context, username : String) : User?{
-        return userDataBase.buscarUsuario(context,username)
+    fun buscarUsuario(context: Context, username : String, password : String) : User?{
+        return userDataBase.buscarUsuario(context,username,password)
     }
 
     //Método que utilizamos para sobreescribir información.

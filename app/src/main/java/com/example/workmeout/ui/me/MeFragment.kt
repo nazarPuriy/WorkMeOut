@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 import com.example.workmeout.data.RoutineDataSourceDummy
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,6 +30,41 @@ class MeFragment : Fragment() {
     private lateinit var contexto : Context
     private final var PICK_IMAGE = 1
     private lateinit var profileImage : ImageView
+
+    override fun onResume() {
+        super.onResume()
+        init(this.requireView())
+
+    }
+
+
+    fun init(root: View) {
+        val nombre : TextView = root.findViewById(R.id.txt_username)
+        nombre.text = Controlador.currentUser!!.name
+        nombre.setOnClickListener({
+            val cambiarInfo : Intent = Intent(root.context,
+                ChangePersonalInformationActivity::class.java)
+            startActivity(cambiarInfo)
+
+        })
+        val edit : TextView = root.findViewById(R.id.txt_editar)
+        edit.setOnClickListener({
+            val cambiarInfo : Intent = Intent(root.context,
+                ChangePersonalInformationActivity::class.java)
+            startActivity(cambiarInfo)
+
+        })
+
+        val age:TextView = root.findViewById(R.id.txtViewAge)
+        age.text = "Age: " + Controlador.currentUser!!.age.toString()
+
+        var rv = root.findViewById<RecyclerView>(R.id.rv_1)
+        val sa = RoutineAdapter()
+        sa.submitList(RoutineDataSourceDummy.createDataSet())
+        rv.adapter = sa
+        rv.layoutManager = LinearLayoutManager(root.context)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -56,26 +92,7 @@ class MeFragment : Fragment() {
 
         })
 
-        val nombre : TextView = root.findViewById(R.id.txt_username)
-        nombre.setOnClickListener({
-            val cambiarInfo : Intent = Intent(root.context,
-                ChangePersonalInformationActivity::class.java)
-            startActivity(cambiarInfo)
-
-        })
-        val edit : TextView = root.findViewById(R.id.txt_editar)
-        edit.setOnClickListener({
-            val cambiarInfo : Intent = Intent(root.context,
-                ChangePersonalInformationActivity::class.java)
-            startActivity(cambiarInfo)
-
-        })
-
-        var rv = root.findViewById<RecyclerView>(R.id.rv_1)
-        val sa = RoutineAdapter()
-        sa.submitList(RoutineDataSourceDummy.createDataSet())
-        rv.adapter = sa
-        rv.layoutManager = LinearLayoutManager(root.context)
+        init(root)
         return root
     }
 
@@ -101,9 +118,10 @@ class MeFragment : Fragment() {
     }
 
     override fun onPause() {
-        saveStatus()
+        //saveStatus()
         super.onPause()
     }
+
 
     fun chargeStatus() {
         val files= contexto.fileList()

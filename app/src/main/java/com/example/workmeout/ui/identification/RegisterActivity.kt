@@ -53,8 +53,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var editTextPasswordConfirm: EditText
     private lateinit var editTextPhone: EditText
     private lateinit var editTextAge: EditText
-    private lateinit var radioButtonGender: RadioButton
-
+    private lateinit var checkMale: RadioButton
+    private lateinit var checkFemale: RadioButton
     private lateinit var buttonRegister: Button
 
     private var name:String = ""
@@ -74,13 +74,6 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-
-
-        //inicio
-        mAuth = FirebaseAuth.getInstance()
-        //mDataBase = FirebaseDatabase.getInstance().reference
-        mDataBase = FirebaseFirestore.getInstance()
-
         editTextUsername = findViewById(R.id.edttxt_username)
         editTextName = findViewById(R.id.edttxt_name)
         editTextGmail = findViewById(R.id.edttxt_mail)
@@ -89,7 +82,19 @@ class RegisterActivity : AppCompatActivity() {
         editTextPhone = findViewById(R.id.edttxt_phone)
         editTextAge = findViewById(R.id.edttxt_age)
         buttonRegister = findViewById(R.id.btn_register)
+        checkMale = findViewById(R.id.rbtn_male)
+        checkFemale = findViewById(R.id.rbtn_female)
 
+
+        rellenar()
+
+
+
+        //NACHO ABAJO
+        //inicio
+        mAuth = FirebaseAuth.getInstance()
+        //mDataBase = FirebaseDatabase.getInstance().reference
+        mDataBase = FirebaseFirestore.getInstance()
         /*
         buttonRegister.setOnClickListener {
             name = editTextName.text.toString()
@@ -128,6 +133,52 @@ class RegisterActivity : AppCompatActivity() {
         //fin
     }
 
+    //TODO borrar es dummy
+    fun rellenar(){
+        editTextUsername.setText("juan")
+        editTextName.setText("JUAN POCO")
+        editTextPassword.setText("Contra")
+        editTextPasswordConfirm.setText("Contra")
+        editTextGmail.setText("dummymail@hotmail.com")
+        editTextPhone.setText("647327222")
+        editTextAge.setText("20")
+    }
+
+
+    //Si los datos introducidos son correctos guarda el usuario correspondiente a estos en la base de datos.
+    fun register(view: View){
+        if(checkData()){
+            Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),checkMale.isChecked.toString(),"0","0")
+        }
+    }
+
+    //Comprueba si los datos estan y si son correctos. EN caso de no serlo muestra un Toast.
+    private fun checkData() : Boolean{
+        //Miramos si toda la inforamción está presente.
+        if(editTextName.text.isEmpty() || editTextUsername.text.isEmpty() || editTextPassword.text.isEmpty() ||
+            editTextPasswordConfirm.text.isEmpty() || editTextGmail.text.isEmpty() || editTextPhone.text.isEmpty() ||
+            editTextAge.text.isEmpty()){
+            Toast.makeText(this,"Please fill all fields",Toast.LENGTH_SHORT).show()
+            return false
+        }else{
+            //Miramos que este seleccionado uno de los géneros disponibles.
+            if(!checkFemale.isChecked && !checkMale.isChecked){
+                Toast.makeText(this,"Select a gender",Toast.LENGTH_SHORT).show()
+                return false
+            }
+        }
+        //Miramos que las contraseñas coincidan.
+        if(editTextPassword.text.toString() != editTextPasswordConfirm.text.toString()){
+            Toast.makeText(this,"Password mismatch",Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return Controlador.checkData(editTextUsername.text.toString(),editTextName.text.toString(), editTextPassword.text.toString(), editTextGmail.text.toString(),editTextPhone.text.toString(),editTextAge.text.toString())
+    }
+
+
+
+    //NACHO ABAJO
     //inicio
     private fun registerUser() {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
@@ -184,21 +235,6 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-
-    fun register(view: View){
-        if(checkData()){
-            //TODO mirar lo del sex bien hacerlo
-            Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),true.toString(),"0","0")
-            finish()
-        }
-
-    }
-
-    //Check if the given arguments are correct. Makes a toast if there is any error.
-    private fun checkData() : Boolean{
-
-        return true
-    }
 
     /*Nacho's doing
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

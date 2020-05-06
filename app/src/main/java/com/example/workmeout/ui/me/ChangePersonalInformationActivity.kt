@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
+import com.example.workmeout.model.User
 
 class ChangePersonalInformationActivity : AppCompatActivity() {
     lateinit var correo : EditText
@@ -14,8 +16,19 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
     lateinit var contrasenaViejaTxt : TextView
     lateinit var contrasenaTxt : TextView
     lateinit var espaciado : Space
+    lateinit var weightnp: NumberPicker
+    lateinit var heightnp: NumberPicker
+    lateinit var name:EditText
+    lateinit var telephone:EditText
+    lateinit var gender:RadioGroup
+    lateinit var email: EditText
+    lateinit var per : CheckBox
+    lateinit var age:EditText
+    lateinit var male:RadioButton
     var height = 0
     var heightTxt=0
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +42,19 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
         contrasenaViejaTxt = findViewById(R.id.txt_contrasenaAntigua)
         contrasenaTxt = findViewById(R.id.txtNuevaContrasena)
         espaciado = findViewById(R.id.spcR)
+        weightnp = findViewById(R.id.weight)
+        heightnp = findViewById(R.id.height)
+        name = findViewById(R.id.edttxt_nombre)
+        telephone = findViewById(R.id.edttxt_telefono)
+        gender = findViewById(R.id.gender)
+        email = findViewById(R.id.edt_correoElectronico)
+        age = findViewById(R.id.edttxt_edad)
+        male = findViewById(R.id.rb_hombre)
+        per = findViewById(R.id.chk_datosFragiles)
+
+
         hide()
-        val per : CheckBox = findViewById(R.id.chk_datosFragiles)
+
         per.setOnClickListener {
             if(per.isChecked()){
                 show()
@@ -38,6 +62,33 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
                 hide()
             }
         }
+        weightnp.maxValue = 300
+
+
+        weightnp.value = Controlador.currentUser!!.weight
+
+
+        heightnp.maxValue = 300
+        heightnp.value = Controlador.currentUser!!.height
+
+        name.setText(Controlador.currentUser!!.name)
+
+
+        telephone.setText(Controlador.currentUser!!.phoneNumber.toString())
+        age.setText(Controlador.currentUser!!.age.toString())
+
+
+
+        if(Controlador.currentUser!!.sex){
+            Toast.makeText(this, "hombre", Toast.LENGTH_SHORT)
+            gender.check(R.id.rb_hombre)
+        }else{
+            gender.check(R.id.rb_mujer)
+        }
+
+
+        email.setText(Controlador.currentUser!!.email)
+
     }
 
 
@@ -79,7 +130,60 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
 
     //TODO Have to save the new data in the database
     fun save(view:View){
-        Toast.makeText(this,"DATOS GUARDADOS",Toast.LENGTH_SHORT).show()
+
+        var userNameString: String = Controlador.currentUser!!.userName
+
+        var nameString:String
+        var passwordString: String
+        var emailString: String
+        var phoneNumberString: String
+        var ageString: String
+        var sexString : String
+        var weightString: String
+        var heightString: String
+
+        if(name.text.isEmpty() || telephone.text.isEmpty() || age.text.isEmpty()){
+            Toast.makeText(this,"Please fill all fields.",Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        nameString = name.text.toString()
+        passwordString = Controlador.currentUser!!.password
+        emailString = Controlador.currentUser!!.email
+        phoneNumberString = telephone.text.toString()
+        ageString = age.text.toString()
+        sexString = male.isChecked.toString()
+        weightString = weightnp.value.toString()
+        heightString = heightnp.value.toString()
+
+        if(per.isChecked){
+
+            if(email.text.isEmpty() || contrasenaVieja.text.isEmpty() || contrasena.text.isEmpty()){
+                Toast.makeText(this,"Please fill all fields.",Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            if(contrasenaVieja.text.toString() != Controlador.currentUser!!.password){
+                Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            passwordString = contrasena.text.toString()
+            emailString = email.text.toString()
+        }
+
+        if(Controlador.checkData(userNameString, nameString, passwordString, emailString,phoneNumberString, ageString)){
+            Controlador.editarUsuario(this, userNameString, nameString, passwordString, emailString, phoneNumberString, ageString, sexString, weightString, heightString)
+            Controlador.currentUser = User(userNameString, nameString, passwordString, emailString, phoneNumberString.toInt(), ageString.toInt(), sexString == "true", weightString.toInt(), heightString.toInt())
+        }else{
+            Toast.makeText(this, "Some fields are wrong", Toast.LENGTH_SHORT)
+        }
+
+
+
+
         finish()
     }
+
+
 }

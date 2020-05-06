@@ -51,7 +51,7 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class SportViewHolderRoutine constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val name = itemView.textView5
+        val name = itemView.name
         val reps: TextView = itemView.reps
         val card: CardView = itemView.cv
         val del:ImageButton = itemView.findViewById(R.id.deleteIcon)

@@ -8,6 +8,7 @@ import com.example.workmeout.model.User
 import com.example.workmeout.dataBase.BaseDatos
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.RegisterActivity
+import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
 
 object Controlador{
@@ -57,8 +58,8 @@ object Controlador{
         baseDatos.guardarEjercicio(context,name,description)
     }
 
-    fun matchExercise(context: Context, name:String){
-        baseDatos.matchExercise(context, name)
+    fun matchExercise(context: Context, name:String, adapter:ExerciseSearchAdapter){
+        baseDatos.matchExercise(context, name, adapter)
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.workmeout.dataBase
 import android.content.Context
 import com.example.workmeout.model.User
+import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
 class BaseDatos {
     var userDataBase : UserDataBase
@@ -29,8 +30,8 @@ class BaseDatos {
         exerciseDataBase.guardarEjercicio(context,name,description)
     }
 
-    fun matchExercise(context: Context, name:String){
-        exerciseDataBase.matchExercise(context, name)
+    fun matchExercise(context: Context, name:String, adapter:ExerciseSearchAdapter){
+        exerciseDataBase.matchExercise(context, name, adapter)
     }
 
 }

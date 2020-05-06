@@ -61,7 +61,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class SportViewHolder constructor(itemView: View, sf:SportFragment) : RecyclerView.ViewHolder(itemView) {
 
         val currentWeight = itemView.npicker_1
-        val name = itemView.textView5
+        val name = itemView.name
         val cb: CheckBox = itemView.checkBox
         val reps: TextView = itemView.reps
         val card: CardView = itemView.cv

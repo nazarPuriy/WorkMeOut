@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
@@ -49,7 +48,7 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class RoutineViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val days = itemView.textView3
-        val name = itemView.textView5
+        val name = itemView.name
         val card:CardView = itemView.findViewById(R.id.card)
 
         fun bind(routine: Routine) {

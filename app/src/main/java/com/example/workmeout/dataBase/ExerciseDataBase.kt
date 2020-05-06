@@ -9,9 +9,12 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.workmeout.Controlador.Controlador
+import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.ExerciseDescription
 import org.json.JSONArray
 import org.json.JSONObject
 import com.example.workmeout.model.User
+import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
 class ExerciseDataBase {
 
@@ -38,20 +41,30 @@ class ExerciseDataBase {
         requestQ.add(stringRequest);
     }
 
-    fun matchExercise(context: Context, partialName:String){
-        var name : String
+    fun matchExercise(context: Context, partialName:String, adapter:ExerciseSearchAdapter){
+        var name: String
+        var description: String
         val URL : String = "http://192.168.1.41:8080/websercv/exercise/buscar_match.php?search="+partialName
+        var list: ArrayList<ExerciseDescription>
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject
+                list = ArrayList()
                 for(i in 0..response.length()-1){
                     jsonObject=response.getJSONObject(i);
                     name = jsonObject.getString("name")
-                    Toast.makeText(context, name, Toast.LENGTH_SHORT).show()
+                    description = jsonObject.getString("description")
+                    list.add(ExerciseDescription(name, description))
+
+                    adapter.submitList(list)
+                    adapter.notifyDataSetChanged()
 
                 }
             }, Response.ErrorListener { error->
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "No matching exercises found.", Toast.LENGTH_SHORT).show()
+                list = ArrayList()
+                adapter.submitList(list)
+                adapter.notifyDataSetChanged()
             })
 
         requestQ= Volley.newRequestQueue(context);

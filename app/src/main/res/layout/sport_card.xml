@@ -31,7 +31,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView4"></NumberPicker>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -84,7 +84,7 @@
                 android:text="Reps:"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

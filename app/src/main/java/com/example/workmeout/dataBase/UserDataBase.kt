@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.workmeout.Controlador.Controlador
+import com.example.workmeout.model.Routine
 import org.json.JSONArray
 import org.json.JSONObject
 import com.example.workmeout.model.User
@@ -44,6 +45,12 @@ class UserDataBase {
                 parametros["gender"] = gender
                 parametros["weight"]= weight
                 parametros["height"]= height
+                parametros["routine1"]="0"
+                parametros["routine2"]="0"
+                parametros["routine3"]="0"
+                parametros["routine4"]="0"
+                parametros["routine5"]="0"
+
                 return parametros
             }
         }
@@ -62,7 +69,11 @@ class UserDataBase {
         var gender : Boolean
         var weight : Int
         var height : Int
-
+        var rid1 : Int
+        var rid2 : Int
+        var rid3 : Int
+        var rid4 : Int
+        var rid5 : Int
 
         val URL : String = "http://192.168.1.41:8080/websercv/user/buscar.php?username="+username
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
@@ -78,8 +89,17 @@ class UserDataBase {
                     gender = jsonObject.getString("gender") == "true"
                     weight = jsonObject.getString("weight").toInt()
                     height = jsonObject.getString("height").toInt()
+                    rid1= jsonObject.getString("routine1").toInt()
+                    rid2= jsonObject.getString("routine2").toInt()
+                    rid3= jsonObject.getString("routine3").toInt()
+                    rid4= jsonObject.getString("routine4").toInt()
+                    rid5= jsonObject.getString("routine5").toInt()
 
-                    Controlador.currentUser = User(username,name,password,email,phoneNumber,age,gender,weight,height);
+                    //Vamos a obtener primero las rutinas del usuario de la base de datos corresspondiente.
+
+
+                    Controlador.currentUser = User(username,name,password,email,phoneNumber,age,gender,weight,height)
+                    Controlador.addRoutinesToUserRequest(context,rid1,rid2,rid3,rid4,rid5)
                     Controlador.login(context,oldPassword);
                 }
             }, Response.ErrorListener { error->
@@ -91,11 +111,11 @@ class UserDataBase {
     }
 
     //Método que utilizamos para sobreescribir información.
-    fun editarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
+    fun editarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String, routine1 : Int, routine2 : Int, routine3 : Int, routine4 : Int, routine5 : Int){
         val URL : String = "http://192.168.1.41:8080/websercv/user/editar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context,"OPERACION EXITOSA DE EDIT", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"OPERACION EXITOSA DE EDIT " + response, Toast.LENGTH_SHORT).show()
 
             }, Response.ErrorListener { error ->
                 Toast.makeText(context,"ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
@@ -111,6 +131,11 @@ class UserDataBase {
                 parametros["gender"] = gender
                 parametros["weight"]= weight
                 parametros["height"]= height
+                parametros["routine1"]=routine1.toString()
+                parametros["routine2"]=routine2.toString()
+                parametros["routine3"]=routine3.toString()
+                parametros["routine4"]=routine4.toString()
+                parametros["routine5"]=routine5.toString()
                 return parametros
             }
         }

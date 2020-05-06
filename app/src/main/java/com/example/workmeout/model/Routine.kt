@@ -8,7 +8,7 @@ class Routine {
     var description : String
     var days : Int
     var exercises: MutableList<Int>
-    
+
     //Constructor principal de la clase usuario
     constructor(id : Int, classid: Int, name: String, description : String, days: Int){
         this.id = id
@@ -18,4 +18,6 @@ class Routine {
         this.days = days
         exercises = mutableListOf() //Creamos la lista demomento sin ejercicios
     }
+
+
 }

@@ -65,5 +65,4 @@ class LoginActivity : AppCompatActivity() {
             RecoverPasswordActivity::class.java)
         startActivity(regFInt)
     }
-
 }

@@ -148,4 +148,5 @@ class ExerciseActivity : AppCompatActivity() {
         startActivity(descriptionIntent)
     }
 
+
 }

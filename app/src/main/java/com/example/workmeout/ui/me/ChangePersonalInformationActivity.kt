@@ -185,5 +185,4 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
         finish()
     }
 
-
 }

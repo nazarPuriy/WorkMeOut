@@ -53,8 +53,8 @@ class NotificationsFragment : Fragment() {
         val fabRAntiClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_anticlockwise)
 
         val add_button = root.findViewById<FloatingActionButton>(R.id.add_button)
-        val search_button = root.findViewById<FloatingActionButton>(R.id.search_button)
-        val add_people_button = root.findViewById<FloatingActionButton>(R.id.add_people_button)
+        val search_button = root.findViewById<FloatingActionButton>(R.id.search)
+        val add_people_button = root.findViewById<FloatingActionButton>(R.id.new_button)
 
 
 

@@ -1,13 +1,13 @@
 package com.example.workmeout.dataBase
 import android.content.Context
-import com.example.workmeout.dataBase.UserDataBase
 import com.example.workmeout.model.User
 
 class BaseDatos {
     var userDataBase : UserDataBase
-
+    var exerciseDataBase : ExerciseDataBase
     constructor(){
         userDataBase = UserDataBase()
+        exerciseDataBase = ExerciseDataBase()
     }
 
     fun guardarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
@@ -15,13 +15,18 @@ class BaseDatos {
     }
 
     //Método que utilizamos para buscar usuarios en la base de datos.
-    fun buscarUsuario(context: Context, username : String, password : String) : User?{
+    fun buscarUsuario(context: Context, username : String, password : String){
         return userDataBase.buscarUsuario(context,username,password)
     }
 
     //Método que utilizamos para sobreescribir información.
     fun editarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
         userDataBase.editarUsuario(context,username,name,password,email,phone,age,gender,weight,height)
+    }
+
+    //Método que usaremos para guardar la descripción de un nuevo ejercicio
+    fun guardarEjercicio(context: Context, name : String, description: String){
+        exerciseDataBase.guardarEjercicio(context,name,description)
     }
 
 }

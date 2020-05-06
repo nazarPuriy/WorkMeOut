@@ -20,7 +20,7 @@ class UserDataBase {
 
     //Método que utilizaremos para guardar nuevos usuarios en la base de datos.
     fun guardarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
-        val URL : String = "http://192.168.1.41:8080/websercv/registrar.php"
+        val URL : String = "http://192.168.1.41:8080/websercv/user/registrar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 if(response.length>4){ //Nos informa la base de datos que el usuario ya existe
@@ -52,8 +52,7 @@ class UserDataBase {
     }
 
     //Método que utilizamos para buscar usuarios en la base de datos.
-    fun buscarUsuario(context: Context, username : String, oldPassword : String) : User?{
-        var ret : Boolean = true
+    fun buscarUsuario(context: Context, username : String, oldPassword : String){
         var user : User? = null
         var name : String
         var password : String
@@ -65,7 +64,7 @@ class UserDataBase {
         var height : Int
 
 
-        val URL : String = "http://192.168.1.41:8080/websercv/buscar.php?username="+username
+        val URL : String = "http://192.168.1.41:8080/websercv/user/buscar.php?username="+username
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject
@@ -89,13 +88,11 @@ class UserDataBase {
 
         requestQ= Volley.newRequestQueue(context);
         requestQ.add(jsonArrayRequest)
-
-        return user
     }
 
     //Método que utilizamos para sobreescribir información.
     fun editarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
-        val URL : String = "http://192.168.1.41:8080/websercv/editar.php"
+        val URL : String = "http://192.168.1.41:8080/websercv/user/editar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 Toast.makeText(context,"OPERACION EXITOSA DE EDIT", Toast.LENGTH_SHORT).show()

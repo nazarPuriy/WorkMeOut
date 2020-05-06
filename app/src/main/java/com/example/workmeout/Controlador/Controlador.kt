@@ -52,6 +52,10 @@ object Controlador{
         return true
     }
 
+    //Guarda la descripción de un nuevo ejercicio la base de datos
+    fun registerExercise(context: Context, name : String, description: String){
+        baseDatos.guardarEjercicio(context,name,description)
+    }
 
 
 

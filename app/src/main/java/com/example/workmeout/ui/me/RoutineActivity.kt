@@ -9,21 +9,25 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.model.Routine
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
 import com.example.workmeout.ui.sport.ExerciseDescriptionActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.jetbrains.anko.find
 
 class RoutineActivity : AppCompatActivity() {
     private var isOpen = false
-
+    lateinit var editTitle : EditText
+    lateinit var editDescription : EditText
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_routine)
 
-
+        editTitle = findViewById(R.id.title)
+        editDescription = findViewById(R.id.edt_description)
         val isNew: Boolean = intent.getBooleanExtra("isNew", false)
         val name: String = intent.getStringExtra("name")
 
@@ -106,5 +110,10 @@ class RoutineActivity : AppCompatActivity() {
     fun searchExercise(){
         val searchIntent = Intent(this, SearchExercises::class.java)
         startActivity(searchIntent)
+    }
+
+    //TODO days buen formato
+    fun addRoutine(view:View){
+        Controlador.registerRoutine(view.context,editTitle.text.toString(),editDescription.text.toString(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100)
     }
 }

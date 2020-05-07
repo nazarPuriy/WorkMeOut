@@ -60,7 +60,7 @@ class MeFragment : Fragment() {
 
         var rv = root.findViewById<RecyclerView>(R.id.rv_1)
         val sa = RoutineAdapter()
-        sa.submitList(RoutineDataSourceDummy.createDataSet())
+        sa.submitList(Controlador.getRoutines())
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
     }
@@ -91,6 +91,8 @@ class MeFragment : Fragment() {
             startActivity(intent)
 
         })
+
+        //Toast.makeText(context, Controlador.currentUser!!.routine1.exercises_class.get(0).name, Toast.LENGTH_SHORT).show()//todo quitar
 
         init(root)
         return root

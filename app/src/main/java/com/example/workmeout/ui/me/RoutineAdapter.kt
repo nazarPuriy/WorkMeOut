@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
-import com.example.workmeout.model.RoutineOLD
+import com.example.workmeout.model.Routine
 import kotlinx.android.synthetic.main.routine_card.view.*
 
 class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
-    private var items: List<RoutineOLD> = ArrayList()
+    private var items: List<Routine> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.routine_card, parent, false)
@@ -25,7 +25,7 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return vh
     }
 
-    fun submitList(blogList: List<RoutineOLD>){
+    fun submitList(blogList: List<Routine>){
         items = blogList
     }
 
@@ -51,15 +51,15 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val name = itemView.name
         val card:CardView = itemView.findViewById(R.id.card)
 
-        fun bind(routineOLD: RoutineOLD) {
+        fun bind(routine: Routine) {
 
-            days.text = routineOLD.days
-            name.text = routineOLD.name
+            name.text = routine.name
+            //todo días de la semana
 
             card.setOnClickListener(View.OnClickListener {
                 val intent:Intent = Intent(itemView.context, RoutineActivity::class.java)
                 intent.putExtra("isNew", false)
-                intent.putExtra("name", routineOLD.name)
+                intent.putExtra("name", routine.name)
                 itemView.context.startActivity(intent)
             })
 

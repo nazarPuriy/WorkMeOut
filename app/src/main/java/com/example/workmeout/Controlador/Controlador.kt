@@ -167,6 +167,16 @@ object Controlador{
         }
     }
 
+    fun fillExercises(context: Context, routine:Routine){
+
+        for(x in routine.exercises){
+
+            baseDatos.buscarEjercicioUsuario(context,x, routine)
+
+        }
+
+    }
+
     //Acaba de meter la id procediente de la base de datos. También guardaremos en la base de datos del usuario esta id de rutina.
     fun fillNewRoutineId(context:Context,id:Int){
         if(currentUser!=null){
@@ -246,6 +256,19 @@ object Controlador{
 
     fun matchExercise(context: Context, name:String, adapter:ExerciseSearchAdapter){
         baseDatos.matchExercise(context, name, adapter)
+    }
+
+    fun getRoutines(): List<Routine>{//TODO arreglar esta mierda
+
+        var lista: ArrayList<Routine> = ArrayList()
+
+        if(currentUser!!.numberOfRoutines > 0){lista.add(currentUser!!.routine1)}
+        if(currentUser!!.numberOfRoutines > 1){lista.add(currentUser!!.routine2)}
+        if(currentUser!!.numberOfRoutines > 2){lista.add(currentUser!!.routine3)}
+        if(currentUser!!.numberOfRoutines > 3){lista.add(currentUser!!.routine4)}
+        if(currentUser!!.numberOfRoutines > 4){lista.add(currentUser!!.routine5)}
+
+        return lista
     }
 
 

@@ -138,6 +138,126 @@ class RoutineDataBase {
     }
 
 
+    //Método que utilizaremos para guardar la descripcion de la rutina en una base de datos.
+    fun editarRutina(
+        context: Context,
+        id:Int,
+        name: String,
+        description: String,
+        exercise1: Int,
+        exercise2: Int,
+        exercise3: Int,
+        exercise4: Int,
+        exercise5: Int,
+        exercise6: Int,
+        exercise7: Int,
+        exercise8: Int,
+        exercise9: Int,
+        exercise10: Int,
+        exercise11: Int,
+        exercise12: Int,
+        exercise13: Int,
+        exercise14: Int,
+        exercise15: Int
+    ) {
+
+        val URL: String = "http://192.168.1.41:8080/websercv/routine/editar.php"
+        val stringRequest = object : StringRequest(Request.Method.POST, URL,
+            Response.Listener<String> { response ->
+                Toast.makeText(context, "Edit de rutina", Toast.LENGTH_SHORT).show()
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
+            }) {
+            override fun getParams(): Map<String, String> {
+                var parametros = HashMap<String, String>()
+                parametros["id"] = id.toString()
+                parametros["name"] = name
+                parametros["description"] = description
+                parametros["exercise1"]=exercise1.toString()
+                parametros["exercise2"]=exercise2.toString()
+                parametros["exercise3"]=exercise3.toString()
+                parametros["exercise4"]=exercise4.toString()
+                parametros["exercise5"]=exercise5.toString()
+                parametros["exercise6"]=exercise6.toString()
+                parametros["exercise7"]=exercise7.toString()
+                parametros["exercise8"]=exercise8.toString()
+                parametros["exercise9"]=exercise9.toString()
+                parametros["exercise10"]=exercise10.toString()
+                parametros["exercise11"]=exercise11.toString()
+                parametros["exercise12"]=exercise12.toString()
+                parametros["exercise13"]=exercise13.toString()
+                parametros["exercise14"]=exercise14.toString()
+                parametros["exercise15"]=exercise15.toString()
+
+                return parametros
+            }
+        }
+        requestQ = Volley.newRequestQueue(context)
+        requestQ.add(stringRequest);
+
+
+    }
+
+    //Demom llamamos solo al meter ejercicio
+    fun editarRutinaUsuario(
+        context: Context,
+        id:Int,
+        classid:Int,
+        exercise1: Int,
+        exercise2: Int,
+        exercise3: Int,
+        exercise4: Int,
+        exercise5: Int,
+        exercise6: Int,
+        exercise7: Int,
+        exercise8: Int,
+        exercise9: Int,
+        exercise10: Int,
+        exercise11: Int,
+        exercise12: Int,
+        exercise13: Int,
+        exercise14: Int,
+        exercise15: Int,
+        days: Int
+    ) {
+
+        val URL: String = "http://192.168.1.41:8080/websercv/routine/editarUsuario.php"
+        val stringRequest = object : StringRequest(Request.Method.POST, URL,
+            Response.Listener<String> { response ->
+                Toast.makeText(context, "Edit de rutina", Toast.LENGTH_SHORT).show()
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
+            }) {
+            override fun getParams(): Map<String, String> {
+                var parametros = HashMap<String, String>()
+                parametros["id"] = id.toString()
+                parametros["classid"] = classid.toString()
+                parametros["days"] = days.toString()
+                parametros["exercise1"]=exercise1.toString()
+                parametros["exercise2"]=exercise2.toString()
+                parametros["exercise3"]=exercise3.toString()
+                parametros["exercise4"]=exercise4.toString()
+                parametros["exercise5"]=exercise5.toString()
+                parametros["exercise6"]=exercise6.toString()
+                parametros["exercise7"]=exercise7.toString()
+                parametros["exercise8"]=exercise8.toString()
+                parametros["exercise9"]=exercise9.toString()
+                parametros["exercise10"]=exercise10.toString()
+                parametros["exercise11"]=exercise11.toString()
+                parametros["exercise12"]=exercise12.toString()
+                parametros["exercise13"]=exercise13.toString()
+                parametros["exercise14"]=exercise14.toString()
+                parametros["exercise15"]=exercise15.toString()
+
+                return parametros
+            }
+        }
+        requestQ = Volley.newRequestQueue(context)
+        requestQ.add(stringRequest);
+    }
+
+
+
 
     //Método que utilizamos para buscar rutinas
     fun buscarRutina(context: Context, id: Int) {

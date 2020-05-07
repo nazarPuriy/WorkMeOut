@@ -83,8 +83,54 @@ object Controlador{
     }
 
     //Guarda la descripción de un nuevo ejercicio la base de datos
-    fun registerExercise(context: Context, name : String, description: String){
-        baseDatos.guardarEjercicio(context,name,description)
+    fun registerExercise(context: Context, name : String, description: String,reps : Int, weight : Int){
+        baseDatos.guardarEjercicio(context,name,description,reps,weight)
+    }
+
+    fun saveExerciseIdOnRutine(context : Context,id : Int, classid : Int){
+        //baseDatos.guardarRutina(context,currentUser!!.routine1.name,currentUser!!.routine1.description,)
+        var routine : Routine = currentUser!!.routine1 //Para assignar algo
+        when(currentUser!!.currentRutineIndex){
+            1 -> {routine = currentUser!!.routine1}
+            2 -> {routine = currentUser!!.routine2}
+            3 -> {routine = currentUser!!.routine3}
+            4 -> {routine = currentUser!!.routine4}
+            5 -> {routine = currentUser!!.routine5}
+        }
+        when(routine!!.numberOfExercises){
+
+
+
+            0->{
+                baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,id,0,0,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
+                baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,classid,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+                routine.exercises.add(routine.exercises.lastIndex+1,id)
+                routine.exercisesDesc.add(routine.exercisesDesc.lastIndex+1,classid)
+                routine.numberOfExercises++
+            }
+            1->{
+            baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],id,0,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
+            baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],classid,0,0,0,0,0,0,0,0,0,0,0,0,0)
+            routine.exercises.add(routine.exercises.lastIndex+1,id)
+            routine.exercisesDesc.add(routine.exercisesDesc.lastIndex+1,classid)
+            routine!!.numberOfExercises++
+            }2->{
+            baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],routine.exercises[1],id,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
+            baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],routine.exercisesDesc[1],classid,0,0,0,0,0,0,0,0,0,0,0,0)
+            routine.exercises.add(routine.exercises.lastIndex+1,id)
+            routine.exercisesDesc.add(routine.exercisesDesc.lastIndex+1,classid)
+            routine!!.numberOfExercises++
+            }3->{
+            baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],routine.exercises[1],routine.exercises[2],id,0,0,0,0,0,0,0,0,0,0,0,routine.days)
+            baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],routine.exercisesDesc[1],routine.exercisesDesc[2],classid,0,0,0,0,0,0,0,0,0,0,0)
+            routine.exercises.add(routine.exercises.lastIndex+1,id)
+            routine.exercisesDesc.add(routine.exercisesDesc.lastIndex+1,classid)
+            routine!!.numberOfExercises++
+        }
+
+            //TODO acabar mobiendo los indices hasta 15
+
+        }
     }
 
     //Luego enviara la rutina al usuario
@@ -119,19 +165,25 @@ object Controlador{
         when(currentUser!!.numberOfRoutines){
             0-> {
                 currentUser!!.numberOfRoutines = 1
-                currentUser!!.routine1 = routine }
+                currentUser!!.routine1 = routine
+                currentUser!!.currentRutineIndex = 1
+                }
             1-> {
                 currentUser!!.numberOfRoutines = 2
-                currentUser!!.routine2 = routine }
+                currentUser!!.routine2 = routine
+                currentUser!!.currentRutineIndex = 2}
             2-> {
                 currentUser!!.numberOfRoutines = 3
-                currentUser!!.routine3 = routine }
+                currentUser!!.routine3 = routine
+                currentUser!!.currentRutineIndex = 3}
             3-> {
                 currentUser!!.numberOfRoutines = 4
-                currentUser!!.routine4 = routine }
+                currentUser!!.routine4 = routine
+                currentUser!!.currentRutineIndex = 4}
             4-> {
                 currentUser!!.numberOfRoutines = 5
                 currentUser!!.routine5 = routine
+                currentUser!!.currentRutineIndex = 5
             }
         }
     }

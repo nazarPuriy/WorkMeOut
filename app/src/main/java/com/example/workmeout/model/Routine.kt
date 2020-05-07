@@ -9,6 +9,8 @@ class Routine {
     var days : Int
     var exercises: MutableList<Int>
     var exercises_class: ArrayList<Exercise>
+    var exercisesDesc: MutableList<Int>
+    var numberOfExercises : Int
 
     //Constructor principal de la clase usuario
     constructor(id : Int, classid: Int, name: String, description : String, days: Int){
@@ -17,8 +19,10 @@ class Routine {
         this.name = name
         this.description = description
         this.days = days
+        numberOfExercises = 0
         exercises = mutableListOf() //Creamos la lista demomento sin ejercicios
         exercises_class = ArrayList()
+        exercisesDesc = mutableListOf()
     }
 
 

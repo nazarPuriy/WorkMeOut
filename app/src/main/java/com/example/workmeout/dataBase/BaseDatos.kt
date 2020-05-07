@@ -29,8 +29,8 @@ class BaseDatos {
     }
 
     //Método que usaremos para guardar la descripción de un nuevo ejercicio
-    fun guardarEjercicio(context: Context, name : String, description: String){
-        exerciseDataBase.guardarEjercicio(context,name,description)
+    fun guardarEjercicio(context: Context, name : String, description: String,reps : Int, weight : Int){
+        exerciseDataBase.guardarEjercicio(context,name,description,reps, weight)
     }
 
     //Métode que guarda una rutina a la base de dades general
@@ -80,6 +80,55 @@ class BaseDatos {
         exercise15: Int
     ) {
         routineDataBase.guardarRutinaUsuario(context,classid,days,exercise1,exercise2,exercise3,exercise4,exercise5,exercise6,exercise7,exercise8,exercise9,exercise10,exercise11,exercise12,exercise13,exercise14,exercise15)
+    }
+
+    //Métode que guarda una rutina a la base de dades general
+    fun editarRutinaUsuario(
+        context: Context,
+        id : Int,
+        classid : Int,
+        exercise1: Int,
+        exercise2: Int,
+        exercise3: Int,
+        exercise4: Int,
+        exercise5: Int,
+        exercise6: Int,
+        exercise7: Int,
+        exercise8: Int,
+        exercise9: Int,
+        exercise10: Int,
+        exercise11: Int,
+        exercise12: Int,
+        exercise13: Int,
+        exercise14: Int,
+        exercise15: Int,
+        days : Int
+    ) {
+        routineDataBase.editarRutinaUsuario(context,id,classid,exercise1,exercise2,exercise3,exercise4,exercise5,exercise6,exercise7,exercise8,exercise9,exercise10,exercise11,exercise12,exercise13,exercise14,exercise15,days)
+    }
+
+    fun editarRutina(
+        context: Context,
+        id:Int,
+        name: String,
+        description: String,
+        exercise1: Int,
+        exercise2: Int,
+        exercise3: Int,
+        exercise4: Int,
+        exercise5: Int,
+        exercise6: Int,
+        exercise7: Int,
+        exercise8: Int,
+        exercise9: Int,
+        exercise10: Int,
+        exercise11: Int,
+        exercise12: Int,
+        exercise13: Int,
+        exercise14: Int,
+        exercise15: Int
+    ) {
+        routineDataBase.editarRutina(context,id,name,description,exercise1,exercise2,exercise3, exercise4, exercise5, exercise6, exercise7, exercise8, exercise9, exercise10, exercise11, exercise12, exercise13, exercise14, exercise15)
     }
 
     fun buscarRutinaUsuario(context: Context, id: Int){

@@ -13,6 +13,7 @@ class User {
     var height: Int
     var numberOfRoutines : Int
     var tempRoutineIndex : Int
+    var currentRutineIndex : Int
     lateinit var routine1 : Routine
     lateinit var routine2 : Routine
     lateinit var routine3 : Routine
@@ -32,6 +33,7 @@ class User {
         this.height = height
         numberOfRoutines = 0
         tempRoutineIndex = 0
+        currentRutineIndex = 0
     }
 
     /* SI TODO VA BIEN VALE VERGAAA

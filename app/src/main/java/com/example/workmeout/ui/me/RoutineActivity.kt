@@ -213,7 +213,7 @@ class RoutineActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT)
             }
 
-            Controlador.registerRoutine(this, "title", "description",
+            Controlador.registerRoutine(this, editTitle.text.toString(), editDescription.text.toString(),
                 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, calcDays())
             btnsave.isEnabled = false

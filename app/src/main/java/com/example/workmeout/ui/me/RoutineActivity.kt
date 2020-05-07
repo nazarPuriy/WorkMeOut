@@ -15,6 +15,8 @@ import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.model.RoutineOLD
 import com.example.workmeout.R
 import com.example.workmeout.data.ExerciseDataSourceDummy
+import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.sport.ExerciseDescriptionActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_routine.*
@@ -40,9 +42,10 @@ class RoutineActivity : AppCompatActivity() {
     lateinit var sun:CheckBox
     var days:ArrayList<CheckBox> = ArrayList()
     var exercises:ArrayList<Int> = ArrayList()
-    var idRoutine:Int = 0
+    lateinit var rv: RecyclerView
+    lateinit var sa:ExerciseRoutineAdapter
 
-
+    var indexRoutine:Int = -1
     var exists:Boolean = false
     var isNew:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,11 +84,18 @@ class RoutineActivity : AppCompatActivity() {
         editDescription = findViewById(R.id.edt_description)
         isNew = intent.getBooleanExtra("isNew", false)
 
+        rv = findViewById(R.id.rv_1)
+        sa = ExerciseRoutineAdapter()
+
+        sa.submitRoutine(Routine(0, 0, "", "", 0))
+        rv.adapter = sa
+        rv.layoutManager = LinearLayoutManager(this)
+
         if(!isNew){
             exists = true//TODO
             editDescription.isEnabled = false
             editTitle.isEnabled = false
-            idRoutine = intent.getIntExtra("id", 0)
+            indexRoutine = intent.getIntExtra("position", -1)
             btnsave.isEnabled = false
             refreshRoutine()
         }else{
@@ -93,11 +103,6 @@ class RoutineActivity : AppCompatActivity() {
             editDescription.hint = "Routine description"
         }
 
-        var rv = findViewById<RecyclerView>(R.id.rv_1)
-        val sa = ExerciseRoutineAdapter()
-        sa.submitRoutine(RoutineOLD("", ""))
-        rv.adapter = sa
-        rv.layoutManager = LinearLayoutManager(this)
 
 
 
@@ -126,10 +131,15 @@ class RoutineActivity : AppCompatActivity() {
     }
 
     private fun refreshRoutine() {
-        //TODO actualizar los ejercicios
-        //TODO actualizar los checkboxes
-        //TODO actualizar título y descripcion
+        val routine:Routine = Controlador.getRoutines().get(indexRoutine)
+        editTitle.setText(routine.name)
+        editDescription.setText(routine.description)
+        decodeDays(routine.days)
+        sa.submitRoutine(routine)
+
     }
+
+
 
     fun delete(v: View) {
         Toast.makeText(this, "Delete this routine", Toast.LENGTH_SHORT).show()
@@ -145,7 +155,7 @@ class RoutineActivity : AppCompatActivity() {
 
     fun searchExercise(){
         val searchIntent = Intent(this, SearchExercises::class.java)
-        searchIntent.putExtra("routine", idRoutine)
+        searchIntent.putExtra("routine", indexRoutine)
         startActivity(searchIntent)
     }
 
@@ -203,6 +213,10 @@ class RoutineActivity : AppCompatActivity() {
         }
 
         return sum
+    }
+
+    private fun decodeDays(days: Int) {
+        //TODO poner los checkboxes como indica el int days
     }
 
     fun save(){

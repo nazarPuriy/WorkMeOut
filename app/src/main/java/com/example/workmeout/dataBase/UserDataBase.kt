@@ -1,6 +1,7 @@
 package com.example.workmeout.dataBase
 
 import android.content.Context
+import android.content.res.Resources
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -9,6 +10,7 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.workmeout.Controlador.Controlador
+import com.example.workmeout.R
 import com.example.workmeout.model.Routine
 import org.json.JSONArray
 import org.json.JSONObject
@@ -16,12 +18,14 @@ import com.example.workmeout.model.User
 
 class UserDataBase {
 
+    val domain = "http://b1bf7dd3.ngrok.io"
+
     //Variable que se utilitza para acceder a la base de datos.
     lateinit var requestQ : RequestQueue
 
     //Método que utilizaremos para guardar nuevos usuarios en la base de datos.
     fun guardarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
-        val URL : String = "http://192.168.1.41:8080/websercv/user/registrar.php"
+        val URL : String = domain + "/websercv/user/registrar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 if(response.length>4){ //Nos informa la base de datos que el usuario ya existe
@@ -75,7 +79,7 @@ class UserDataBase {
         var rid4 : Int
         var rid5 : Int
 
-        val URL : String = "http://192.168.1.41:8080/websercv/user/buscar.php?username="+username
+        val URL : String = domain + "/websercv/user/buscar.php?username="+username
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject
@@ -112,7 +116,7 @@ class UserDataBase {
 
     //Método que utilizamos para sobreescribir información.
     fun editarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String, routine1 : Int, routine2 : Int, routine3 : Int, routine4 : Int, routine5 : Int){
-        val URL : String = "http://192.168.1.41:8080/websercv/user/editar.php"
+        val URL : String = domain + "/websercv/user/editar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 Toast.makeText(context,"OPERACION EXITOSA DE EDIT " + response, Toast.LENGTH_SHORT).show()

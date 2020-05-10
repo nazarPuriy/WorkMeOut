@@ -13,6 +13,7 @@
     And yet don’t look too good, nor talk too wise:</string>
 
     <string name="app_name">WorkMeOut</string>
+    <string name="domain">http://b1bf7dd3.ngrok.io</string>
     <string name="title_home">Sport</string>
     <string name="title_dashboard">Me</string>
     <string name="title_notifications">Talk</string>

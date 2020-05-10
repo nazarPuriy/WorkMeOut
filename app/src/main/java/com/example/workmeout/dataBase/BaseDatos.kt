@@ -5,6 +5,8 @@ import com.example.workmeout.model.User
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
 class BaseDatos {
+
+    //dirección pública de nuestra base de datos
     var userDataBase : UserDataBase
     var exerciseDataBase : ExerciseDataBase
     var routineDataBase : RoutineDataBase

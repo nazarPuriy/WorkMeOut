@@ -1,6 +1,7 @@
 package com.example.workmeout.dataBase
 
 import android.content.Context
+import android.content.res.Resources
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -9,14 +10,18 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.workmeout.Controlador.Controlador
+import com.example.workmeout.R
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import org.json.JSONArray
 import org.json.JSONObject
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 import com.example.workmeout.ui.me.RoutineActivity
+import kotlinx.android.synthetic.main.activity_routine.*
 
 class RoutineDataBase {
+
+    val domain = "http://b1bf7dd3.ngrok.io"
 
     //Variable que se utilitza para acceder a la base de datos.
     lateinit var requestQ: RequestQueue
@@ -44,7 +49,7 @@ class RoutineDataBase {
         exercise15: Int,
         days: Int
     ) {
-        val URL: String = "http://192.168.1.41:8080/websercv/routine/registrar.php"
+        val URL: String = domain + "/websercv/routine/registrar.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 Toast.makeText(context, "Routine registered id: " + response , Toast.LENGTH_SHORT).show()
@@ -103,7 +108,7 @@ class RoutineDataBase {
         exercise14: Int,
         exercise15: Int
     ) {
-        val URL: String = "http://192.168.1.41:8080/websercv/routine/registrarUsuario.php"
+        val URL: String = domain + "/websercv/routine/registrarUsuario.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 Toast.makeText(context, "Routine registered id: " + response , Toast.LENGTH_SHORT).show()
@@ -161,7 +166,7 @@ class RoutineDataBase {
         exercise15: Int
     ) {
 
-        val URL: String = "http://192.168.1.41:8080/websercv/routine/editar.php"
+        val URL: String = domain + "/websercv/routine/editar.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 Toast.makeText(context, "Edit de rutina", Toast.LENGTH_SHORT).show()
@@ -221,7 +226,7 @@ class RoutineDataBase {
         days: Int
     ) {
 
-        val URL: String = "http://192.168.1.41:8080/websercv/routine/editarUsuario.php"
+        val URL: String = domain + "/websercv/routine/editarUsuario.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 Toast.makeText(context, "Edit de rutina", Toast.LENGTH_SHORT).show()
@@ -280,7 +285,7 @@ class RoutineDataBase {
         var exercise14: Int
         var exercise15: Int
 
-        val URL: String = "http://192.168.1.41:8080/websercv/routine/buscar.php?id=" + id
+        val URL: String = domain + "/websercv/routine/buscar.php?id=" + id
         val jsonArrayRequest: JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray> { response ->
                 var jsonObject: JSONObject
@@ -334,7 +339,7 @@ class RoutineDataBase {
         var exercise13: Int
         var exercise14: Int
         var exercise15: Int
-        val URL: String = "http://192.168.1.41:8080/websercv/routine/buscarUsuario.php?id=" + id
+        val URL: String = domain + "/websercv/routine/buscarUsuario.php?id=" + id
         val jsonArrayRequest: JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray> { response ->
                 var jsonObject: JSONObject

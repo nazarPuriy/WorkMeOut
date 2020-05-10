@@ -16,6 +16,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     private lateinit var title_text : TextView
     private lateinit var description_text : TextView
     private lateinit var button : Button
+    private var isnew:Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
         if(modo==EDITAR){
             modoHint=true
         }
+
         title_text=findViewById(R.id.txt_tittle_EV)
         title_text.text = intent.getStringExtra("title")
         description_text=findViewById(R.id.txt_description_EV)
@@ -48,7 +50,8 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
         description_text.visibility=View.VISIBLE
         title_edit.visibility=View.INVISIBLE
         description_edit.visibility=View.INVISIBLE
-        button.text = "Edit"
+
+        button.visibility = View.GONE
     }
 
     /***
@@ -80,6 +83,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
         if(modo==EDITAR){
             if(checkInfo()){
                 Controlador.registerExercise(this, title_edit.text.toString(), description_edit.text.toString(),7,7)//TODO cambiar valores para que se muestren los del activity
+
 
                 modo=0
                 descriptionMode()

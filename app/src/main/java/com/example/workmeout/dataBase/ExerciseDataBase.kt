@@ -97,7 +97,7 @@ class ExerciseDataBase {
                     jsonObject=response.getJSONObject(i);
                     name = jsonObject.getString("name")
                     description = jsonObject.getString("description")
-                    //list.add(Exercise(name, description)) todo
+                    //list.add(Exercise(name, description))TODO
 
                     adapter.submitList(list)
                     adapter.notifyDataSetChanged()

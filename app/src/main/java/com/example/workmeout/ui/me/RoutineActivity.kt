@@ -87,7 +87,7 @@ class RoutineActivity : AppCompatActivity() {
         rv = findViewById(R.id.rv_1)
         sa = ExerciseRoutineAdapter()
 
-        sa.submitRoutine(Routine(0, 0, "", "", 0))
+        sa.submitRoutine(Routine(0, 0, "", "", 0))//todo
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(this)
 
@@ -141,7 +141,7 @@ class RoutineActivity : AppCompatActivity() {
 
 
 
-    fun delete(v: View) {
+    fun delete(v: View) {//TODO
         Toast.makeText(this, "Delete this routine", Toast.LENGTH_SHORT).show()
         finish()
     }
@@ -150,6 +150,7 @@ class RoutineActivity : AppCompatActivity() {
         val descriptionIntent = Intent(this, ExerciseDescriptionActivity::class.java)
         descriptionIntent.putExtra("MODE","1")
         descriptionIntent.putExtra("title", "Exercise Title")
+        descriptionIntent.putExtra("isNew", true)
         startActivity(descriptionIntent)
     }
 

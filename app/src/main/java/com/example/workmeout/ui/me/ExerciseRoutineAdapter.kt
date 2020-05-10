@@ -13,15 +13,15 @@ import kotlinx.android.synthetic.main.sport_card.view.*
 
 
 import com.example.workmeout.R
-import com.example.workmeout.model.ExerciseOLD
-import com.example.workmeout.model.RoutineOLD
+import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.sport.ExerciseActivity
 
 
 class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
-    private lateinit var routineOLD: RoutineOLD
+    private lateinit var routine: Routine
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.sport_card_routine, parent, false)
@@ -30,13 +30,13 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return vh
     }
 
-    fun submitRoutine(routineOLD: RoutineOLD){
-        this.routineOLD= routineOLD
+    fun submitRoutine(routine: Routine){
+        this.routine= routine
     }
 
 
     override fun getItemCount(): Int {
-        return routineOLD.exerciseOLDList.size
+        return routine.exercises_class.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -44,7 +44,7 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
 
             is SportViewHolderRoutine ->{
-                holder.bind(routineOLD.exerciseOLDList.get(position), routineOLD, this)
+                holder.bind(routine.exercises_class.get(position), routine, this)
             }
         }
     }
@@ -54,23 +54,18 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val name = itemView.name
         val reps: TextView = itemView.reps
         val card: CardView = itemView.cv
-        val del:ImageButton = itemView.findViewById(R.id.deleteIcon)
 
-        fun bind(exerciseOLD: ExerciseOLD, routineOLD: RoutineOLD, era:ExerciseRoutineAdapter) {
-            name.text = exerciseOLD.name
-            reps.text = "Reps: " + exerciseOLD.reps.toString()
+        fun bind(exercise: Exercise, routine: Routine, era:ExerciseRoutineAdapter) {
+            name.text = exercise.name
+            reps.text = "Reps: " + exercise.reps.toString()
 
             card.setOnClickListener(View.OnClickListener {
                 val intent: Intent = Intent(itemView.context, ExerciseActivity::class.java)
                 intent.putExtra("exName",name.text.toString())
-                intent.putExtra("exReps", exerciseOLD.reps)
+                intent.putExtra("exReps", exercise.reps)
                 itemView.context.startActivity(intent)
             })
 
-            del.setOnClickListener(View.OnClickListener {
-                routineOLD.deleteExercise(exerciseOLD.name)
-                era.notifyDataSetChanged()
-            })
         }
 
     }

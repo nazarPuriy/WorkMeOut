@@ -1,6 +1,7 @@
 package com.example.workmeout.dataBase
 import android.content.Context
 import android.widget.Toast
+import com.example.workmeout.model.Routine
 import com.example.workmeout.model.User
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
@@ -135,6 +136,10 @@ class BaseDatos {
 
     fun buscarRutinaUsuario(context: Context, id: Int){
         routineDataBase.buscarRutinaUsuario(context,id)
+    }
+
+    fun buscarEjercicioUsuario(context: Context, id: Int, rutina: Routine){
+        exerciseDataBase.buscarEjercicioUsuario(context, id, rutina)
     }
 
     //Métode per buscar coincidencia amb la string

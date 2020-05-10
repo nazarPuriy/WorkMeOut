@@ -1,7 +1,6 @@
 package com.example.workmeout.dataBase
 
 import android.content.Context
-import android.content.res.Resources
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -12,9 +11,14 @@ import com.android.volley.toolbox.Volley
 import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.Routine
+import com.example.workmeout.ui.me.ExerciseSearchAdapter
 import org.json.JSONArray
 import org.json.JSONObject
-import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ExerciseDataBase {
 
@@ -96,7 +100,7 @@ class ExerciseDataBase {
                     jsonObject=response.getJSONObject(i);
                     name = jsonObject.getString("name")
                     description = jsonObject.getString("description")
-                    list.add(Exercise(name, description))
+                    //list.add(Exercise(name, description))TODO
 
                     adapter.submitList(list)
                     adapter.notifyDataSetChanged()
@@ -114,7 +118,10 @@ class ExerciseDataBase {
     }
 
     //Método que utilizamos para buscar ejercicios en la base de datos.
-    fun buscarEjercicio(context: Context, id : Int){
+    fun buscarEjercicio(
+        context: Context,
+        ejercicioUsuaro: Exercise
+    ){
         var name : String
         var description : String
         val URL : String = domain + "/websercv/exercise/buscar.php?id="+id
@@ -122,12 +129,61 @@ class ExerciseDataBase {
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject
                 for(i in 0..response.length()-1){
-                    jsonObject=response.getJSONObject(i);
+                    jsonObject=response.getJSONObject(i)
                     name = jsonObject.getString("name")
                     description = jsonObject.getString("description")
+                    ejercicioUsuaro.name = name
+                    ejercicioUsuaro.description = description
 
                     //TODO llamar al controlador para que lo muestre
                 }
+            }, Response.ErrorListener { error->
+
+            })
+
+        requestQ= Volley.newRequestQueue(context);
+        requestQ.add(jsonArrayRequest)
+
+    }
+
+    fun buscarEjercicioUsuario(context: Context, id: Int, routine:Routine){
+
+        var classId:Int
+        var reps: Int
+        var weight: Int
+        var days: ArrayList<Date> = ArrayList()
+        var weights: ArrayList<Int> = ArrayList()
+        var tmp:String
+
+        val URL : String = "http://192.168.1.41:8080/websercv/exercise/buscarUsuario.php?id="+id//todo
+        val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
+            Response.Listener<JSONArray>{ response->
+                var jsonObject: JSONObject
+                for(i in 0..response.length()-1){
+
+                    jsonObject=response.getJSONObject(i)
+
+                    classId = jsonObject.getString("classid").toInt()
+                    reps = jsonObject.getString("reps").toInt()
+                    weight = jsonObject.getString("weight").toInt()
+
+                    for(x in 1..7){
+
+                        tmp = jsonObject.getString("day$x")
+                        if(tmp != "0"){
+
+                            days.add( SimpleDateFormat("dd/MM/yyyy").parse(tmp))
+                            weights.add(jsonObject.getString("weight$x").toInt())
+                        }
+                    }
+
+                    val ejercicioUsuario:Exercise = Exercise(id, classId,"", reps, "", weight, days, weights)
+                    buscarEjercicio(context, ejercicioUsuario)
+                    routine.exercises_class.add(ejercicioUsuario)
+                }
+
+
+
             }, Response.ErrorListener { error->
 
             })

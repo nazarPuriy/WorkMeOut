@@ -340,6 +340,7 @@ class RoutineDataBase {
         var exercise14: Int
         var exercise15: Int
         val URL: String = domain + "/websercv/routine/buscarUsuario.php?id=" + id
+        var tmp:String
         val jsonArrayRequest: JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray> { response ->
                 var jsonObject: JSONObject
@@ -364,8 +365,21 @@ class RoutineDataBase {
                     exercise15 = jsonObject.getString("exercise15").toInt()
 
                     val rutina : Routine = Routine(id,classid,"","",days)
-                    //TODO lo mismo con los demás ejercicios.
+
+                    //Añadimos las ids de los ejercicios
+                    for(x in 1..15){
+                        tmp = jsonObject.getString("exercise$x")
+
+                        if(tmp != "0") {
+                            rutina.exercises.add(tmp.toInt())
+                        }
+                    }
+
+
+
+
                     Controlador.postRoutine(context, rutina)
+                    Controlador.fillExercises(context, rutina)
                     buscarRutina(context,classid)
                 }
             }, Response.ErrorListener { error ->

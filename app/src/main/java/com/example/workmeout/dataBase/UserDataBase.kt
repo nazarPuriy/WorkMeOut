@@ -18,7 +18,7 @@ import com.example.workmeout.model.User
 
 class UserDataBase {
 
-    val domain = "http://b1bf7dd3.ngrok.io"
+    val domain = "http://83.59.82.217:7070"
 
     //Variable que se utilitza para acceder a la base de datos.
     lateinit var requestQ : RequestQueue
@@ -29,7 +29,7 @@ class UserDataBase {
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 if(response.length>4){ //Nos informa la base de datos que el usuario ya existe
-                    Toast.makeText(context,"There is already a user with the given username", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"There is already a user with the given username" + response, Toast.LENGTH_SHORT).show()
                 }else{
                     Toast.makeText(context,"User registered", Toast.LENGTH_SHORT).show()
                 }

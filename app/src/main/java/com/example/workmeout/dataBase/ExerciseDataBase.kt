@@ -22,7 +22,7 @@ import kotlin.collections.HashMap
 
 class ExerciseDataBase {
 
-    val domain = "http://b1bf7dd3.ngrok.io"
+    val domain = "http://83.59.82.217:7070"
 
     //Variable que se utilitza para acceder a la base de datos.
     lateinit var requestQ : RequestQueue
@@ -124,7 +124,7 @@ class ExerciseDataBase {
     ){
         var name : String
         var description : String
-        val URL : String = domain + "/websercv/exercise/buscar.php?id="+id
+        val URL : String = domain + "/websercv/exercise/buscar.php?id="+ejercicioUsuaro.classId
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject

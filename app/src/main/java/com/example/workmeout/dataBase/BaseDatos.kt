@@ -1,8 +1,6 @@
 package com.example.workmeout.dataBase
 import android.content.Context
-import android.widget.Toast
 import com.example.workmeout.model.Routine
-import com.example.workmeout.model.User
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
 class BaseDatos {
@@ -32,8 +30,15 @@ class BaseDatos {
     }
 
     //Método que usaremos para guardar la descripción de un nuevo ejercicio
-    fun guardarEjercicio(context: Context, name : String, description: String,reps : Int, weight : Int){
-        exerciseDataBase.guardarEjercicio(context,name,description,reps, weight)
+    fun guardarEjercicio(
+        context: Context,
+        name: String,
+        description: String,
+        reps: Int,
+        weight: Int,
+        routineIndex: Int
+    ){
+        exerciseDataBase.guardarEjercicio(context,name,description,reps, weight, routineIndex)
     }
 
     //Métode que guarda una rutina a la base de dades general

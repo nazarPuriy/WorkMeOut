@@ -12,7 +12,6 @@ class User {
     var weight: Int
     var height: Int
     var numberOfRoutines : Int
-    var currentRutineIndex : Int
     lateinit var routine1 : Routine
     lateinit var routine2 : Routine
     lateinit var routine3 : Routine
@@ -31,7 +30,6 @@ class User {
         this.weight = weight
         this.height = height
         numberOfRoutines = 0
-        currentRutineIndex = 0
     }
 
     /* SI TODO VA BIEN VALE VERGAAA

@@ -3,13 +3,11 @@ package com.example.workmeout.Controlador
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import com.example.workmeout.model.User
 import com.example.workmeout.dataBase.BaseDatos
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
-import com.example.workmeout.ui.identification.RegisterActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 import kotlin.math.max
 
@@ -84,14 +82,26 @@ object Controlador{
     }
 
     //Guarda la descripción de un nuevo ejercicio la base de datos
-    fun registerExercise(context: Context, name : String, description: String,reps : Int, weight : Int){
-        baseDatos.guardarEjercicio(context,name,description,reps,weight)
+    fun registerExercise(
+        context: Context,
+        name: String,
+        description: String,
+        reps: Int,
+        weight: Int,
+        routineIndex: Int
+    ){
+        baseDatos.guardarEjercicio(context,name,description,reps,weight, routineIndex)
     }
 
-    fun saveExerciseIdOnRutine(context : Context,id : Int, classid : Int){
+    fun saveExerciseIdOnRutine(
+        context: Context,
+        id: Int,
+        classid: Int,
+        routineIndex: Int
+    ){
         //baseDatos.guardarRutina(context,currentUser!!.routine1.name,currentUser!!.routine1.description,)
         var routine : Routine = currentUser!!.routine1 //Para assignar algo
-        when(currentUser!!.currentRutineIndex){
+        when(routineIndex){
             1 -> {routine = currentUser!!.routine1}
             2 -> {routine = currentUser!!.routine2}
             3 -> {routine = currentUser!!.routine3}
@@ -167,24 +177,19 @@ object Controlador{
             0-> {
                 currentUser!!.numberOfRoutines = max(1, currentUser!!.numberOfRoutines)
                 currentUser!!.routine1 = routine
-                currentUser!!.currentRutineIndex = 1
                 }
             1-> {
                 currentUser!!.numberOfRoutines = max(2, currentUser!!.numberOfRoutines)
-                currentUser!!.routine2 = routine
-                currentUser!!.currentRutineIndex = 2}
+                currentUser!!.routine2 = routine }
             2-> {
                 currentUser!!.numberOfRoutines = max(3, currentUser!!.numberOfRoutines)
-                currentUser!!.routine3 = routine
-                currentUser!!.currentRutineIndex = 3}
+                currentUser!!.routine3 = routine }
             3-> {
                 currentUser!!.numberOfRoutines = max(4, currentUser!!.numberOfRoutines)
-                currentUser!!.routine4 = routine
-                currentUser!!.currentRutineIndex = 4}
+                currentUser!!.routine4 = routine}
             4-> {
                 currentUser!!.numberOfRoutines = max(5, currentUser!!.numberOfRoutines)
                 currentUser!!.routine5 = routine
-                currentUser!!.currentRutineIndex = 5
             }
         }
     }

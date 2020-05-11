@@ -82,7 +82,8 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     fun save(view:View){
         if(modo==EDITAR){
             if(checkInfo()){
-                Controlador.registerExercise(this, title_edit.text.toString(), description_edit.text.toString(),7,7)//TODO cambiar valores para que se muestren los del activity
+                val routineIndex:Int = intent.getIntExtra("index", 0)
+                Controlador.registerExercise(this, title_edit.text.toString(), description_edit.text.toString(),7,7, routineIndex)//TODO cambiar valores para que se muestren los del activity
 
 
                 modo=0

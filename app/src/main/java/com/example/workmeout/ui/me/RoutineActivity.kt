@@ -151,6 +151,7 @@ class RoutineActivity : AppCompatActivity() {
         descriptionIntent.putExtra("MODE","1")
         descriptionIntent.putExtra("title", "Exercise Title")
         descriptionIntent.putExtra("isNew", true)
+        descriptionIntent.putExtra("index", Controlador.currentUser!!.numberOfRoutines)
         startActivity(descriptionIntent)
     }
 

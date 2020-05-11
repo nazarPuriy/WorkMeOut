@@ -265,7 +265,7 @@ class RoutineDataBase {
 
 
     //Método que utilizamos para buscar rutinas
-    fun buscarRutina(context: Context, id: Int) {
+    fun buscarRutina(context: Context, id: Int, index:Int) {
 
         var name: String
         var description: String
@@ -309,7 +309,7 @@ class RoutineDataBase {
                     exercise14 = jsonObject.getString("exercise14").toInt()
                     exercise15 = jsonObject.getString("exercise15").toInt()
 
-                    Controlador.fillRoutine(name,description)
+                    Controlador.fillRoutine(name,description, index)
                 }
             }, Response.ErrorListener { error ->
 
@@ -321,7 +321,7 @@ class RoutineDataBase {
     }
 
     //Método que utilizamos para buscar rutinas
-    fun buscarRutinaUsuario(context: Context, id: Int) {
+    fun buscarRutinaUsuario(context: Context, id: Int, index:Int) {
         var classid: Int
         var days: Int
         var exercise1: Int
@@ -378,9 +378,9 @@ class RoutineDataBase {
 
 
 
-                    Controlador.postRoutine(context, rutina)
+                    Controlador.postRoutine(context, rutina, index)
                     Controlador.fillExercises(context, rutina)
-                    buscarRutina(context,classid)
+                    buscarRutina(context,classid, index)
                 }
             }, Response.ErrorListener { error ->
             })

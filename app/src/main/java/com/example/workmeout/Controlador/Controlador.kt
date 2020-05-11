@@ -11,6 +11,7 @@ import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.RegisterActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import kotlin.math.max
 
 
 object Controlador{
@@ -36,7 +37,7 @@ object Controlador{
         var id4 : Int = 0
         var id5 : Int = 0
         if(currentUser != null){
-            if(currentUser!!.routine1 != null){
+            if(currentUser!!.routine1 != null) {
                 id1 = currentUser!!.routine1.id
             }
             if(currentUser!!.routine2 != null){
@@ -136,52 +137,52 @@ object Controlador{
     //Luego enviara la rutina al usuario
     fun registerRoutine(context: Context, name: String,description: String,exercise1: Int, exercise2: Int,exercise3: Int,exercise4: Int,exercise5: Int,exercise6: Int,exercise7: Int,exercise8: Int,exercise9: Int,exercise10: Int,exercise11: Int, exercise12: Int, exercise13: Int,exercise14: Int,exercise15: Int,days : Int){
         var routine : Routine = Routine(0,0,name,description,days)
-        postRoutine(context,routine)
+        postRoutine(context,routine, currentUser!!.numberOfRoutines)
         baseDatos.guardarRutina(context,name,description,exercise1,exercise2,exercise3,exercise4,exercise5,exercise6,exercise7,exercise8,exercise9,exercise10,exercise11,exercise12,exercise13,exercise14,exercise15,days)
     }
 
     //Pide a la base de datos del usuario que vaya cargando las diferentes rutinas.
     fun addRoutinesToUserRequest(context : Context,id1 : Int, id2 : Int, id3 : Int, id4 : Int, id5 : Int){
         if(id1 != 0){
-            baseDatos.buscarRutinaUsuario(context,id1)
+            baseDatos.buscarRutinaUsuario(context,id1, 0)
         }
         if(id2 != 0){
-            baseDatos.buscarRutinaUsuario(context,id2)
+            baseDatos.buscarRutinaUsuario(context,id2, 1)
         }
         if(id3 != 0){
-            baseDatos.buscarRutinaUsuario(context,id3)
+            baseDatos.buscarRutinaUsuario(context,id3, 2)
         }
         if(id4 != 0){
-            baseDatos.buscarRutinaUsuario(context,id4)
+            baseDatos.buscarRutinaUsuario(context,id4, 3)
         }
         if(id5 != 0) {
-            baseDatos.buscarRutinaUsuario(context,id5)
+            baseDatos.buscarRutinaUsuario(context,id5, 4)
         }
 
     }
 
     //Postea la rutina ( se llama des de la base de datos ) y pide rellenar los demás campos.
-    fun postRoutine(context : Context, routine : Routine){
-        when(currentUser!!.numberOfRoutines){
+    fun postRoutine(context : Context, routine : Routine, index:Int){
+        when(index){
             0-> {
-                currentUser!!.numberOfRoutines = 1
+                currentUser!!.numberOfRoutines = max(1, currentUser!!.numberOfRoutines)
                 currentUser!!.routine1 = routine
                 currentUser!!.currentRutineIndex = 1
                 }
             1-> {
-                currentUser!!.numberOfRoutines = 2
+                currentUser!!.numberOfRoutines = max(2, currentUser!!.numberOfRoutines)
                 currentUser!!.routine2 = routine
                 currentUser!!.currentRutineIndex = 2}
             2-> {
-                currentUser!!.numberOfRoutines = 3
+                currentUser!!.numberOfRoutines = max(3, currentUser!!.numberOfRoutines)
                 currentUser!!.routine3 = routine
                 currentUser!!.currentRutineIndex = 3}
             3-> {
-                currentUser!!.numberOfRoutines = 4
+                currentUser!!.numberOfRoutines = max(4, currentUser!!.numberOfRoutines)
                 currentUser!!.routine4 = routine
                 currentUser!!.currentRutineIndex = 4}
             4-> {
-                currentUser!!.numberOfRoutines = 5
+                currentUser!!.numberOfRoutines = max(5, currentUser!!.numberOfRoutines)
                 currentUser!!.routine5 = routine
                 currentUser!!.currentRutineIndex = 5
             }
@@ -189,30 +190,25 @@ object Controlador{
     }
 
     //Acaba de meter en las rutinas que se estan cargando los datos.
-    fun fillRoutine(name : String, description : String){
-        when(currentUser!!.tempRoutineIndex){
+    fun fillRoutine(name : String, description : String, idx:Int){
+        when(idx){
             0-> {
-                currentUser!!.tempRoutineIndex = 1
                 currentUser!!.routine1.name = name
                 currentUser!!.routine1.description = description
             }
             1-> {
-                currentUser!!.tempRoutineIndex = 2
                 currentUser!!.routine2.name = name
                 currentUser!!.routine2.description = description
             }
             2-> {
-                currentUser!!.tempRoutineIndex = 3
                 currentUser!!.routine3.name = name
                 currentUser!!.routine3.description = description
             }
             3-> {
-                currentUser!!.tempRoutineIndex = 4
                 currentUser!!.routine4.name = name
                 currentUser!!.routine4.description = description
             }
             4-> {
-                currentUser!!.tempRoutineIndex = 5
                 currentUser!!.routine5.name = name
                 currentUser!!.routine5.description = description
             }

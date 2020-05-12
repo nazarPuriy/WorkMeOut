@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.workmeout.model.User
 import com.example.workmeout.dataBase.BaseDatos
+import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
@@ -142,6 +143,12 @@ object Controlador{
             //TODO acabar mobiendo los indices hasta 15
 
         }
+    }
+
+    fun guardarEjercioRutina(exercise:Exercise, index:Int, context: Context){
+
+        baseDatos.guardarEjercicioUsuario(exercise, index, context)
+
     }
 
     //Luego enviara la rutina al usuario

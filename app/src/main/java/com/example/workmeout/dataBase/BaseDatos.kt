@@ -1,5 +1,6 @@
 package com.example.workmeout.dataBase
 import android.content.Context
+import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
@@ -39,6 +40,11 @@ class BaseDatos {
         routineIndex: Int
     ){
         exerciseDataBase.guardarEjercicio(context,name,description,reps, weight, routineIndex)
+    }
+
+    fun guardarEjercicioUsuario(exercise: Exercise, indexRoutine: Int, context: Context){
+        exerciseDataBase.guardarEjercicioUsuario(context, exercise.classId, exercise.reps, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, indexRoutine)
     }
 
     //Métode que guarda una rutina a la base de dades general

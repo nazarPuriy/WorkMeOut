@@ -16,7 +16,6 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     private lateinit var title_text : TextView
     private lateinit var description_text : TextView
     private lateinit var button : Button
-    private var isnew:Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +27,14 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
         }
 
         title_text=findViewById(R.id.txt_tittle_EV)
-        title_text.text = intent.getStringExtra("title")
         description_text=findViewById(R.id.txt_description_EV)
+
         title_edit=findViewById(R.id.edttxt_tittle_EV)
+        title_edit.setText(intent.getStringExtra("title"))
+
         description_edit=findViewById(R.id.edttxt_description_EV)
+        description_edit.setText( intent.getStringExtra("description"))
+
         button=findViewById(R.id.btn_save_EV)
         if(modo==EDITAR){
             editMode()

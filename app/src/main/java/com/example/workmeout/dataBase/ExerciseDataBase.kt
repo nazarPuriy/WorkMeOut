@@ -116,6 +116,7 @@ class ExerciseDataBase {
     fun matchExercise(context: Context, partialName:String, adapter:ExerciseSearchAdapter){
         var name: String
         var description: String
+        var classId: String
         val URL : String = domain + "/websercv/exercise/buscar_match.php?search="+partialName
         var list: ArrayList<Exercise>
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
@@ -123,11 +124,12 @@ class ExerciseDataBase {
                 var jsonObject: JSONObject
                 list = ArrayList()
                 for(i in 0..response.length()-1){
-                    jsonObject=response.getJSONObject(i);
+                    jsonObject=response.getJSONObject(i)
                     name = jsonObject.getString("name")
                     description = jsonObject.getString("description")
-                    //list.add(Exercise(name, description))TODO
+                    classId = jsonObject.getString("id")
 
+                    list.add(Exercise(0, classId.toInt(), name, 0, description, 0, ArrayList<Date>(), ArrayList<Int>()))
                     adapter.submitList(list)
                     adapter.notifyDataSetChanged()
 

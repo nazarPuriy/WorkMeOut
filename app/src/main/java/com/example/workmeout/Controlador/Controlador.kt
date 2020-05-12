@@ -10,6 +10,7 @@ import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import com.example.workmeout.ui.me.SearchExercises
 import kotlin.math.max
 
 
@@ -149,6 +150,10 @@ object Controlador{
     fun guardarEjercioRutina(exercise:Exercise, index:Int, context: Context){
 
         baseDatos.guardarEjercicioUsuario(exercise, index, context)
+        getRoutines().get(index - 1).exercises_class.add(exercise)
+        if(context is SearchExercises){
+            context.finish()
+        }
 
     }
 

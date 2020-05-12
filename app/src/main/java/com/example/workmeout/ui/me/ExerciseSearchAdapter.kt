@@ -73,7 +73,6 @@ class ExerciseSearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             addButton.setOnClickListener{
                 Controlador.guardarEjercioRutina(exercise, indexRoutine, itemView.context)
-                Toast.makeText(itemView.context, indexRoutine.toString(), Toast.LENGTH_SHORT).show()//todo
             }
         }
 

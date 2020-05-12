@@ -134,6 +134,7 @@ class RoutineActivity : AppCompatActivity() {
         editDescription.setText(routine.description)
         decodeDays(routine.days)
         sa.submitRoutine(routine)
+        sa.notifyDataSetChanged()
 
     }
 
@@ -149,7 +150,7 @@ class RoutineActivity : AppCompatActivity() {
         editTitle = findViewById(R.id.title)
         textTitle = findViewById(R.id.txt_tittle)
         textDescription = findViewById(R.id.txt_description)
-        if(isNew){
+        if(!exists){
             saveBtn.visibility = View.VISIBLE
             delateBtn.visibility = View.INVISIBLE
             editDescription.visibility =  View.VISIBLE
@@ -166,6 +167,7 @@ class RoutineActivity : AppCompatActivity() {
             textTitle.setText(editTitle.text.toString())
             textDescription.visibility = View.VISIBLE
             textTitle.visibility = View.VISIBLE
+            refreshRoutine()
         }
     }
 
@@ -262,8 +264,6 @@ class RoutineActivity : AppCompatActivity() {
                 0, 0, 0, 0, 0, 0, calcDays())
             btnsave.isEnabled = false
             indexRoutine = Controlador.currentUser!!.numberOfRoutines -1
-            editTitle.isEnabled = false
-            editDescription.isEnabled = false
         }else{//TODO editar rutina de usuario
 
         }

@@ -109,6 +109,7 @@ object Controlador{
             4 -> {routine = currentUser!!.routine4!!}
             5 -> {routine = currentUser!!.routine5!!}
         }
+
         when(routine!!.numberOfExercises){
 
 

@@ -166,13 +166,13 @@ class RoutineActivity : AppCompatActivity() {
         descriptionIntent.putExtra("MODE","1")
         descriptionIntent.putExtra("title", "Exercise Title")
         descriptionIntent.putExtra("isNew", true)
-        descriptionIntent.putExtra("index", Controlador.currentUser!!.numberOfRoutines)
+        descriptionIntent.putExtra("index", indexRoutine + 1)
         startActivity(descriptionIntent)
     }
 
     fun searchExercise(){
         val searchIntent = Intent(this, SearchExercises::class.java)
-        searchIntent.putExtra("routine", indexRoutine)
+        searchIntent.putExtra("routine", indexRoutine + 1)
         startActivity(searchIntent)
     }
 
@@ -249,7 +249,8 @@ class RoutineActivity : AppCompatActivity() {
                 0, 0, 0, 0, 0, 0, calcDays())
             btnsave.isEnabled = false
             indexRoutine = Controlador.currentUser!!.numberOfRoutines -1
-            isNew = false
+            editTitle.isEnabled = false
+            editDescription.isEnabled = false
         }else{//TODO editar rutina de usuario
 
         }

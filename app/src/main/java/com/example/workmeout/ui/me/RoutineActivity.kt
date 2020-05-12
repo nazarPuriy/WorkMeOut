@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.Controlador.Controlador
@@ -26,7 +23,8 @@ class RoutineActivity : AppCompatActivity() {
     private var isOpen = false
     lateinit var editTitle : EditText
     lateinit var editDescription : EditText
-
+    lateinit var textTitle : TextView
+    lateinit var textDescription : TextView
     lateinit var add_button:FloatingActionButton
     lateinit var search_button:FloatingActionButton
     lateinit var add_people_button:FloatingActionButton
@@ -147,12 +145,27 @@ class RoutineActivity : AppCompatActivity() {
     fun init(){
         val saveBtn : Button = findViewById(R.id.btnsave)
         val delateBtn : Button = findViewById(R.id.dlt)
+        editDescription = findViewById(R.id.edt_description)
+        editTitle = findViewById(R.id.title)
+        textTitle = findViewById(R.id.txt_tittle)
+        textDescription = findViewById(R.id.txt_description)
         if(isNew){
             saveBtn.visibility = View.VISIBLE
             delateBtn.visibility = View.INVISIBLE
+            editDescription.visibility =  View.VISIBLE
+            editTitle.visibility = View.VISIBLE
+            textDescription.visibility = View.INVISIBLE
+            textTitle.visibility = View.INVISIBLE
+
         }else{
             saveBtn.visibility = View.INVISIBLE
             delateBtn.visibility = View.VISIBLE
+            editDescription.visibility =  View.INVISIBLE
+            editTitle.visibility = View.INVISIBLE
+            textDescription.setText(editDescription.text.toString())
+            textTitle.setText(editTitle.text.toString())
+            textDescription.visibility = View.VISIBLE
+            textTitle.visibility = View.VISIBLE
         }
     }
 

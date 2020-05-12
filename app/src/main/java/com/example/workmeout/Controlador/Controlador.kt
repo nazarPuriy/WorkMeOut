@@ -36,19 +36,19 @@ object Controlador{
         var id5 : Int = 0
         if(currentUser != null){
             if(currentUser!!.routine1 != null) {
-                id1 = currentUser!!.routine1.id
+                id1 = currentUser!!.routine1!!.id
             }
             if(currentUser!!.routine2 != null){
-                id2 = currentUser!!.routine2.id
+                id2 = currentUser!!.routine2!!.id
             }
             if(currentUser!!.routine3 != null){
-                id3 = currentUser!!.routine3.id
+                id3 = currentUser!!.routine3!!.id
             }
             if(currentUser!!.routine4 != null){
-                id4 = currentUser!!.routine4.id
+                id4 = currentUser!!.routine4!!.id
             }
             if(currentUser!!.routine5 != null){
-                id5 = currentUser!!.routine5.id
+                id5 = currentUser!!.routine5!!.id
             }
             baseDatos.editarUsuario(context,username,name,password,email,phone,age,gender,weight,height,id1,id2,id3,id4,id5)
         }
@@ -71,7 +71,7 @@ object Controlador{
     }
 
     fun temporalPrint(view: View){
-        Toast.makeText(view.context,"Tenemos las rutinas " +currentUser!!.numberOfRoutines + " PRIMERA "+ currentUser!!.routine1.id+" con nombre "+ currentUser!!.routine1.name+" SEGUNDA "+ currentUser!!.routine2.id+" con nombre "+ currentUser!!.routine2.name+ " TERCERA "+ currentUser!!.routine3.id+" con nombre "+ currentUser!!.routine3.name, Toast.LENGTH_SHORT).show()
+        Toast.makeText(view.context,"Tenemos las rutinas " +currentUser!!.numberOfRoutines + " PRIMERA "+ currentUser!!.routine1!!.id+" con nombre "+ currentUser!!.routine1!!.name+" SEGUNDA "+ currentUser!!.routine2!!.id+" con nombre "+ currentUser!!.routine2!!.name+ " TERCERA "+ currentUser!!.routine3!!.id+" con nombre "+ currentUser!!.routine3!!.name, Toast.LENGTH_SHORT).show()
     }
 
     //Comprueba si los datos introducidos són correctos.
@@ -100,13 +100,13 @@ object Controlador{
         routineIndex: Int
     ){
         //baseDatos.guardarRutina(context,currentUser!!.routine1.name,currentUser!!.routine1.description,)
-        var routine : Routine = currentUser!!.routine1 //Para assignar algo
+        var routine : Routine = currentUser!!.routine1!! //Para assignar algo
         when(routineIndex){
-            1 -> {routine = currentUser!!.routine1}
-            2 -> {routine = currentUser!!.routine2}
-            3 -> {routine = currentUser!!.routine3}
-            4 -> {routine = currentUser!!.routine4}
-            5 -> {routine = currentUser!!.routine5}
+            1 -> {routine = currentUser!!.routine1!!}
+            2 -> {routine = currentUser!!.routine2!!}
+            3 -> {routine = currentUser!!.routine3!!}
+            4 -> {routine = currentUser!!.routine4!!}
+            5 -> {routine = currentUser!!.routine5!!}
         }
         when(routine!!.numberOfExercises){
 
@@ -198,24 +198,24 @@ object Controlador{
     fun fillRoutine(name : String, description : String, idx:Int){
         when(idx){
             0-> {
-                currentUser!!.routine1.name = name
-                currentUser!!.routine1.description = description
+                currentUser!!.routine1!!.name = name
+                currentUser!!.routine1!!.description = description
             }
             1-> {
-                currentUser!!.routine2.name = name
-                currentUser!!.routine2.description = description
+                currentUser!!.routine2!!.name = name
+                currentUser!!.routine2!!.description = description
             }
             2-> {
-                currentUser!!.routine3.name = name
-                currentUser!!.routine3.description = description
+                currentUser!!.routine3!!.name = name
+                currentUser!!.routine3!!.description = description
             }
             3-> {
-                currentUser!!.routine4.name = name
-                currentUser!!.routine4.description = description
+                currentUser!!.routine4!!.name = name
+                currentUser!!.routine4!!.description = description
             }
             4-> {
-                currentUser!!.routine5.name = name
-                currentUser!!.routine5.description = description
+                currentUser!!.routine5!!.name = name
+                currentUser!!.routine5!!.description = description
             }
         }
     }
@@ -235,7 +235,7 @@ object Controlador{
         if(currentUser!=null){
             when(currentUser!!.numberOfRoutines){
                 1-> {
-                    currentUser!!.routine1.id = id
+                    currentUser!!.routine1!!.id = id
                     baseDatos.editarUsuario(context, currentUser!!.userName, currentUser!!.name,currentUser!!.password,currentUser!!.email,
                         currentUser!!.phoneNumber.toString(),
                         currentUser!!.age.toString(),
@@ -244,41 +244,41 @@ object Controlador{
                         currentUser!!.height.toString(),id,0,0,0,0)
                 }
                 2-> {
-                    currentUser!!.routine2.id = id
+                    currentUser!!.routine2!!.id = id
                     baseDatos.editarUsuario(context, currentUser!!.userName, currentUser!!.name,currentUser!!.password,currentUser!!.email,
                         currentUser!!.phoneNumber.toString(),
                         currentUser!!.age.toString(),
                         currentUser!!.sex.toString(),
                         currentUser!!.weight.toString(),
                         currentUser!!.height.toString(),
-                        currentUser!!.routine1.id,id,0,0,0)
+                        currentUser!!.routine1!!.id,id,0,0,0)
                 }
                 3-> {
-                    currentUser!!.routine3.id = id
+                    currentUser!!.routine3!!.id = id
                     baseDatos.editarUsuario(context, currentUser!!.userName, currentUser!!.name,currentUser!!.password,currentUser!!.email,
                         currentUser!!.phoneNumber.toString(),
                         currentUser!!.age.toString(),
                         currentUser!!.sex.toString(),
                         currentUser!!.weight.toString(),
-                        currentUser!!.height.toString(),currentUser!!.routine1.id,currentUser!!.routine2.id,id,0,0)
+                        currentUser!!.height.toString(),currentUser!!.routine1!!.id,currentUser!!.routine2!!.id,id,0,0)
                 }
                 4-> {
-                    currentUser!!.routine4.id = id
+                    currentUser!!.routine4!!.id = id
                     baseDatos.editarUsuario(context, currentUser!!.userName, currentUser!!.name,currentUser!!.password,currentUser!!.email,
                         currentUser!!.phoneNumber.toString(),
                         currentUser!!.age.toString(),
                         currentUser!!.sex.toString(),
                         currentUser!!.weight.toString(),
-                        currentUser!!.height.toString(),currentUser!!.routine1.id,currentUser!!.routine2.id,currentUser!!.routine3.id,id,0)
+                        currentUser!!.height.toString(),currentUser!!.routine1!!.id,currentUser!!.routine2!!.id,currentUser!!.routine3!!.id,id,0)
                 }
                 5-> {
-                    currentUser!!.routine5.id = id
+                    currentUser!!.routine5!!.id = id
                     baseDatos.editarUsuario(context, currentUser!!.userName, currentUser!!.name,currentUser!!.password,currentUser!!.email,
                         currentUser!!.phoneNumber.toString(),
                         currentUser!!.age.toString(),
                         currentUser!!.sex.toString(),
                         currentUser!!.weight.toString(),
-                        currentUser!!.height.toString(),currentUser!!.routine1.id,currentUser!!.routine2.id,currentUser!!.routine3.id,currentUser!!.routine4.id,id)
+                        currentUser!!.height.toString(),currentUser!!.routine1!!.id,currentUser!!.routine2!!.id,currentUser!!.routine3!!.id,currentUser!!.routine4!!.id,id)
                 }
             }
         }
@@ -289,19 +289,19 @@ object Controlador{
     fun fillNewRoutineClassId(id:Int){
         when(currentUser!!.numberOfRoutines){
             1-> {
-                currentUser!!.routine1.classid = id
+                currentUser!!.routine1!!.classid = id
             }
             2-> {
-                currentUser!!.routine2.classid = id
+                currentUser!!.routine2!!.classid = id
             }
             3-> {
-                currentUser!!.routine3.classid = id
+                currentUser!!.routine3!!.classid = id
             }
             4-> {
-                currentUser!!.routine4.classid = id
+                currentUser!!.routine4!!.classid = id
             }
             5-> {
-                currentUser!!.routine5.classid = id
+                currentUser!!.routine5!!.classid = id
             }
         }
     }
@@ -315,11 +315,12 @@ object Controlador{
 
         var lista: ArrayList<Routine> = ArrayList()
 
-        if(currentUser!!.numberOfRoutines > 0){lista.add(currentUser!!.routine1)}
-        if(currentUser!!.numberOfRoutines > 1){lista.add(currentUser!!.routine2)}
-        if(currentUser!!.numberOfRoutines > 2){lista.add(currentUser!!.routine3)}
-        if(currentUser!!.numberOfRoutines > 3){lista.add(currentUser!!.routine4)}
-        if(currentUser!!.numberOfRoutines > 4){lista.add(currentUser!!.routine5)}
+        if(currentUser!!.routine1 != null){lista.add(currentUser!!.routine1!!)}
+        if(currentUser!!.routine2 != null){lista.add(currentUser!!.routine2!!)}
+        if(currentUser!!.routine3 != null){lista.add(currentUser!!.routine3!!)}
+        if(currentUser!!.routine4 != null){lista.add(currentUser!!.routine4!!)}
+        if(currentUser!!.routine5 != null){lista.add(currentUser!!.routine5!!)}
+
 
         return lista
     }

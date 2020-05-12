@@ -149,6 +149,9 @@ class BaseDatos {
         routineDataBase.buscarRutinaUsuario(context,id, index)
     }
 
+    fun eliminarRutinaUsuario(context:Context,id:Int){
+        routineDataBase.eliminarRutinaUsuario(context,id)
+    }
     fun buscarEjercicioUsuario(context: Context, id: Int, rutina: Routine){
         exerciseDataBase.buscarEjercicioUsuario(context, id, rutina)
     }

@@ -332,6 +332,90 @@ object Controlador{
         return lista
     }
 
+    fun deleteRoutine(context : Context, indice : Int){
+        //Eliminamos la rutina de la base de datos de rutinas
+        when(indice){
+            0->  baseDatos.eliminarRutinaUsuario(context, currentUser!!.routine1!!.id)
+            1->  baseDatos.eliminarRutinaUsuario(context, currentUser!!.routine2!!.id)
+            2->  baseDatos.eliminarRutinaUsuario(context, currentUser!!.routine3!!.id)
+            3->  baseDatos.eliminarRutinaUsuario(context, currentUser!!.routine4!!.id)
+            4->  baseDatos.eliminarRutinaUsuario(context, currentUser!!.routine5!!.id)
+        }
+
+        var indiceS = 0
+        //primero movemos todas las rutinas que estem de indices superior a la eliminar un indice más abajo.
+        while(indiceS < currentUser!!.numberOfRoutines-1){
+            when(indiceS){
+                0 -> {
+                    if(indiceS >= indice){
+                        currentUser!!.routine1 = currentUser!!.routine2
+                    }
+
+                }
+                1 -> {
+                    if(indiceS >= indice){
+                        currentUser!!.routine2 = currentUser!!.routine3
+                    }
+
+                }
+                2 -> {
+                    if(indiceS >= indice){
+                        currentUser!!.routine3 = currentUser!!.routine4
+                    }
+
+                }
+                3 -> {
+                    if(indiceS >= indice){
+                        currentUser!!.routine4= currentUser!!.routine5
+                    }
+
+                }
+
+            }
+            indiceS++
+        }
+
+        //Eliminamos la última (que ya está añadida en otro sitio)
+        when(currentUser!!.numberOfRoutines - 1){
+            0 -> currentUser!!.routine1 = null
+            1 -> currentUser!!.routine2 = null
+            2 -> currentUser!!.routine3 = null
+            3 -> currentUser!!.routine4 = null
+            4 -> currentUser!!.routine5 = null
+        }
+
+
+        currentUser!!.numberOfRoutines-- //Reducimos el número de rutinas en 1.
+        delateRoutineDataBase(context)
+
+    }
+
+    fun delateRoutineDataBase(context : Context){
+        var rid1 : Int = 0
+        var rid2 : Int = 0
+        var rid3 : Int = 0
+        var rid4 : Int = 0
+        var rid5 : Int = 0
+        var indice = 0
+        while(indice<currentUser!!.numberOfRoutines){
+            when(indice){
+                0-> rid1 = currentUser!!.routine1!!.id
+                1-> rid2 = currentUser!!.routine2!!.id
+                2-> rid3 = currentUser!!.routine3!!.id
+                3-> rid4 = currentUser!!.routine4!!.id
+                4-> rid5 = currentUser!!.routine5!!.id //AUnque nunca deberia de tener este valor
+            }
+            indice++
+        }
+
+        baseDatos.editarUsuario(context, currentUser!!.userName, currentUser!!.name,currentUser!!.password,currentUser!!.email,
+            currentUser!!.phoneNumber.toString(),
+            currentUser!!.age.toString(),
+            currentUser!!.sex.toString(),
+            currentUser!!.weight.toString(),
+            currentUser!!.height.toString(),rid1,rid2,rid3,rid4,rid5)
+    }
+
 
 
 

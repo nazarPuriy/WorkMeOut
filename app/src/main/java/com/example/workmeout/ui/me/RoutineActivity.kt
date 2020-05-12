@@ -27,7 +27,6 @@ class RoutineActivity : AppCompatActivity() {
     lateinit var editTitle : EditText
     lateinit var editDescription : EditText
 
-
     lateinit var add_button:FloatingActionButton
     lateinit var search_button:FloatingActionButton
     lateinit var add_people_button:FloatingActionButton
@@ -96,6 +95,7 @@ class RoutineActivity : AppCompatActivity() {
             editDescription.isEnabled = false
             editTitle.isEnabled = false
             indexRoutine = intent.getIntExtra("position", -1)
+
             btnsave.isEnabled = false
             refreshRoutine()
         }else{
@@ -139,10 +139,25 @@ class RoutineActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart(){
+        super.onStart()
+        init()
+    }
 
+    fun init(){
+        val saveBtn : Button = findViewById(R.id.btnsave)
+        val delateBtn : Button = findViewById(R.id.dlt)
+        if(isNew){
+            saveBtn.visibility = View.VISIBLE
+            delateBtn.visibility = View.INVISIBLE
+        }else{
+            saveBtn.visibility = View.INVISIBLE
+            delateBtn.visibility = View.VISIBLE
+        }
+    }
 
-    fun delete(v: View) {//TODO
-        Toast.makeText(this, "Delete this routine", Toast.LENGTH_SHORT).show()
+    fun delete(v: View) {
+        Controlador.deleteRoutine(v.context,indexRoutine)
         finish()
     }
 
@@ -233,8 +248,12 @@ class RoutineActivity : AppCompatActivity() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, calcDays())
             btnsave.isEnabled = false
+            indexRoutine = Controlador.currentUser!!.numberOfRoutines -1
+            isNew = false
         }else{//TODO editar rutina de usuario
+
         }
         exists = true
+        init()
     }
 }

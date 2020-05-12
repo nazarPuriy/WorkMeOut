@@ -207,17 +207,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/dlt"
-        style="@style/buttonDefault"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:onClick="delete"
-        android:text="Delete"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/edt_description"
         android:layout_width="0dp"
@@ -232,18 +221,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <Button
-        android:id="@+id/btnsave"
-        style="@style/buttonDefault"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:onClick="addRoutine"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="@+id/dlt"
-        app:layout_constraintStart_toEndOf="@+id/dlt"
-        app:layout_constraintTop_toTopOf="@+id/dlt"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/dlt"
+            style="@style/buttonDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="delete"
+            android:text="Delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnsave"
+            style="@style/buttonDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addRoutine"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

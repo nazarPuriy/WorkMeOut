@@ -260,10 +260,6 @@ class RoutineDataBase {
         requestQ = Volley.newRequestQueue(context)
         requestQ.add(stringRequest);
     }
-
-
-
-
     //Método que utilizamos para buscar rutinas
     fun buscarRutina(context: Context, id: Int, index:Int) {
 
@@ -390,5 +386,28 @@ class RoutineDataBase {
 
     }
 
+
+    //Demom llamamos solo al meter ejercicio
+    fun eliminarRutinaUsuario(
+        context: Context,
+        id:Int
+    ) {
+
+        val URL: String = domain + "/websercv/routine/eliminarUsuario.php"
+        val stringRequest = object : StringRequest(Request.Method.POST, URL,
+            Response.Listener<String> { response ->
+                Toast.makeText(context, "Edit de rutina", Toast.LENGTH_SHORT).show()
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
+            }) {
+            override fun getParams(): Map<String, String> {
+                var parametros = HashMap<String, String>()
+                parametros["id"] = id.toString()
+                return parametros
+            }
+        }
+        requestQ = Volley.newRequestQueue(context)
+        requestQ.add(stringRequest);
+    }
 
 }

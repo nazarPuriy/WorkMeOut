@@ -150,10 +150,11 @@ object Controlador{
     fun guardarEjercioRutina(exercise:Exercise, index:Int, context: Context){
 
         baseDatos.guardarEjercicioUsuario(exercise, index, context)
+        /*
         getRoutines().get(index - 1).exercises_class.add(exercise)
         if(context is SearchExercises){
             context.finish()
-        }
+        }*/
 
     }
 

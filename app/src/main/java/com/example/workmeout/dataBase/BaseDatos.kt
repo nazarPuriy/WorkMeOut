@@ -43,8 +43,7 @@ class BaseDatos {
     }
 
     fun guardarEjercicioUsuario(exercise: Exercise, indexRoutine: Int, context: Context){
-        exerciseDataBase.guardarEjercicioUsuario(context, exercise.classId, exercise.reps, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, indexRoutine)
+        exerciseDataBase.guardarEjercicioUsuario(exercise, indexRoutine, context)
     }
 
     //Métode que guarda una rutina a la base de dades general

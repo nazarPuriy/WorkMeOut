@@ -208,7 +208,7 @@ class ExerciseDataBase {
         var weights: ArrayList<Int> = ArrayList()
         var tmp:String
 
-        val URL : String = domain + "/websercv/exercise/buscarUsuario.php?id=" + id//todo
+        val URL : String = domain + "/websercv/exercise/buscarUsuario.php?id=" + id
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject

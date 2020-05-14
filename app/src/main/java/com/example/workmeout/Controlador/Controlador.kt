@@ -161,6 +161,9 @@ object Controlador{
     //Luego enviara la rutina al usuario
     fun registerRoutine(context: Context, name: String,description: String,exercise1: Int, exercise2: Int,exercise3: Int,exercise4: Int,exercise5: Int,exercise6: Int,exercise7: Int,exercise8: Int,exercise9: Int,exercise10: Int,exercise11: Int, exercise12: Int, exercise13: Int,exercise14: Int,exercise15: Int,days : Int){
         var routine : Routine = Routine(0,0,name,description,days)
+
+        for(x in 0 until 15){routine.exercises.add(0)}
+
         postRoutine(context,routine, currentUser!!.numberOfRoutines)
         baseDatos.guardarRutina(context,name,description,exercise1,exercise2,exercise3,exercise4,exercise5,exercise6,exercise7,exercise8,exercise9,exercise10,exercise11,exercise12,exercise13,exercise14,exercise15,days)
     }
@@ -238,7 +241,9 @@ object Controlador{
 
         for(x in routine.exercises){
 
-            baseDatos.buscarEjercicioUsuario(context,x, routine)
+            if(x != 0) {
+                baseDatos.buscarEjercicioUsuario(context, x, routine)
+            }
 
         }
 
@@ -296,6 +301,8 @@ object Controlador{
                 }
             }
         }
+
+        var u:User = currentUser!!//todo quitar esta wea
 
     }
 
@@ -421,6 +428,27 @@ object Controlador{
             currentUser!!.sex.toString(),
             currentUser!!.weight.toString(),
             currentUser!!.height.toString(),rid1,rid2,rid3,rid4,rid5)
+    }
+
+    fun editRoutineDays(indexRoutine: Int, days: Int, context: Context){
+
+        var routine: Routine = currentUser!!.routine1!!
+        when(indexRoutine){
+
+            0 -> routine = currentUser!!.routine1!!
+            1 -> routine = currentUser!!.routine2!!
+            2 -> routine = currentUser!!.routine3!!
+            3 -> routine = currentUser!!.routine4!!
+            4 -> routine = currentUser!!.routine5!!
+
+        }
+
+        routine.days = days
+
+        baseDatos.editarRutinaUsuario(context, routine.id, routine.classid, routine.exercises[0], routine.exercises[1], routine.exercises[2], routine.exercises[3],
+        routine.exercises[4], routine.exercises[5], routine.exercises[6], routine.exercises[7], routine.exercises[8], routine.exercises[9], routine.exercises[10],
+        routine.exercises[11], routine.exercises[12], routine.exercises[13], routine.exercises[14], days)
+
     }
 
 

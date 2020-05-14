@@ -120,6 +120,7 @@ class BaseDatos {
         routineDataBase.editarRutinaUsuario(context,id,classid,exercise1,exercise2,exercise3,exercise4,exercise5,exercise6,exercise7,exercise8,exercise9,exercise10,exercise11,exercise12,exercise13,exercise14,exercise15,days)
     }
 
+
     fun editarRutina(
         context: Context,
         id:Int,

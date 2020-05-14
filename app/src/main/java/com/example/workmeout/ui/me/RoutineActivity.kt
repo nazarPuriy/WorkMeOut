@@ -77,6 +77,12 @@ class RoutineActivity : AppCompatActivity() {
         sun = findViewById(R.id.SUN)
         days.add(sun)
 
+        for(x in days){
+            x.setOnCheckedChangeListener { buttonView, isChecked ->
+                update()
+            }
+        }
+
         editTitle = findViewById(R.id.title)
         editDescription = findViewById(R.id.edt_description)
         isNew = intent.getBooleanExtra("isNew", false)
@@ -158,6 +164,10 @@ class RoutineActivity : AppCompatActivity() {
             textDescription.visibility = View.INVISIBLE
             textTitle.visibility = View.INVISIBLE
 
+            for(x in days){
+                x.isEnabled = false
+            }
+
         }else{
             saveBtn.visibility = View.INVISIBLE
             delateBtn.visibility = View.VISIBLE
@@ -167,6 +177,11 @@ class RoutineActivity : AppCompatActivity() {
             textTitle.setText(editTitle.text.toString())
             textDescription.visibility = View.VISIBLE
             textTitle.visibility = View.VISIBLE
+
+            for(x in days){
+                x.isEnabled = true
+            }
+
             refreshRoutine()
         }
     }
@@ -247,8 +262,23 @@ class RoutineActivity : AppCompatActivity() {
         return sum
     }
 
-    private fun decodeDays(days: Int) {
-        //TODO poner los checkboxes como indica el int days
+    private fun decodeDays(n: Int) {
+
+        var tmp: Int = n
+
+        for (x in days){
+
+            x.isChecked = (tmp % 2 == 1)
+            tmp /= 2
+
+        }
+
+
+    }
+
+    fun update(){
+        Controlador.editRoutineDays(indexRoutine, calcDays(), this)
+        //Toast.makeText(this, indexRoutine.toString(), Toast.LENGTH_SHORT).show()
     }
 
     fun save(){

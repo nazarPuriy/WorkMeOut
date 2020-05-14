@@ -366,9 +366,7 @@ class RoutineDataBase {
                     for(x in 1..15){
                         tmp = jsonObject.getString("exercise$x")
 
-                        if(tmp != "0") {
-                            rutina.exercises.add(tmp.toInt())
-                        }
+                        rutina.exercises.add(tmp.toInt())
                     }
 
 

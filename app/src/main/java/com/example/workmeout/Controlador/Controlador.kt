@@ -9,6 +9,7 @@ import com.example.workmeout.dataBase.BaseDatos
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
+import com.example.workmeout.ui.identification.LoginActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 import com.example.workmeout.ui.me.SearchExercises
 import kotlin.math.max
@@ -18,6 +19,9 @@ object Controlador{
 
     var baseDatos : BaseDatos = BaseDatos()
     var currentUser : User? = null
+    var currentUserRoutineIds: Int = 0
+    var readyRoutines: Int = 0
+    var passwordInput = ""
 
     //Guarda un usuario con los datos introducidos en la base de datos.
     fun register(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
@@ -27,7 +31,11 @@ object Controlador{
     //Hace una petición de loguear el usuario. La base de datos llamará la función loguear una vez haya respuesta o un Timeout.
     fun loginRequest(context : Context,username:String,password:String){
         currentUser = null //Nos asseguramos de que no haya ningún usuario activo.
+        readyRoutines = 0
+        currentUserRoutineIds = 0
         baseDatos.buscarUsuario(context,username,password)
+        passwordInput = password
+        if(context is LoginActivity){context.loginbtn.isEnabled = false}
     }
 
     fun editarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
@@ -59,6 +67,7 @@ object Controlador{
 
     //Loguea el usuario. Es llamada des de la base de datos. //TODO que se llame mas tarde
     fun login(context:Context,password:String){
+        if(context is LoginActivity){context.loginbtn.isEnabled = true}
         if (currentUser == null) {
             Toast.makeText(context, "Incorrect username", Toast.LENGTH_SHORT).show()
         } else {
@@ -111,34 +120,29 @@ object Controlador{
             5 -> {routine = currentUser!!.routine5!!}
         }
 
-        when(routine!!.numberOfExercises){
+        routine.exercises[routine.idCount()] = id
+        routine.exercisesDesc[routine.idCount()] = classid
+        var a = 0//todo quitar
+        Toast.makeText(context, routine.idCount().toString(), Toast.LENGTH_SHORT).show()//todo
 
-
+        when(routine!!.idCount() - 1){
 
             0->{
                 baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,id,0,0,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
                 baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,classid,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-                routine.exercises.add(routine.exercises.lastIndex+1,id)
-                routine.exercisesDesc.add(routine.exercisesDesc.lastIndex+1,classid)
                 routine.numberOfExercises++
             }
             1->{
             baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],id,0,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
             baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],classid,0,0,0,0,0,0,0,0,0,0,0,0,0)
-            routine.exercises.add(routine.exercises.lastIndex+1,id)
-            routine.exercisesDesc.add(routine.exercisesDesc.lastIndex+1,classid)
             routine!!.numberOfExercises++
             }2->{
             baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],routine.exercises[1],id,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
             baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],routine.exercisesDesc[1],classid,0,0,0,0,0,0,0,0,0,0,0,0)
-            routine.exercises.add(routine.exercises.lastIndex+1,id)
-            routine.exercisesDesc.add(routine.exercisesDesc.lastIndex+1,classid)
             routine!!.numberOfExercises++
             }3->{
             baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],routine.exercises[1],routine.exercises[2],id,0,0,0,0,0,0,0,0,0,0,0,routine.days)
             baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],routine.exercisesDesc[1],routine.exercisesDesc[2],classid,0,0,0,0,0,0,0,0,0,0,0)
-            routine.exercises.add(routine.exercises.lastIndex+1,id)
-            routine.exercisesDesc.add(routine.exercisesDesc.lastIndex+1,classid)
             routine!!.numberOfExercises++
         }
 
@@ -158,6 +162,7 @@ object Controlador{
         var routine : Routine = Routine(0,0,name,description,days)
 
         for(x in 0 until 15){routine.exercises.add(0)}
+        for(x in 0 until 15){routine.exercisesDesc.add(0)}
 
         postRoutine(context,routine, currentUser!!.numberOfRoutines)
         baseDatos.guardarRutina(context,name,description,exercise1,exercise2,exercise3,exercise4,exercise5,exercise6,exercise7,exercise8,exercise9,exercise10,exercise11,exercise12,exercise13,exercise14,exercise15,days)
@@ -167,18 +172,23 @@ object Controlador{
     fun addRoutinesToUserRequest(context : Context,id1 : Int, id2 : Int, id3 : Int, id4 : Int, id5 : Int){
         if(id1 != 0){
             baseDatos.buscarRutinaUsuario(context,id1, 0)
+            currentUserRoutineIds++
         }
         if(id2 != 0){
             baseDatos.buscarRutinaUsuario(context,id2, 1)
+            currentUserRoutineIds++
         }
         if(id3 != 0){
             baseDatos.buscarRutinaUsuario(context,id3, 2)
+            currentUserRoutineIds++
         }
         if(id4 != 0){
             baseDatos.buscarRutinaUsuario(context,id4, 3)
+            currentUserRoutineIds++
         }
         if(id5 != 0) {
             baseDatos.buscarRutinaUsuario(context,id5, 4)
+            currentUserRoutineIds++
         }
 
     }
@@ -207,27 +217,32 @@ object Controlador{
     }
 
     //Acaba de meter en las rutinas que se estan cargando los datos.
-    fun fillRoutine(name : String, description : String, idx:Int){
+    fun fillRoutine(name : String, description : String, idx:Int, context: Context){
         when(idx){
             0-> {
                 currentUser!!.routine1!!.name = name
                 currentUser!!.routine1!!.description = description
+                currentUser!!.routine1!!.notifyExerciseReady(context)
             }
             1-> {
                 currentUser!!.routine2!!.name = name
                 currentUser!!.routine2!!.description = description
+                currentUser!!.routine2!!.notifyExerciseReady(context)
             }
             2-> {
                 currentUser!!.routine3!!.name = name
                 currentUser!!.routine3!!.description = description
+                currentUser!!.routine3!!.notifyExerciseReady(context)
             }
             3-> {
                 currentUser!!.routine4!!.name = name
                 currentUser!!.routine4!!.description = description
+                currentUser!!.routine4!!.notifyExerciseReady(context)
             }
             4-> {
                 currentUser!!.routine5!!.name = name
                 currentUser!!.routine5!!.description = description
+                currentUser!!.routine5!!.notifyExerciseReady(context)
             }
         }
     }
@@ -445,8 +460,14 @@ object Controlador{
 
     }
 
+    fun notifyRoutineReady(context: Context) {
 
 
+        if(readyRoutines == currentUserRoutineIds){
+            login(context, passwordInput)
+        }
+        readyRoutines++
+    }
 
 
 }

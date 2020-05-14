@@ -105,7 +105,8 @@ class UserDataBase {
 
                     Controlador.currentUser = User(username,name,password,email,phoneNumber,age,gender,weight,height)
                     Controlador.addRoutinesToUserRequest(context,rid1,rid2,rid3,rid4,rid5)
-                    Controlador.login(context,oldPassword);//TODO ESTO NO VA AQUI
+                    Controlador.notifyRoutineReady(context)
+                    //Controlador.login(context,oldPassword);//TODO ESTO NO VA AQUI
                 }
             }, Response.ErrorListener { error->
                 Controlador.login(context,oldPassword);

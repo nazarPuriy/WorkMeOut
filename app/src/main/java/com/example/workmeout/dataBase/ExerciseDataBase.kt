@@ -13,6 +13,7 @@ import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import com.example.workmeout.ui.me.SearchExercises
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -91,7 +92,8 @@ class ExerciseDataBase {
         if(exercise.weights.size >=7){day7 = exercise.weights.get(6).toString()}
 
         Controlador.getRoutines().get(indexRoutine - 1).exercises_class.add(exercise)
-        if(context is Activity){
+
+        if(context is SearchExercises){
             context.finish()
         }
 
@@ -185,6 +187,7 @@ class ExerciseDataBase {
                     description = jsonObject.getString("description")
                     ejercicioUsuaro.name = name
                     ejercicioUsuaro.description = description
+                    ejercicioUsuaro.routine.notifyExerciseReady(context)
 
                 }
             }, Response.ErrorListener { error->
@@ -228,6 +231,7 @@ class ExerciseDataBase {
                     }
 
                     val ejercicioUsuario:Exercise = Exercise(id, classId,"", reps, "", weight, days, weights)
+                    ejercicioUsuario.routine = routine
                     buscarEjercicio(context, ejercicioUsuario)
                     routine.exercises_class.add(ejercicioUsuario)
                 }

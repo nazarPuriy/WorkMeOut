@@ -305,7 +305,7 @@ class RoutineDataBase {
                     exercise14 = jsonObject.getString("exercise14").toInt()
                     exercise15 = jsonObject.getString("exercise15").toInt()
 
-                    Controlador.fillRoutine(name,description, index)
+                    Controlador.fillRoutine(name, description, index, context)
                 }
             }, Response.ErrorListener { error ->
 

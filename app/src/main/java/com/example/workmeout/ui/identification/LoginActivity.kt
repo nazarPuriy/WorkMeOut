@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
@@ -18,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var editTextUsername: EditText
     private lateinit var editTextPassword: EditText
     private lateinit var mAuth: FirebaseAuth
+    lateinit var loginbtn: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +27,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         editTextUsername = findViewById(R.id.edttxt_user_login)
         editTextPassword = findViewById(R.id.edttxt_password_login)
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance()
+        loginbtn = findViewById(R.id.btn_login)
     }
 
      //Function called when login button is clicked

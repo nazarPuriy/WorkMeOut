@@ -7,7 +7,7 @@ import android.widget.*
 import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 
-class ExerciseDescriptionActivity : AppCompatActivity() {
+class ExerciseDescriptionActivity : AppCompatActivity() {//TODO repeticiones
     private val EDITAR = 1
     private var modoHint = false
     private var modo = 0
@@ -91,7 +91,6 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
 
                 modo=0
                 descriptionMode()
-                //TODO crear toda la lógica de verificar información y añadir el objeto o editarlo.
             }else{
                 Toast.makeText(this,"Some fields are still empty",Toast.LENGTH_SHORT).show()
             }

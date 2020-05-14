@@ -130,7 +130,6 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
     }
 
 
-    //TODO Have to save the new data in the database
     fun save(view:View){
 
         var userNameString: String = Controlador.currentUser!!.userName

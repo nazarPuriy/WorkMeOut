@@ -93,7 +93,6 @@ class MeFragment : Fragment() {
 
         })
 
-        //Toast.makeText(context, Controlador.currentUser!!.routine1.exercises_class.get(0).name, Toast.LENGTH_SHORT).show()//todo quitar
 
         init(root)
         return root

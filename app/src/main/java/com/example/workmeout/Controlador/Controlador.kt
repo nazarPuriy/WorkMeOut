@@ -142,7 +142,7 @@ object Controlador{
             routine!!.numberOfExercises++
         }
 
-            //TODO acabar mobiendo los indices hasta 15
+            //TODO acabar moviendo los indices hasta 15
 
         }
     }
@@ -150,11 +150,6 @@ object Controlador{
     fun guardarEjercioRutina(exercise:Exercise, index:Int, context: Context){
 
         baseDatos.guardarEjercicioUsuario(exercise, index, context)
-        /*
-        getRoutines().get(index - 1).exercises_class.add(exercise)
-        if(context is SearchExercises){
-            context.finish()
-        }*/
 
     }
 
@@ -302,7 +297,6 @@ object Controlador{
             }
         }
 
-        var u:User = currentUser!!//todo quitar esta wea
 
     }
 
@@ -332,7 +326,7 @@ object Controlador{
         baseDatos.matchExercise(context, name, adapter)
     }
 
-    fun getRoutines(): List<Routine>{//TODO arreglar esta mierda
+    fun getRoutines(): List<Routine>{
 
         var lista: ArrayList<Routine> = ArrayList()
 

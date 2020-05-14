@@ -78,6 +78,7 @@ class RoutineActivity : AppCompatActivity() {
         days.add(sun)
 
         for(x in days){
+
             x.setOnCheckedChangeListener { buttonView, isChecked ->
                 update()
             }
@@ -90,12 +91,12 @@ class RoutineActivity : AppCompatActivity() {
         rv = findViewById(R.id.rv_1)
         sa = ExerciseRoutineAdapter()
 
-        sa.submitRoutine(Routine(0, 0, "", "", 0))//todo
+        sa.submitRoutine(Routine(0, 0, "", "", 0))
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(this)
 
         if(!isNew){
-            exists = true//TODO
+            exists = true
             editDescription.isEnabled = false
             editTitle.isEnabled = false
             indexRoutine = intent.getIntExtra("position", -1)
@@ -204,11 +205,6 @@ class RoutineActivity : AppCompatActivity() {
         val searchIntent = Intent(this, SearchExercises::class.java)
         searchIntent.putExtra("routine", indexRoutine + 1)
         startActivity(searchIntent)
-    }
-
-    //TODO days buen formato
-    fun addRoutine(view:View){
-        Controlador.registerRoutine(view.context,editTitle.text.toString(),editDescription.text.toString(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100)
     }
 
     fun clickAdd(){

@@ -13,4 +13,5 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
     var weight: Int = weight
     var days: ArrayList<Date> = days
     var weights: ArrayList<Int> = weights
+
 }

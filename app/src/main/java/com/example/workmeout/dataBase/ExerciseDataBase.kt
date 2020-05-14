@@ -186,7 +186,6 @@ class ExerciseDataBase {
                     ejercicioUsuaro.name = name
                     ejercicioUsuaro.description = description
 
-                    //TODO llamar al controlador para que lo muestre
                 }
             }, Response.ErrorListener { error->
 

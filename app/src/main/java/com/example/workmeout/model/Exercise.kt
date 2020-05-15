@@ -1,5 +1,7 @@
 package com.example.workmeout.model
 
+import android.text.format.DateUtils
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -116,6 +118,10 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
      */
     private fun searchNewPosition(date:Date):Int{
 
+        if(days.size == 0){
+            return 0
+        }
+
         if(date.after(days[days.size-1])){
             return days.size
         }
@@ -126,4 +132,51 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
         }
         return -1; //No passarà
     }
+
+    fun weightAtDate(date: Date): Int {
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+
+        for(x in 0 until days.size){
+
+            if(formatter.format(days.get(x)).equals(formatter.format(date))){
+                return weights.get(x)
+            }
+        }
+
+        return 0
+    }
+
+    fun isDoneAtDate(date: Date): Boolean {
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+
+        for(d: Date in days){
+            if(formatter.format(d).equals(formatter.format(date))){
+                return true
+            }
+        }
+
+        return false
+    }
+
+    fun removeEvent(date: Date) {
+
+        var index = -1
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+
+        for(x in 0 until days.size){
+            if(formatter.format(days.get(x)).equals(formatter.format(date))){
+                index = x
+            }
+        }
+
+        if(index == -1){
+            return
+        }
+
+        days.removeAt(index)
+        weights.removeAt(index)
+
+    }
+
+
 }

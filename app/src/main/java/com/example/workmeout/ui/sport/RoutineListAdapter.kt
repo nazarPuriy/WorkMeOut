@@ -5,9 +5,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.Controlador.Controlador
@@ -15,13 +12,13 @@ import com.example.workmeout.R
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.me.RoutineActivity
 import kotlinx.android.synthetic.main.routine_element.view.*
-import kotlinx.android.synthetic.main.sport_card.view.*
+import java.util.*
 
 class RoutineListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     lateinit var context: Context
-    private lateinit var routines:List<Routine>
     private lateinit var sf:SportFragment
+    private lateinit var date: Date
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var v: View = LayoutInflater.from(parent.getContext()).inflate(R.layout.routine_element, parent, false)
@@ -30,16 +27,12 @@ class RoutineListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return vh
     }
 
-    fun submitRoutines(routines: List<Routine>){
-        this.routines= routines
-    }
-
     fun submitFragment(sf:SportFragment){
         this.sf = sf
     }
 
     override fun getItemCount(): Int {
-        return routines.size
+        return Controlador.getRoutinesOnDate(date).size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -47,11 +40,15 @@ class RoutineListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
 
             is RoutineItemViewHolder ->{
-                holder.bind(routines.get(position))
+                holder.bind(Controlador.getRoutinesOnDate(date).get(position), date)
             }
         }
 
 
+    }
+
+    fun submitDate(date: Date) {
+        this.date =date
     }
 
     class RoutineItemViewHolder constructor(itemView: View, sf:SportFragment) : RecyclerView.ViewHolder(itemView) {
@@ -59,13 +56,15 @@ class RoutineListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val sf: SportFragment = sf
         val routineRecycler = itemView.rv_routine
         val titleTv = itemView.tv_routineTitle
-        fun bind(routine: Routine) {
+
+        fun bind(routine: Routine, date: Date) {
 
             routineRecycler.layoutManager = LinearLayoutManager(itemView.context)
             var adapter: ExerciseAdapter = ExerciseAdapter()
             routineRecycler.adapter = adapter
             adapter.submitRoutine(routine)
             adapter.submitFragment(sf)
+            adapter.submitDate(date)
             adapter.notifyDataSetChanged()
 
             titleTv.setText(routine.name)

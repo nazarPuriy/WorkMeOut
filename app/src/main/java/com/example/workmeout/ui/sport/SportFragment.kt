@@ -27,6 +27,7 @@ class SportFragment : Fragment() {
     lateinit var rv: RecyclerView
     lateinit var next: ImageButton
     lateinit var previous: ImageButton
+    lateinit var routinesText: TextView
 
 
     val progressMultiplier: Int = 1000
@@ -47,6 +48,7 @@ class SportFragment : Fragment() {
         reps = root.findViewById(R.id.reps)
         next = root.findViewById(R.id.right_arrow)
         previous = root.findViewById(R.id.left_arrow)
+        routinesText = root.findViewById(R.id.routine)
 
 
         rv = root.findViewById<RecyclerView>(R.id.rv_1)
@@ -82,11 +84,31 @@ class SportFragment : Fragment() {
     }
 
     private fun getDoneReps(): Int {
-        return 3//TODO
+
+        var total = 0
+
+        for(routine in Controlador.getRoutinesOnDate(date)){
+            for (exercise in routine.exercises_class){
+                if(exercise.isDoneAtDate(date)){
+                    total += exercise.reps
+                }
+            }
+        }
+
+        return total
     }
 
     private fun getTotalReps(): Int {
-        return 10//TODO
+
+        var total = 0
+
+        for(routine in Controlador.getRoutinesOnDate(date)){
+            for (exercise in routine.exercises_class){
+                total += exercise.reps
+            }
+        }
+
+        return total
     }
 
     private fun next(){
@@ -100,12 +122,11 @@ class SportFragment : Fragment() {
 
     fun refresh(){
 
-        var routines:List<Routine> = Controlador.getRoutinesOnDate(date)
-        sa.submitRoutines(routines)
+        sa.submitDate(date)
         sa.notifyDataSetChanged()
 
-        val formatter = SimpleDateFormat()
-
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        routinesText.setText("Routines on " + formatter.format(date))
         notifyBar()
 
     }

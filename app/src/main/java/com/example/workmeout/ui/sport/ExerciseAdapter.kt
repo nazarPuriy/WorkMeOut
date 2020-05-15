@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.workmeout.Controlador.Controlador
 import kotlinx.android.synthetic.main.sport_card.view.*
 
 
@@ -15,10 +16,12 @@ import kotlinx.android.synthetic.main.sport_card.view.*
 import com.example.workmeout.R
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
+import java.util.*
 
 
 class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private lateinit var date: Date
     lateinit var context: Context
     private lateinit var routine: Routine
     private lateinit var sf:SportFragment
@@ -50,11 +53,15 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
 
             is SportViewHolder ->{
-                holder.bind(routine.exercises_class.get(position))
+                holder.bind(routine.exercises_class.get(position), date)
             }
         }
 
 
+    }
+
+    fun submitDate(date: Date) {
+        this.date = date
     }
 
     class SportViewHolder constructor(itemView: View, sf:SportFragment) : RecyclerView.ViewHolder(itemView) {
@@ -67,13 +74,22 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val sf: SportFragment = sf
 
 
-        fun bind(exercise: Exercise) {
-            currentWeight.value = exercise.weight
+        fun bind(exercise: Exercise, date: Date) {
+            currentWeight.value = exercise.weightAtDate(date)
+            cb.isChecked = exercise.isDoneAtDate(date)
             name.text = exercise.name
             reps.text = "Reps: " + exercise.reps.toString()
+            currentWeight.isEnabled = !exercise.isDoneAtDate(date)
+
             cb.setOnCheckedChangeListener { buttonView, isChecked ->
-                //sf.notifyBar()
-                //todo
+                if(isChecked){
+                    exercise.addEvent(date, currentWeight.value)
+                } else {
+                    exercise.removeEvent(date)
+                }
+                Controlador.editUserExercise(exercise, itemView.context)
+                sf.notifyBar()
+                currentWeight.isEnabled = !cb.isChecked
             }
 
             card.setOnClickListener(View.OnClickListener {
@@ -81,6 +97,15 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 intent.putExtra("exerciseId", exercise.id)
                 itemView.context.startActivity(intent)
             })
+
+            currentWeight.setOnValueChangedListener{ numberPicker: NumberPicker, i: Int, i1: Int ->
+
+                if(cb.isChecked){
+                    exercise.addEvent(date, currentWeight.value)
+                    Controlador.editUserExercise(exercise, itemView.context)
+                }
+
+            }
         }
 
     }

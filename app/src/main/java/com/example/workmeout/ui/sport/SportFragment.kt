@@ -30,7 +30,7 @@ class SportFragment : Fragment() {
     lateinit var routinesText: TextView
 
 
-    val progressMultiplier: Int = 1000
+    val progressMultiplier: Int = 10000
     var date: Date = Date()
     val sa: RoutineListAdapter = RoutineListAdapter()
 

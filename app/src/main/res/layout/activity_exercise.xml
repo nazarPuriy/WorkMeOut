@@ -33,15 +33,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textReps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textExerciseName" />
-
                 <Button
                     android:id="@+id/button"
                     android:layout_width="match_parent"
@@ -58,7 +49,7 @@
                     android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textReps" />
+                    app:layout_constraintTop_toBottomOf="@+id/textExerciseName" />
 
                 <TextView
                     android:id="@+id/textExerciseName"
@@ -97,6 +88,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5">
@@ -109,8 +101,19 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
                     android:theme="@style/DefaultNumberPickerTheme"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></NumberPicker>
+
+                <NumberPicker
+                    android:id="@+id/np_reps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:theme="@style/DefaultNumberPickerTheme"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_reps"
                     app:layout_constraintTop_toTopOf="parent"></NumberPicker>
 
                 <Button
@@ -119,14 +122,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:onClick="cambiarPeso"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:text="Change weight"
-                    app:layout_constraintBottom_toBottomOf="@+id/numpicker_1"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/numpicker_1"
-                    app:layout_constraintTop_toTopOf="@+id/numpicker_1"
-                    app:layout_constraintVertical_bias="0.69" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/text_reps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="Reps:"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

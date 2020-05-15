@@ -157,6 +157,11 @@ class RoutineActivity : AppCompatActivity() {
         editTitle = findViewById(R.id.title)
         textTitle = findViewById(R.id.txt_tittle)
         textDescription = findViewById(R.id.txt_description)
+
+        if(isOpen){
+            clickAdd()
+        }
+
         if(!exists){
             saveBtn.visibility = View.VISIBLE
             delateBtn.visibility = View.INVISIBLE
@@ -223,6 +228,9 @@ class RoutineActivity : AppCompatActivity() {
                 add_button.startAnimation(fabRClockwise)
 
                 isOpen = false
+            }
+            else if(Controlador.getRoutines().get(indexRoutine).numberOfExercises >= 15){
+                Toast.makeText(this, "Routines can have a maximum of 15 exercises", Toast.LENGTH_SHORT).show()
             }
             else {
 

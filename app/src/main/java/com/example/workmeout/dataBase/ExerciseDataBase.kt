@@ -23,6 +23,7 @@ import kotlin.collections.HashMap
 class ExerciseDataBase {
 
     val domain = "http://83.59.82.217:7070"
+    val dateFormatter = SimpleDateFormat("ddMMyyyy")
 
     //Variable que se utilitza para acceder a la base de datos.
     lateinit var requestQ : RequestQueue
@@ -225,7 +226,7 @@ class ExerciseDataBase {
                         tmp = jsonObject.getString("day$x")
                         if(tmp != "0"){
 
-                            days.add( SimpleDateFormat("dd/MM/yyyy").parse(tmp))
+                            days.add( dateFormatter.parse(tmp))
                             weights.add(jsonObject.getString("weight$x").toInt())
                         }
                     }
@@ -244,6 +245,44 @@ class ExerciseDataBase {
 
         requestQ= Volley.newRequestQueue(context);
         requestQ.add(jsonArrayRequest)
+
+    }
+
+    fun editUserExercise(exercise: Exercise, context: Context) {
+
+        val URL: String = domain + "/websercv/exercise/editarUsuario.php"
+        val stringRequest = object : StringRequest(Request.Method.POST, URL,
+            Response.Listener<String> { response ->
+                Toast.makeText(context, "Edit de ejercicio", Toast.LENGTH_SHORT).show()
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
+            }) {
+            override fun getParams(): Map<String, String> {
+
+                var parametros = HashMap<String, String>()
+                parametros["id"] = exercise.id.toString()
+                parametros["classid"] = exercise.classId.toString()
+                parametros["reps"] = exercise.reps.toString()
+                parametros["weight"] = exercise.weight.toString()
+
+                for(x in 0 until 7){
+
+                    if(x < exercise.days.size){
+                        parametros["day" + (x+1).toString()] = dateFormatter.format(exercise.days.get(x))
+                        parametros["weight" + (x+1).toString()] = exercise.weights.get(x).toString()
+                    }
+                    else{
+                        parametros["day" + (x+1).toString()] = "0"
+                        parametros["weight" + (x+1).toString()] = "0"
+                    }
+                }
+
+
+                return parametros
+            }
+        }
+        requestQ = Volley.newRequestQueue(context)
+        requestQ.add(stringRequest);
 
     }
 

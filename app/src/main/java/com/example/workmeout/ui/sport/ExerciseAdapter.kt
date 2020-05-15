@@ -18,7 +18,7 @@ import com.example.workmeout.R
 
 
 
-class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {//TODO exercise new
 
     lateinit var context: Context
     private lateinit var routineOLD: RoutineOLD

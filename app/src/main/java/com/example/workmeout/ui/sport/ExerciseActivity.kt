@@ -11,7 +11,9 @@ import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.graphics.component3
+import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
+import com.example.workmeout.model.Exercise
 import com.example.workmeout.ui.MainActivity
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
@@ -23,30 +25,34 @@ class ExerciseActivity : AppCompatActivity() {
     lateinit var changing: DataPoint;
     lateinit var cambiador: NumberPicker;
     lateinit var botoChange: Button;
-    lateinit var tvReps: TextView;
     lateinit var graphView: GraphView;
     lateinit var punts: Array<DataPoint>;
     lateinit var series: PointsGraphSeries<DataPoint>
+    lateinit var npReps: NumberPicker
     lateinit var exName: String
+    lateinit var exercise: Exercise
     var exWeight: Double = 0.toDouble()
     var exReps: Int = 0
     val calendar: Calendar = Calendar.getInstance();
     val today: Date = calendar.time;
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        exName = getIntent().getStringExtra("exName")
-        exWeight = getIntent().getDoubleExtra("exWeight",0.0)
-        exReps = getIntent().getIntExtra("exReps", 0)
+        exercise = Controlador.findExerciseById(getIntent().getIntExtra("exerciseId", 0))
+        exName = exercise.name
+        exWeight = exercise.weight.toDouble()
+        exReps = exercise.reps
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
         tvName = findViewById(R.id.textExerciseName)
         botoChange = findViewById(R.id.buttonChange)
         cambiador = findViewById(R.id.numpicker_1)
-        tvReps = findViewById(R.id.textReps)
+        npReps = findViewById(R.id.np_reps)
 
         tvName.setText(exName);
-        tvReps.setText("Reps: " + exReps.toString())
+        npReps.maxValue = 100
+        npReps.minValue = 0
+        npReps.value = exercise.reps
         cambiador.maxValue = 100
         cambiador.minValue = 0
         cambiador.visibility = View.INVISIBLE;
@@ -58,7 +64,11 @@ class ExerciseActivity : AppCompatActivity() {
         graphView.addSeries(series);
         acabargrafic(graphView,today)
 
-        tapeoGraf();
+        tapeoGraf()
+
+        npReps.setOnValueChangedListener{ numberPicker: NumberPicker, i: Int, i1: Int ->
+            editExercise()
+        }
 
 
     }
@@ -81,6 +91,7 @@ class ExerciseActivity : AppCompatActivity() {
         botoChange.isEnabled = true
     }
 
+    //todo gerard cridar a la funció editExercise
     fun cambiarPeso(view: View){
         for (punto in punts.indices){
             if(punts.get(punto) == changing){
@@ -103,6 +114,7 @@ class ExerciseActivity : AppCompatActivity() {
         }
 
 
+    //todo gerard omplir amb les dades de la variable exercise (dos arraylists amb dates i pesos)
     fun getDataPoints(args: Double, today: Date){
 
         //De momento solo salen los ultimos 5 dias.
@@ -146,6 +158,18 @@ class ExerciseActivity : AppCompatActivity() {
         descriptionIntent.putExtra("reps", exReps)
         descriptionIntent.putExtra("MODE","0")
         startActivity(descriptionIntent)
+    }
+
+    fun editExercise(){
+
+        //todo gerard quan editis el gràfic has de modificar la variable exercise amb els pesos i dies corresponents
+        exercise.reps = npReps.value
+
+        //demanem a la base de dades que editi
+        Controlador.editUserExercise(exercise, this)
+
+
+
     }
 
 

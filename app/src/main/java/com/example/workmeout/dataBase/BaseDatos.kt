@@ -161,4 +161,11 @@ class BaseDatos {
         exerciseDataBase.matchExercise(context, name, adapter)
     }
 
+    fun editUserExercise(
+        exercise: Exercise,
+        context: Context
+    ) {
+        exerciseDataBase.editUserExercise(exercise, context)
+    }
+
 }

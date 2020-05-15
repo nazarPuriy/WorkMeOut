@@ -11,7 +11,6 @@ import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.LoginActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
-import com.example.workmeout.ui.me.SearchExercises
 import kotlin.math.max
 
 
@@ -120,11 +119,15 @@ object Controlador{
             5 -> {routine = currentUser!!.routine5!!}
         }
 
-        routine.exercises[routine.idCount()] = id
-        routine.exercisesDesc[routine.idCount()] = classid
-        var a = 0//todo quitar
-        Toast.makeText(context, routine.idCount().toString(), Toast.LENGTH_SHORT).show()//todo
+        var count = routine.idCount()
 
+        routine.exercises[count] = id
+        routine.exercisesDesc[count] = classid
+        baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],routine.exercises[1],routine.exercises[2],routine.exercises[3],routine.exercises[4],routine.exercises[5],routine.exercises[6],routine.exercises[7],routine.exercises[8],routine.exercises[9],routine.exercises[10],routine.exercises[11],routine.exercises[12],routine.exercises[13],routine.exercises[14],routine.days)
+        baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],routine.exercisesDesc[1],routine.exercisesDesc[2],routine.exercisesDesc[3],routine.exercisesDesc[4],routine.exercisesDesc[5],routine.exercisesDesc[6],routine.exercisesDesc[7],routine.exercisesDesc[8],routine.exercisesDesc[9],routine.exercisesDesc[10],routine.exercisesDesc[11],routine.exercisesDesc[12],routine.exercisesDesc[13],routine.exercisesDesc[14])
+        routine.numberOfExercises++
+
+        /*//si lo anterior va bien quitar esto
         when(routine!!.idCount() - 1){
 
             0->{
@@ -148,7 +151,7 @@ object Controlador{
 
             //TODO acabar moviendo los indices hasta 15
 
-        }
+        }*/
     }
 
     fun guardarEjercioRutina(exercise:Exercise, index:Int, context: Context){
@@ -467,6 +470,24 @@ object Controlador{
             login(context, passwordInput)
         }
         readyRoutines++
+    }
+
+    fun findExerciseById(id: Int): Exercise{
+
+        for(routine in getRoutines()){
+            for (exercise in routine.exercises_class){
+                if(exercise.id == id){
+                    return exercise
+                }
+            }
+        }
+
+        return Exercise(0, 0, "", 0, "", 0, ArrayList(), ArrayList())
+
+    }
+
+    fun editUserExercise(exercise: Exercise, context: Context){
+        baseDatos.editUserExercise(exercise, context)
     }
 
 

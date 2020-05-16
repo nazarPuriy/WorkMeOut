@@ -34,7 +34,9 @@ class SportFragment : Fragment() {
 
 
     val progressMultiplier: Int = 10000
-    var date: Date = Date()
+    var date: Date = getDateWithoutTime()
+
+
     val sa: RoutineListAdapter = RoutineListAdapter()
 
 
@@ -69,7 +71,7 @@ class SportFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        date = Date()
+        date = getDateWithoutTime()
         refresh()
     }
 
@@ -150,6 +152,14 @@ class SportFragment : Fragment() {
         val formatter = SimpleDateFormat("dd/MM/yyyy")
         routinesText.setText("Routines on " + formatter.format(date))
         notifyBar()
+
+    }
+
+    fun getDateWithoutTime(): Date {
+
+        var dateNow = Date()
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        return formatter.parse(formatter.format(dateNow))
 
     }
 

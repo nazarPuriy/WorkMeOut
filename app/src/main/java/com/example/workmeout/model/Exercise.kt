@@ -125,7 +125,7 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
         if(date.after(days[days.size-1])){
             return days.size
         }
-        for (i in 0 until (days.size-1)){
+        for (i in 0 until (days.size)){
             if(date.before(days[i])){
                 return i;
             }

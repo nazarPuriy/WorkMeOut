@@ -12,13 +12,11 @@ class User {
     var weight: Int
     var height: Int
     var numberOfRoutines : Int
-    var tempRoutineIndex : Int
-    var currentRutineIndex : Int
-    lateinit var routine1 : Routine
-    lateinit var routine2 : Routine
-    lateinit var routine3 : Routine
-    lateinit var routine4 : Routine
-    lateinit var routine5 : Routine
+    var routine1 : Routine?
+    var routine2 : Routine?
+    var routine3 : Routine?
+    var routine4 : Routine?
+    var routine5 : Routine?
 
     //Constructor principal de la clase usuario
     constructor(userName: String,name:String, password: String, email: String, phoneNumber: Int, age: Int, sex: Boolean, weight : Int, height : Int){
@@ -32,8 +30,12 @@ class User {
         this.weight = weight
         this.height = height
         numberOfRoutines = 0
-        tempRoutineIndex = 0
-        currentRutineIndex = 0
+        routine1 = null
+        routine2 = null
+        routine3 = null
+        routine4 = null
+        routine5 = null
+
     }
 
     /* SI TODO VA BIEN VALE VERGAAA

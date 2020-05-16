@@ -7,7 +7,7 @@ import android.widget.*
 import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 
-class ExerciseDescriptionActivity : AppCompatActivity() {
+class ExerciseDescriptionActivity : AppCompatActivity() {//TODO repeticiones
     private val EDITAR = 1
     private var modoHint = false
     private var modo = 0
@@ -16,7 +16,6 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     private lateinit var title_text : TextView
     private lateinit var description_text : TextView
     private lateinit var button : Button
-    private var isnew:Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +27,14 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
         }
 
         title_text=findViewById(R.id.txt_tittle_EV)
-        title_text.text = intent.getStringExtra("title")
         description_text=findViewById(R.id.txt_description_EV)
+
         title_edit=findViewById(R.id.edttxt_tittle_EV)
+        title_edit.setText(intent.getStringExtra("title"))
+
         description_edit=findViewById(R.id.edttxt_description_EV)
+        description_edit.setText( intent.getStringExtra("description"))
+
         button=findViewById(R.id.btn_save_EV)
         if(modo==EDITAR){
             editMode()
@@ -82,12 +85,12 @@ class ExerciseDescriptionActivity : AppCompatActivity() {
     fun save(view:View){
         if(modo==EDITAR){
             if(checkInfo()){
-                Controlador.registerExercise(this, title_edit.text.toString(), description_edit.text.toString(),7,7)//TODO cambiar valores para que se muestren los del activity
+                val routineIndex:Int = intent.getIntExtra("index", 0)
+                Controlador.registerExercise(this, title_edit.text.toString(), description_edit.text.toString(),7,7, routineIndex)//TODO cambiar valores para que se muestren los del activity
 
 
                 modo=0
                 descriptionMode()
-                //TODO crear toda la lógica de verificar información y añadir el objeto o editarlo.
             }else{
                 Toast.makeText(this,"Some fields are still empty",Toast.LENGTH_SHORT).show()
             }

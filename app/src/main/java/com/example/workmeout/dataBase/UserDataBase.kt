@@ -15,6 +15,7 @@ import com.example.workmeout.model.Routine
 import org.json.JSONArray
 import org.json.JSONObject
 import com.example.workmeout.model.User
+import com.example.workmeout.ui.me.ChangePersonalInformationActivity
 
 class UserDataBase {
 
@@ -104,7 +105,7 @@ class UserDataBase {
 
                     Controlador.currentUser = User(username,name,password,email,phoneNumber,age,gender,weight,height)
                     Controlador.addRoutinesToUserRequest(context,rid1,rid2,rid3,rid4,rid5)
-                    Controlador.login(context,oldPassword);//TODO ESTO NO VA AQUI
+                    Controlador.notifyRoutineReady(context)
                 }
             }, Response.ErrorListener { error->
                 Controlador.login(context,oldPassword);

@@ -1,5 +1,6 @@
 package com.example.workmeout.dataBase
 
+import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import com.android.volley.Request
@@ -9,32 +10,39 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.workmeout.Controlador.Controlador
-import com.example.workmeout.R
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import com.example.workmeout.ui.me.SearchExercises
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-
 class ExerciseDataBase {
 
     val domain = "http://83.59.82.217:7070"
+    val dateFormatter = SimpleDateFormat("ddMMyyyy")
 
     //Variable que se utilitza para acceder a la base de datos.
     lateinit var requestQ : RequestQueue
 
     //Método que utilizaremos para guardar nuevos ejercicios en la base de datos.
-    fun guardarEjercicio(context: Context, name : String, description: String, reps : Int, weight : Int){
+    fun guardarEjercicio(
+        context: Context,
+        name: String,
+        description: String,
+        reps: Int,
+        weight: Int,
+        routineIndex: Int
+    ){
         val URL : String = domain + "/websercv/exercise/registrar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 Toast.makeText(context, "Exercise registered id: " + response , Toast.LENGTH_SHORT).show()
-                //Controlador.fillExerciseClassId(response.toInt()) TODO
-                guardarEjercicioUsuario(context,response.toInt(),reps,weight,0,0,0,0,0,0,0,0,0,0,0,0,0,0) //Guardamos la rutina del usuario.
+
+                guardarEjercicioUsuario(Exercise(0, response.toInt(), name, reps, description, weight, ArrayList(), ArrayList()), routineIndex, context) //Guardamos la rutina del usuario.
             }, Response.ErrorListener { error ->
                 Toast.makeText(context,"ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
@@ -49,47 +57,92 @@ class ExerciseDataBase {
         requestQ.add(stringRequest);
     }
 
-    //Método que utilizaremos para guardar nuevos ejercicios del usuario.
-    fun guardarEjercicioUsuario(context: Context, classid: Int, reps : Int, weight : Int, day1 : Int, weight1 : Int, day2 : Int, weight2 : Int, day3 : Int, weight3 : Int, day4 : Int, weight4 : Int, day5: Int, weight5 : Int, day6 : Int, weight6 : Int, day7 : Int, weight7 : Int){
+    fun guardarEjercicioUsuario(exercise: Exercise, indexRoutine: Int, context: Context){
+
+        var day1="0"
+        var day2="0"
+        var day3="0"
+        var day4="0"
+        var day5="0"
+        var day6="0"
+        var day7="0"
+
+        var weight1="0"
+        var weight2="0"
+        var weight3="0"
+        var weight4="0"
+        var weight5="0"
+        var weight6="0"
+        var weight7="0"
+
+
+        if(exercise.days.size >=1){day1 = exercise.days.get(0).toString()}
+        if(exercise.days.size >=2){day2 = exercise.days.get(1).toString()}
+        if(exercise.days.size >=3){day3 = exercise.days.get(2).toString()}
+        if(exercise.days.size >=4){day4 = exercise.days.get(3).toString()}
+        if(exercise.days.size >=5){day5 = exercise.days.get(4).toString()}
+        if(exercise.days.size >=6){day6 = exercise.days.get(5).toString()}
+        if(exercise.days.size >=7){day7 = exercise.days.get(6).toString()}
+
+        if(exercise.weights.size >=1){day1 = exercise.weights.get(0).toString()}
+        if(exercise.weights.size >=2){day2 = exercise.weights.get(1).toString()}
+        if(exercise.weights.size >=3){day3 = exercise.weights.get(2).toString()}
+        if(exercise.weights.size >=4){day4 = exercise.weights.get(3).toString()}
+        if(exercise.weights.size >=5){day5 = exercise.weights.get(4).toString()}
+        if(exercise.weights.size >=6){day6 = exercise.weights.get(5).toString()}
+        if(exercise.weights.size >=7){day7 = exercise.weights.get(6).toString()}
+
+        Controlador.getRoutines().get(indexRoutine - 1).exercises_class.add(exercise)
+
+        if(context is SearchExercises){
+            context.finish()
+        }
+
         val URL : String = domain + "/websercv/exercise/registrarUsuario.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
+                exercise.id = response.toInt()
                 Toast.makeText(context, "Exercise user registered id: " + response , Toast.LENGTH_SHORT).show()
                 //Controlador.fillNewExerciseId(response.toInt()) TODO
                 //Faltaria meter el objeto ejercicio aqui dentro del objeto rutina correspondiente. Mirar el método de la id.
-                Controlador.saveExerciseIdOnRutine(context,response.toInt(),classid)
+                Controlador.saveExerciseIdOnRutine(context,response.toInt(),exercise.classId, indexRoutine)
             }, Response.ErrorListener { error ->
                 Toast.makeText(context,"ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
+
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String,String>()
-                parametros["classid"] = classid.toString()
-                parametros["reps"] = reps.toString()
-                parametros["weight"] = weight.toString()
-                parametros["day1"]=day1.toString()
-                parametros["weight1"]=weight1.toString()
-                parametros["day2"]=day2.toString()
-                parametros["weight2"]=weight2.toString()
-                parametros["day3"]=day3.toString()
-                parametros["weight3"]=weight3.toString()
-                parametros["day4"]=day4.toString()
-                parametros["weight4"]=weight4.toString()
-                parametros["day5"]=day5.toString()
-                parametros["weight5"]=weight5.toString()
-                parametros["day6"]=day6.toString()
-                parametros["weight6"]=weight6.toString()
-                parametros["day7"]=day7.toString()
-                parametros["weight7"]=weight7.toString()
+                parametros["classid"] = exercise.classId.toString()
+                parametros["reps"] = exercise.reps.toString()
+                parametros["weight"] = exercise.weight.toString()
+                parametros["day1"]=day1
+                parametros["weight1"]=weight1
+                parametros["day2"]=day2
+                parametros["weight2"]=weight2
+                parametros["day3"]=day3
+                parametros["weight3"]=weight3
+                parametros["day4"]=day4
+                parametros["weight4"]=weight4
+                parametros["day5"]=day5
+                parametros["weight5"]=weight5
+                parametros["day6"]=day6
+                parametros["weight6"]=weight6
+                parametros["day7"]=day7
+                parametros["weight7"]=weight7
                 return parametros
             }
         }
         requestQ= Volley.newRequestQueue(context)
         requestQ.add(stringRequest);
+
+
     }
+
 
     fun matchExercise(context: Context, partialName:String, adapter:ExerciseSearchAdapter){
         var name: String
         var description: String
+        var classId: String
         val URL : String = domain + "/websercv/exercise/buscar_match.php?search="+partialName
         var list: ArrayList<Exercise>
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
@@ -97,11 +150,12 @@ class ExerciseDataBase {
                 var jsonObject: JSONObject
                 list = ArrayList()
                 for(i in 0..response.length()-1){
-                    jsonObject=response.getJSONObject(i);
+                    jsonObject=response.getJSONObject(i)
                     name = jsonObject.getString("name")
                     description = jsonObject.getString("description")
-                    //list.add(Exercise(name, description))TODO
+                    classId = jsonObject.getString("id")
 
+                    list.add(Exercise(0, classId.toInt(), name, 0, description, 0, ArrayList<Date>(), ArrayList<Int>()))
                     adapter.submitList(list)
                     adapter.notifyDataSetChanged()
 
@@ -134,8 +188,8 @@ class ExerciseDataBase {
                     description = jsonObject.getString("description")
                     ejercicioUsuaro.name = name
                     ejercicioUsuaro.description = description
+                    ejercicioUsuaro.routine.notifyExerciseReady(context)
 
-                    //TODO llamar al controlador para que lo muestre
                 }
             }, Response.ErrorListener { error->
 
@@ -155,7 +209,7 @@ class ExerciseDataBase {
         var weights: ArrayList<Int> = ArrayList()
         var tmp:String
 
-        val URL : String = domain + "/websercv/exercise/buscarUsuario.php?id=" + id//todo
+        val URL : String = domain + "/websercv/exercise/buscarUsuario.php?id=" + id
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject
@@ -172,12 +226,13 @@ class ExerciseDataBase {
                         tmp = jsonObject.getString("day$x")
                         if(tmp != "0"){
 
-                            days.add( SimpleDateFormat("dd/MM/yyyy").parse(tmp))
+                            days.add( dateFormatter.parse(tmp))
                             weights.add(jsonObject.getString("weight$x").toInt())
                         }
                     }
 
                     val ejercicioUsuario:Exercise = Exercise(id, classId,"", reps, "", weight, days, weights)
+                    ejercicioUsuario.routine = routine
                     buscarEjercicio(context, ejercicioUsuario)
                     routine.exercises_class.add(ejercicioUsuario)
                 }
@@ -190,6 +245,44 @@ class ExerciseDataBase {
 
         requestQ= Volley.newRequestQueue(context);
         requestQ.add(jsonArrayRequest)
+
+    }
+
+    fun editUserExercise(exercise: Exercise, context: Context) {
+
+        val URL: String = domain + "/websercv/exercise/editarUsuario.php"
+        val stringRequest = object : StringRequest(Request.Method.POST, URL,
+            Response.Listener<String> { response ->
+                Toast.makeText(context, "Edit de ejercicio", Toast.LENGTH_SHORT).show()
+            }, Response.ErrorListener { error ->
+                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
+            }) {
+            override fun getParams(): Map<String, String> {
+
+                var parametros = HashMap<String, String>()
+                parametros["id"] = exercise.id.toString()
+                parametros["classid"] = exercise.classId.toString()
+                parametros["reps"] = exercise.reps.toString()
+                parametros["weight"] = exercise.weight.toString()
+
+                for(x in 0 until 7){
+
+                    if(x < exercise.days.size){
+                        parametros["day" + (x+1).toString()] = dateFormatter.format(exercise.days.get(x))
+                        parametros["weight" + (x+1).toString()] = exercise.weights.get(x).toString()
+                    }
+                    else{
+                        parametros["day" + (x+1).toString()] = "0"
+                        parametros["weight" + (x+1).toString()] = "0"
+                    }
+                }
+
+
+                return parametros
+            }
+        }
+        requestQ = Volley.newRequestQueue(context)
+        requestQ.add(stringRequest);
 
     }
 

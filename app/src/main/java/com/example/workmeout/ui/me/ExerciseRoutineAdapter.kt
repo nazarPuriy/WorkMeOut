@@ -60,9 +60,8 @@ class ExerciseRoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             reps.text = "Reps: " + exercise.reps.toString()
 
             card.setOnClickListener(View.OnClickListener {
-                val intent: Intent = Intent(itemView.context, ExerciseActivity::class.java)
-                intent.putExtra("exName",name.text.toString())
-                intent.putExtra("exReps", exercise.reps)
+                val intent = Intent(itemView.context, ExerciseActivity::class.java)
+                intent.putExtra("exerciseId", exercise.id)
                 itemView.context.startActivity(intent)
             })
 

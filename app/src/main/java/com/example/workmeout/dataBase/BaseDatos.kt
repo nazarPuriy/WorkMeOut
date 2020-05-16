@@ -1,8 +1,7 @@
 package com.example.workmeout.dataBase
 import android.content.Context
-import android.widget.Toast
+import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
-import com.example.workmeout.model.User
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 
 class BaseDatos {
@@ -32,8 +31,19 @@ class BaseDatos {
     }
 
     //Método que usaremos para guardar la descripción de un nuevo ejercicio
-    fun guardarEjercicio(context: Context, name : String, description: String,reps : Int, weight : Int){
-        exerciseDataBase.guardarEjercicio(context,name,description,reps, weight)
+    fun guardarEjercicio(
+        context: Context,
+        name: String,
+        description: String,
+        reps: Int,
+        weight: Int,
+        routineIndex: Int
+    ){
+        exerciseDataBase.guardarEjercicio(context,name,description,reps, weight, routineIndex)
+    }
+
+    fun guardarEjercicioUsuario(exercise: Exercise, indexRoutine: Int, context: Context){
+        exerciseDataBase.guardarEjercicioUsuario(exercise, indexRoutine, context)
     }
 
     //Métode que guarda una rutina a la base de dades general
@@ -110,6 +120,7 @@ class BaseDatos {
         routineDataBase.editarRutinaUsuario(context,id,classid,exercise1,exercise2,exercise3,exercise4,exercise5,exercise6,exercise7,exercise8,exercise9,exercise10,exercise11,exercise12,exercise13,exercise14,exercise15,days)
     }
 
+
     fun editarRutina(
         context: Context,
         id:Int,
@@ -134,10 +145,13 @@ class BaseDatos {
         routineDataBase.editarRutina(context,id,name,description,exercise1,exercise2,exercise3, exercise4, exercise5, exercise6, exercise7, exercise8, exercise9, exercise10, exercise11, exercise12, exercise13, exercise14, exercise15)
     }
 
-    fun buscarRutinaUsuario(context: Context, id: Int){
-        routineDataBase.buscarRutinaUsuario(context,id)
+    fun buscarRutinaUsuario(context: Context, id: Int, index:Int){
+        routineDataBase.buscarRutinaUsuario(context,id, index)
     }
 
+    fun eliminarRutinaUsuario(context:Context,id:Int){
+        routineDataBase.eliminarRutinaUsuario(context,id)
+    }
     fun buscarEjercicioUsuario(context: Context, id: Int, rutina: Routine){
         exerciseDataBase.buscarEjercicioUsuario(context, id, rutina)
     }
@@ -145,6 +159,13 @@ class BaseDatos {
     //Métode per buscar coincidencia amb la string
     fun matchExercise(context: Context, name:String, adapter:ExerciseSearchAdapter){
         exerciseDataBase.matchExercise(context, name, adapter)
+    }
+
+    fun editUserExercise(
+        exercise: Exercise,
+        context: Context
+    ) {
+        exerciseDataBase.editUserExercise(exercise, context)
     }
 
 }

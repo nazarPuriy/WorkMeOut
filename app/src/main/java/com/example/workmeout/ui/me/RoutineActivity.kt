@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.Controlador.Controlador
@@ -26,8 +23,8 @@ class RoutineActivity : AppCompatActivity() {
     private var isOpen = false
     lateinit var editTitle : EditText
     lateinit var editDescription : EditText
-
-
+    lateinit var textTitle : TextView
+    lateinit var textDescription : TextView
     lateinit var add_button:FloatingActionButton
     lateinit var search_button:FloatingActionButton
     lateinit var add_people_button:FloatingActionButton
@@ -80,6 +77,13 @@ class RoutineActivity : AppCompatActivity() {
         sun = findViewById(R.id.SUN)
         days.add(sun)
 
+        for(x in days){
+
+            x.setOnCheckedChangeListener { buttonView, isChecked ->
+                update()
+            }
+        }
+
         editTitle = findViewById(R.id.title)
         editDescription = findViewById(R.id.edt_description)
         isNew = intent.getBooleanExtra("isNew", false)
@@ -87,15 +91,16 @@ class RoutineActivity : AppCompatActivity() {
         rv = findViewById(R.id.rv_1)
         sa = ExerciseRoutineAdapter()
 
-        sa.submitRoutine(Routine(0, 0, "", "", 0))//todo
+        sa.submitRoutine(Routine(0, 0, "", "", 0))
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(this)
 
         if(!isNew){
-            exists = true//TODO
+            exists = true
             editDescription.isEnabled = false
             editTitle.isEnabled = false
             indexRoutine = intent.getIntExtra("position", -1)
+
             btnsave.isEnabled = false
             refreshRoutine()
         }else{
@@ -136,13 +141,59 @@ class RoutineActivity : AppCompatActivity() {
         editDescription.setText(routine.description)
         decodeDays(routine.days)
         sa.submitRoutine(routine)
+        sa.notifyDataSetChanged()
 
     }
 
+    override fun onStart(){
+        super.onStart()
+        init()
+    }
 
+    fun init(){
+        val saveBtn : Button = findViewById(R.id.btnsave)
+        val delateBtn : Button = findViewById(R.id.dlt)
+        editDescription = findViewById(R.id.edt_description)
+        editTitle = findViewById(R.id.title)
+        textTitle = findViewById(R.id.txt_tittle)
+        textDescription = findViewById(R.id.txt_description)
 
-    fun delete(v: View) {//TODO
-        Toast.makeText(this, "Delete this routine", Toast.LENGTH_SHORT).show()
+        if(isOpen){
+            clickAdd()
+        }
+
+        if(!exists){
+            saveBtn.visibility = View.VISIBLE
+            delateBtn.visibility = View.INVISIBLE
+            editDescription.visibility =  View.VISIBLE
+            editTitle.visibility = View.VISIBLE
+            textDescription.visibility = View.INVISIBLE
+            textTitle.visibility = View.INVISIBLE
+
+            for(x in days){
+                x.isEnabled = false
+            }
+
+        }else{
+            saveBtn.visibility = View.INVISIBLE
+            delateBtn.visibility = View.VISIBLE
+            editDescription.visibility =  View.INVISIBLE
+            editTitle.visibility = View.INVISIBLE
+            textDescription.setText(editDescription.text.toString())
+            textTitle.setText(editTitle.text.toString())
+            textDescription.visibility = View.VISIBLE
+            textTitle.visibility = View.VISIBLE
+
+            for(x in days){
+                x.isEnabled = true
+            }
+
+            refreshRoutine()
+        }
+    }
+
+    fun delete(v: View) {
+        Controlador.deleteRoutine(v.context,indexRoutine)
         finish()
     }
 
@@ -151,18 +202,14 @@ class RoutineActivity : AppCompatActivity() {
         descriptionIntent.putExtra("MODE","1")
         descriptionIntent.putExtra("title", "Exercise Title")
         descriptionIntent.putExtra("isNew", true)
+        descriptionIntent.putExtra("index", indexRoutine + 1)
         startActivity(descriptionIntent)
     }
 
     fun searchExercise(){
         val searchIntent = Intent(this, SearchExercises::class.java)
-        searchIntent.putExtra("routine", indexRoutine)
+        searchIntent.putExtra("routine", indexRoutine + 1)
         startActivity(searchIntent)
-    }
-
-    //TODO days buen formato
-    fun addRoutine(view:View){
-        Controlador.registerRoutine(view.context,editTitle.text.toString(),editDescription.text.toString(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100)
     }
 
     fun clickAdd(){
@@ -181,6 +228,9 @@ class RoutineActivity : AppCompatActivity() {
                 add_button.startAnimation(fabRClockwise)
 
                 isOpen = false
+            }
+            else if(Controlador.getRoutines().get(indexRoutine).numberOfExercises >= 15){
+                Toast.makeText(this, "Routines can have a maximum of 15 exercises", Toast.LENGTH_SHORT).show()
             }
             else {
 
@@ -216,8 +266,23 @@ class RoutineActivity : AppCompatActivity() {
         return sum
     }
 
-    private fun decodeDays(days: Int) {
-        //TODO poner los checkboxes como indica el int days
+    private fun decodeDays(n: Int) {
+
+        var tmp: Int = n
+
+        for (x in days){
+
+            x.isChecked = (tmp % 2 == 1)
+            tmp /= 2
+
+        }
+
+
+    }
+
+    fun update(){
+        Controlador.editRoutineDays(indexRoutine, calcDays(), this)
+        //Toast.makeText(this, indexRoutine.toString(), Toast.LENGTH_SHORT).show()
     }
 
     fun save(){
@@ -232,8 +297,11 @@ class RoutineActivity : AppCompatActivity() {
                 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, calcDays())
             btnsave.isEnabled = false
+            indexRoutine = Controlador.currentUser!!.numberOfRoutines -1
         }else{//TODO editar rutina de usuario
+
         }
         exists = true
+        init()
     }
 }

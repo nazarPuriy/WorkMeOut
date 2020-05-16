@@ -13,15 +13,19 @@ import com.example.workmeout.R
 
 class SearchExercises : AppCompatActivity() {
 
+    lateinit var recycler:RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_exercises)
 
-        val recycler:RecyclerView = findViewById<RecyclerView>(R.id.rv)       
+        recycler = findViewById(R.id.rv)
         
         val adapter = ExerciseSearchAdapter()
+        adapter.routineIndex = intent.getIntExtra("routine", 0)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this)
+        Controlador.matchExercise(baseContext, "", adapter)
         
 
         val edit: EditText = findViewById(R.id.editText_search)

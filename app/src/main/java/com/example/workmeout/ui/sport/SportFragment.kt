@@ -1,7 +1,7 @@
 package com.example.workmeout.ui.sport
 
 import android.animation.ObjectAnimator
-import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,21 +12,32 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.Controlador.Controlador
-import com.example.workmeout.model.RoutineOLD
 import com.example.workmeout.R
-import com.example.workmeout.data.ExerciseDataSourceDummy
-import com.example.workmeout.ui.me.RoutineActivity
+import com.example.workmeout.model.Routine
+import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.util.*
 
 class SportFragment : Fragment() {
 
     lateinit var pb:ProgressBar
     lateinit var reps: TextView
-    lateinit var routineOLD: RoutineOLD
-    val progressMultiplier: Int = 1000
+    lateinit var rv: RecyclerView
+    lateinit var next: ImageButton
+    lateinit var previous: ImageButton
+    lateinit var routinesText: TextView
+
+
+    val progressMultiplier: Int = 10000
+    var date: Date = getDateWithoutTime()
+
+
+    val sa: RoutineListAdapter = RoutineListAdapter()
 
 
     override fun onCreateView(
@@ -36,50 +47,120 @@ class SportFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        routineOLD = ExerciseDataSourceDummy.createDataSet()
+
+
         pb = root.findViewById<ProgressBar>(R.id.progressBar1)
         reps = root.findViewById(R.id.reps)
-        notifyBar()
+        next = root.findViewById(R.id.right_arrow)
+        previous = root.findViewById(R.id.left_arrow)
+        routinesText = root.findViewById(R.id.routine)
 
-        var rv = root.findViewById<RecyclerView>(R.id.rv_1)
-        val sa = ExerciseAdapter()
+
+        rv = root.findViewById<RecyclerView>(R.id.rv_1)
         sa.submitFragment(this)
-        sa.submitRoutine(routineOLD)
-        rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
-
-        var routine: TextView = root.findViewById<TextView>(R.id.routine)
-        routine.setOnClickListener(View.OnClickListener {
-            var s : String = Controlador.currentUser!!.email;
-            Toast.makeText(context,s,Toast.LENGTH_LONG).show() //Prubea de que el controlador es del tipo singleton.
-            var intent:Intent = Intent(context, RoutineActivity::class.java)
-            intent.putExtra("name", "Routine 1")
-            startActivity(intent)
-        })
-
-        var next: ImageButton = root.findViewById(R.id.right_arrow)
-        var previous: ImageButton = root.findViewById(R.id.left_arrow)
-
-        next.setOnClickListener(View.OnClickListener { Toast.makeText(context, "Next day", Toast.LENGTH_SHORT).show() })
-        previous.setOnClickListener(View.OnClickListener { Toast.makeText(context, "Previous day", Toast.LENGTH_SHORT).show() })
+        rv.adapter = sa
 
 
+        next.setOnClickListener{next()}
+        previous.setOnClickListener{previous()}
 
-            return root
+
+        return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        date = getDateWithoutTime()
+        refresh()
     }
 
     fun notifyBar(){
-        var total = routineOLD.getTotalReps()
-        pb.max = total*progressMultiplier
+        var total = getTotalReps()
 
-        var done = routineOLD.getDoneReps()
-        val animator: ObjectAnimator = ObjectAnimator.ofInt(pb, "progress", pb.progress, done*progressMultiplier)
-        animator.setDuration(200)
+        var previousMax = pb.max
+        var newMax = total*progressMultiplier
+        pb.max = newMax
+        var animateFrom = 0
+
+        if(previousMax == newMax){
+            animateFrom = pb.progress
+        }
+
+
+        var done = getDoneReps()
+        val animator: ObjectAnimator = ObjectAnimator.ofInt(pb, "progress", animateFrom, done*progressMultiplier)
+        animator.setDuration(250)
         val ip: Interpolator = AccelerateDecelerateInterpolator()
         animator.interpolator = ip
         animator.start()
 
         reps.text = "Today's reps: " + done.toString() + "/" + total.toString()
+    }
+
+    private fun getDoneReps(): Int {
+
+        var total = 0
+
+        for(routine in Controlador.getRoutinesOnDate(date)){
+            for (exercise in routine.exercises_class){
+                if(exercise.isDoneAtDate(date)){
+                    total += exercise.reps
+                }
+            }
+        }
+
+        return total
+    }
+
+    private fun getTotalReps(): Int {
+
+        var total = 0
+
+        for(routine in Controlador.getRoutinesOnDate(date)){
+            for (exercise in routine.exercises_class){
+                total += exercise.reps
+            }
+        }
+
+        return total
+    }
+
+
+    private fun next(){
+        val cal:Calendar = Calendar.getInstance()
+        cal.time = date
+        cal.add(Calendar.DATE, 1)
+        date = cal.time
+        refresh()
+    }
+
+    private fun previous(){
+        val cal:Calendar = Calendar.getInstance()
+        cal.time = date
+        cal.add(Calendar.DATE, -1)
+        date = cal.time
+        refresh()
+    }
+
+
+    fun refresh(){
+
+        sa.submitDate(date)
+        sa.notifyDataSetChanged()
+
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        routinesText.setText("Routines on " + formatter.format(date))
+        notifyBar()
+
+    }
+
+    fun getDateWithoutTime(): Date {
+
+        var dateNow = Date()
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        return formatter.parse(formatter.format(dateNow))
+
     }
 
 

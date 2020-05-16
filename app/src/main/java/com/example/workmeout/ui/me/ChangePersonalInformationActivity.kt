@@ -7,6 +7,8 @@ import android.widget.*
 import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 import com.example.workmeout.model.User
+import kotlinx.android.synthetic.main.activity_change_personal_information.*
+import java.util.*
 
 class ChangePersonalInformationActivity : AppCompatActivity() {
     lateinit var correo : EditText
@@ -128,7 +130,6 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
     }
 
 
-    //TODO Have to save the new data in the database
     fun save(view:View){
 
         var userNameString: String = Controlador.currentUser!!.userName
@@ -174,15 +175,18 @@ class ChangePersonalInformationActivity : AppCompatActivity() {
 
         if(Controlador.checkData(userNameString, nameString, passwordString, emailString,phoneNumberString, ageString)){
             Controlador.editarUsuario(this, userNameString, nameString, passwordString, emailString, phoneNumberString, ageString, sexString, weightString, heightString)
-            Controlador.currentUser = User(userNameString, nameString, passwordString, emailString, phoneNumberString.toInt(), ageString.toInt(), sexString == "true", weightString.toInt(), heightString.toInt())
+            Controlador.currentUser!!.name = nameString
+            Controlador.currentUser!!.password = passwordString
+            Controlador.currentUser!!.email = emailString
+            Controlador.currentUser!!.age = ageString.toInt()
+            Controlador.currentUser!!.weight = weightString.toInt()
+            Controlador.currentUser!!.height = heightString.toInt()
+            Controlador.currentUser!!.phoneNumber = phoneNumberString.toInt()
+            Controlador.currentUser!!.sex = rb_hombre.isChecked
+            finish()
         }else{
-            Toast.makeText(this, "Some fields are wrong", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "Some fields are wrong", Toast.LENGTH_SHORT).show()
         }
-
-
-
-
-        finish()
     }
 
 }

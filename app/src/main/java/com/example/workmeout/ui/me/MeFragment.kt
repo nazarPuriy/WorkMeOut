@@ -30,15 +30,10 @@ class MeFragment : Fragment() {
     private lateinit var contexto : Context
     private final var PICK_IMAGE = 1
     private lateinit var profileImage : ImageView
-
-    override fun onResume() {
-        super.onResume()
-        init(this.requireView())
-
-    }
-
+    private lateinit var botonF : FloatingActionButton
 
     fun init(root: View) {
+        botonF = root.findViewById(R.id.floatingActionButton2)
         val nombre : TextView = root.findViewById(R.id.txt_username)
         nombre.text = Controlador.currentUser!!.name
         nombre.setOnClickListener({
@@ -54,7 +49,6 @@ class MeFragment : Fragment() {
             startActivity(cambiarInfo)
 
         })
-
         val age:TextView = root.findViewById(R.id.txtViewAge)
         age.text = "Age: " + Controlador.currentUser!!.age.toString()
 
@@ -63,6 +57,13 @@ class MeFragment : Fragment() {
         sa.submitList(Controlador.getRoutines())
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
+
+        if(Controlador.currentUser!!.numberOfRoutines>=5){
+            botonF.hide()
+        }else{
+            botonF.show()
+        }
+
     }
 
     override fun onCreateView(
@@ -92,10 +93,15 @@ class MeFragment : Fragment() {
 
         })
 
-        //Toast.makeText(context, Controlador.currentUser!!.routine1.exercises_class.get(0).name, Toast.LENGTH_SHORT).show()//todo quitar
 
         init(root)
         return root
+    }
+
+
+    override fun onStart(){
+        super.onStart()
+        init(this.requireView())
     }
 
     fun uploadProfileImage(view:View){

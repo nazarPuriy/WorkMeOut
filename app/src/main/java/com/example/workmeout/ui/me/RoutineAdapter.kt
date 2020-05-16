@@ -51,11 +51,24 @@ class RoutineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val days = itemView.textView3
         val name = itemView.name
         val card:CardView = itemView.findViewById(R.id.card)
+        val daysOfTheWeek = arrayListOf<String>("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 
         fun bind(routine: Routine) {
 
             name.text = routine.name
-            //todo días de la semana
+
+            var daysString = ""
+            var tmp: Int = routine.days
+            for (x in daysOfTheWeek) {
+                if (tmp % 2 == 1) {
+                    daysString += x
+                    daysString += ", "
+                }
+                tmp /= 2
+            }
+            daysString = daysString.substringBeforeLast(",")
+
+            days.text = daysString
 
             card.setOnClickListener(View.OnClickListener {
                 val intent:Intent = Intent(itemView.context, RoutineActivity::class.java)

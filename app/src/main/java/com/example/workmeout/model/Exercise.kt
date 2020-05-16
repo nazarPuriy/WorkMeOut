@@ -79,17 +79,30 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
      * Funció que ens permet comprobar si una data ja es troba a la llista.
      */
     private fun isDate(date:Date):Boolean{
-        if(days.contains(date)){
-            return true;
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+
+        for(x in 0 until days.size){
+
+            if(formatter.format(days.get(x)).equals(formatter.format(date))){
+                return true
+            }
         }
-        return false;
+        return false
     }
 
     /**
      * Funcio que ens retorna l'index d'una data de la llista dies.
      */
     private fun eventPosition(date: Date):Int{
-        return days.indexOf(date)
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+
+        for(x in 0 until days.size){
+
+            if(formatter.format(days.get(x)) == formatter.format(date)){
+                return x
+            }
+        }
+        return -1
     }
 
     /**
@@ -125,7 +138,7 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
         if(date.after(days[days.size-1])){
             return days.size
         }
-        for (i in 0 until (days.size-1)){
+        for (i in 0 until (days.size)){
             if(date.before(days[i])){
                 return i;
             }
@@ -138,7 +151,7 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
 
         for(x in 0 until days.size){
 
-            if(formatter.format(days.get(x)).equals(formatter.format(date))){
+            if(formatter.format(days.get(x)) == formatter.format(date)){
                 return weights.get(x)
             }
         }

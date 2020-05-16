@@ -184,11 +184,9 @@ class ExerciseActivity : AppCompatActivity() {
 }**/
 package com.example.workmeout.ui.sport
 
-import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.View
 import android.widget.Button
 import android.widget.NumberPicker
@@ -202,6 +200,7 @@ import com.example.workmeout.ui.MainActivity
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.*
+import kotlinx.android.synthetic.main.activity_change_personal_information.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -247,11 +246,13 @@ class ExerciseActivity : AppCompatActivity() {
         cambiador.visibility = View.INVISIBLE;
         botoChange.isEnabled = false
         graphView = findViewById(R.id.grafic);
-        getDataPoints(weightsList,dayList)
+        //getDataPoints(exWeight,today)
+        getDataPointsA(weightsList,dayList)
         series = PointsGraphSeries<DataPoint>(punts);
 
         graphView.addSeries(series);
-        acabargrafic(graphView,today)
+        //acabargrafic(graphView,today)
+        acabargraficA(graphView,dayList)
 
         tapeoGraf()
 
@@ -304,24 +305,39 @@ class ExerciseActivity : AppCompatActivity() {
 
 
     //todo gerard omplir amb les dades de la variable exercise (dos arraylists amb dates i pesos)
-    fun getDataPoints(weights: ArrayList<Int>, days: ArrayList<Date>){
-        /*
+    fun getDataPoints(args: Double, today: Date){
+
         //De momento solo salen los ultimos 5 dias.
         //Las Y deberan de ser los pesos de la base de datos.
         val primer: DataPoint = DataPoint(sumarRestarDiasFecha(today,-4),0.0)
         val segon: DataPoint = DataPoint(sumarRestarDiasFecha(today,-3),8.0)
         val tercer: DataPoint = DataPoint(sumarRestarDiasFecha(today,-2),10.0)
         val quart: DataPoint = DataPoint(sumarRestarDiasFecha(today,-1),32.0)
-        val cinc: DataPoint = DataPoint(today,args)*/
-        var prova: ArrayList<DataPoint> = ArrayList()
-        for (i in 0 until days.size-1){
-            var primer: DataPoint = DataPoint(days[i],weights[i].toDouble())
+        val cinc: DataPoint = DataPoint(today, args)
+            punts = arrayOf(
+                primer,
+                segon,
+                tercer,
+                quart,
+                cinc
+            )
+    }
+    fun getDataPointsA(weights: ArrayList<Int>, dies: ArrayList<Date>){
+
+
+        var prova: ArrayList<DataPoint> = ArrayList<DataPoint>()
+        for (i in 0 until dies.size){
+
+            var primer: DataPoint = DataPoint(dies[i],weights[i].toDouble())
             prova.add(primer)
         }
-        punts = arrayOf(for(value in prova))
+
+        punts = prova.toTypedArray()
+        print("ss")
 
 
     }
+
 
     fun sumarRestarDiasFecha( fecha: Date, dias: Int): Date{
         val calendar: Calendar = Calendar.getInstance()
@@ -337,6 +353,21 @@ class ExerciseActivity : AppCompatActivity() {
         graphView.gridLabelRenderer.numHorizontalLabels = 5
 
         graphView.viewport.setMinX(sumarRestarDiasFecha(today,-4).time.toDouble())
+        graphView.viewport.setMinY(0.0)
+        graphView.viewport.setMaxX(today.time.toDouble())
+        graphView.viewport.setMaxY(100.0)
+        graphView.viewport.isXAxisBoundsManual = true
+        graphView.viewport.isYAxisBoundsManual = true
+
+        graphView.gridLabelRenderer.setHumanRounding(false)
+    }
+
+    fun acabargraficA(graphView: GraphView, dies: ArrayList<Date>){
+        val objj: DateAsXAxisLabelFormatter = DateAsXAxisLabelFormatter(this)
+        graphView.gridLabelRenderer.setLabelFormatter(objj)
+        graphView.gridLabelRenderer.numHorizontalLabels = dies.size
+
+        graphView.viewport.setMinX(dies[0].time.toDouble())
         graphView.viewport.setMinY(0.0)
         graphView.viewport.setMaxX(today.time.toDouble())
         graphView.viewport.setMaxY(100.0)

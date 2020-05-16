@@ -1,6 +1,7 @@
 package com.example.workmeout.ui.sport
 
 import android.animation.ObjectAnimator
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,7 @@ import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 import com.example.workmeout.model.Routine
 import java.text.SimpleDateFormat
+import java.time.ZoneId
 import java.util.*
 
 class SportFragment : Fragment() {
@@ -66,16 +69,26 @@ class SportFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        date = Date()
         refresh()
     }
 
     fun notifyBar(){
         var total = getTotalReps()
-        pb.max = total*progressMultiplier
+
+        var previousMax = pb.max
+        var newMax = total*progressMultiplier
+        pb.max = newMax
+        var animateFrom = 0
+
+        if(previousMax == newMax){
+            animateFrom = pb.progress
+        }
+
 
         var done = getDoneReps()
-        val animator: ObjectAnimator = ObjectAnimator.ofInt(pb, "progress", pb.progress, done*progressMultiplier)
-        animator.setDuration(200)
+        val animator: ObjectAnimator = ObjectAnimator.ofInt(pb, "progress", animateFrom, done*progressMultiplier)
+        animator.setDuration(250)
         val ip: Interpolator = AccelerateDecelerateInterpolator()
         animator.interpolator = ip
         animator.start()
@@ -111,12 +124,21 @@ class SportFragment : Fragment() {
         return total
     }
 
-    private fun next(){
 
+    private fun next(){
+        val cal:Calendar = Calendar.getInstance()
+        cal.time = date
+        cal.add(Calendar.DATE, 1)
+        date = cal.time
+        refresh()
     }
 
     private fun previous(){
-
+        val cal:Calendar = Calendar.getInstance()
+        cal.time = date
+        cal.add(Calendar.DATE, -1)
+        date = cal.time
+        refresh()
     }
 
 

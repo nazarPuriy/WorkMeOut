@@ -11,6 +11,7 @@ import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.LoginActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import kotlinx.android.synthetic.main.activity_login.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -37,7 +38,7 @@ object Controlador{
         currentUserRoutineIds = 0
         baseDatos.buscarUsuario(context,username,password)
         passwordInput = password
-        if(context is LoginActivity){context.loginbtn.isEnabled = false}
+        if(context is LoginActivity){context.btn_login.isEnabled = false}
     }
 
     fun editarUsuario(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
@@ -69,7 +70,7 @@ object Controlador{
 
     //Loguea el usuario. Es llamada des de la base de datos. //TODO que se llame mas tarde
     fun login(context:Context,password:String){
-        if(context is LoginActivity){context.loginbtn.isEnabled = true}
+        if(context is LoginActivity){context.btn_login.isEnabled = true}
         if (currentUser == null) {
             Toast.makeText(context, "Incorrect username", Toast.LENGTH_SHORT).show()
         } else {

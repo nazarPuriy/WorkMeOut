@@ -45,23 +45,6 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class BlogViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        /*
-        val blogImage: ImageView = itemView.blog_image
-        val blogTitle:TextView = itemView.blog_title
-        val blogAuthor = itemView.blog_author
-
-        fun bind(dataChat: DataChat) {
-            blogTitle.text = dataChat.title
-            blogAuthor.text = dataChat.last_message
-
-            val requestOptions = RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
-
-            Glide.with(itemView.context)
-                .applyDefaultRequestOptions(requestOptions)
-                .load(dataChat.image)
-                .into(blogImage)*/
         val blogImage: ImageView = itemView.blog_image
         val blogTitle:TextView = itemView.blog_title
         val blogAuthor = itemView.blog_author

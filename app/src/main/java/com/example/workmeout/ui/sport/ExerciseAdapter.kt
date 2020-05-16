@@ -8,20 +8,22 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.workmeout.model.ExerciseOLD
-import com.example.workmeout.model.RoutineOLD
+import com.example.workmeout.Controlador.Controlador
 import kotlinx.android.synthetic.main.sport_card.view.*
 
 
 
 import com.example.workmeout.R
+import com.example.workmeout.model.Exercise
+import com.example.workmeout.model.Routine
+import java.util.*
 
 
+class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {//TODO exercise new
-
+    private lateinit var date: Date
     lateinit var context: Context
-    private lateinit var routineOLD: RoutineOLD
+    private lateinit var routine: Routine
     private lateinit var sf:SportFragment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -34,8 +36,8 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {//TODO 
         return vh
     }
 
-    fun submitRoutine(routineOLD: RoutineOLD){
-        this.routineOLD= routineOLD
+    fun submitRoutine(routine:Routine){
+        this.routine= routine
     }
 
     fun submitFragment(sf:SportFragment){
@@ -43,7 +45,7 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {//TODO 
     }
 
     override fun getItemCount(): Int {
-        return routineOLD.exerciseOLDList.size
+        return routine.exercises_class.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -51,11 +53,15 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {//TODO 
         when(holder){
 
             is SportViewHolder ->{
-                holder.bind(routineOLD.exerciseOLDList.get(position))
+                holder.bind(routine.exercises_class.get(position), date)
             }
         }
 
 
+    }
+
+    fun submitDate(date: Date) {
+        this.date = date
     }
 
     class SportViewHolder constructor(itemView: View, sf:SportFragment) : RecyclerView.ViewHolder(itemView) {
@@ -68,26 +74,38 @@ class ExerciseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {//TODO 
         val sf: SportFragment = sf
 
 
-        fun bind(exerciseOLD: ExerciseOLD) {
-            currentWeight.value = exerciseOLD.currentWeight
-            name.text = exerciseOLD.name
-            reps.text = "Reps: " + exerciseOLD.reps.toString()
-            cb.isChecked = exerciseOLD.done
-            currentWeight.isEnabled = !exerciseOLD.done
+        fun bind(exercise: Exercise, date: Date) {
+            currentWeight.value = exercise.weightAtDate(date)
+            cb.isChecked = exercise.isDoneAtDate(date)
+            name.text = exercise.name
+            reps.text = "Reps: " + exercise.reps.toString()
+            currentWeight.isEnabled = !exercise.isDoneAtDate(date)
+
             cb.setOnCheckedChangeListener { buttonView, isChecked ->
-                currentWeight.isEnabled = !isChecked
-                exerciseOLD.done = isChecked
-                exerciseOLD.currentWeight = currentWeight.value
+                if(isChecked){
+                    exercise.addEvent(date, currentWeight.value)
+                } else {
+                    exercise.removeEvent(date)
+                }
+                Controlador.editUserExercise(exercise, itemView.context)
                 sf.notifyBar()
+                currentWeight.isEnabled = !cb.isChecked
             }
 
             card.setOnClickListener(View.OnClickListener {
                 val intent: Intent = Intent(itemView.context, ExerciseActivity::class.java)
-                intent.putExtra("exName",name.text.toString())
-                intent.putExtra("exWeight",currentWeight.value.div(1.0))
-                intent.putExtra("exReps", exerciseOLD.reps)
+                intent.putExtra("exerciseId", exercise.id)
                 itemView.context.startActivity(intent)
             })
+
+            currentWeight.setOnValueChangedListener{ numberPicker: NumberPicker, i: Int, i1: Int ->
+
+                if(cb.isChecked){
+                    exercise.addEvent(date, currentWeight.value)
+                    Controlador.editUserExercise(exercise, itemView.context)
+                }
+
+            }
         }
 
     }

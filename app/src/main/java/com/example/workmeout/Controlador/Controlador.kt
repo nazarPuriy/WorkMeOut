@@ -11,6 +11,9 @@ import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.LoginActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.max
 
 
@@ -488,6 +491,48 @@ object Controlador{
 
     fun editUserExercise(exercise: Exercise, context: Context){
         baseDatos.editUserExercise(exercise, context)
+    }
+
+    fun getRoutinesOnDate(d: Date): List<Routine>{
+
+        var cal:Calendar = Calendar.getInstance()
+        cal.time = d
+        var day = cal.get(Calendar.DAY_OF_WEEK)
+        day = day - 2
+        if(day == -1){day = 6}
+
+        var routines: ArrayList<Routine> = ArrayList()
+        for(routine in getRoutines()){
+
+            var days = routine.days
+
+            for(x in 0 until day){
+                days /= 2
+            }
+
+            if(days % 2 == 1){
+                routines.add(routine)
+            }
+
+        }
+
+        return routines
+
+    }
+
+    fun getRoutineIndexById(id: Int): Int{
+
+        var index:Int = 0
+
+        for (routine in getRoutines()){
+            if(routine.id == id){
+                return index
+            }
+            index += 1
+        }
+
+        return -1
+
     }
 
 

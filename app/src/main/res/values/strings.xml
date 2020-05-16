@@ -73,4 +73,8 @@
 
     <!-- Push Notification -->
     <string name="notification_channel_description">This is a sample notification channel.</string>
+
+    <!--intento de chat-->
+    <string name="email_login">email</string>
+
 </resources>

@@ -71,6 +71,22 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
+                        android:id="@+id/edttxt_email_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="#D3E0EA"
+                        android:ems="10"
+                        android:hint="@string/email_login"
+                        android:inputType="textPersonName"
+                        android:textSize="20sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:background="#00FFFFFF" />
+
+
+                    <EditText
                         android:id="@+id/edttxt_user_login"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"

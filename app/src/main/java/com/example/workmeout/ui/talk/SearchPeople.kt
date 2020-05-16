@@ -128,30 +128,6 @@ class SearchPeople : AppCompatActivity() {
             }
         })*/
 
-    /*
-        myList = findViewById(R.id.listview)
-        mySearchView = findViewById(R.id.txtsearch)
-
-        val image = findViewById<ImageView>(R.id.imageView)
-        mySearchView.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s.toString().equals("")) {
-                    initList()
-                    image.visibility = View.VISIBLE
-                } else {
-                    image.visibility = View.INVISIBLE
-                    initList()
-                    searchItem(s.toString())
-                }
-            }
-        })*/
-
         mySearchView = findViewById(R.id.txtsearch)
 
         val image = findViewById<ImageView>(R.id.imageView)
@@ -199,29 +175,6 @@ class SearchPeople : AppCompatActivity() {
         })
 
     }
-    /*
-    fun initList() {
-        listItems = ArrayList(items.size)
-        listItems.addAll(items)
-        adapter_ = ArrayAdapter<String>(this, R.layout.search_card, R.id.txtitem)
-        adapter_.addAll(listItems)
-        listview.adapter = adapter_
-
-    }
-
-    fun searchItem(textToSearch: String) {
-        initList()
-        for(item in items) {
-            if(!item.toLowerCase().contains(textToSearch.toLowerCase())) {
-                listItems.remove(item)
-
-            }
-            adapter_.clear()
-            adapter_.addAll(listItems)
-            adapter_.notifyDataSetChanged()
-        }
-
-    }*/
 
     internal class MyAdapter(
         c: Context,

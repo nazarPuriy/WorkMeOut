@@ -64,6 +64,10 @@ object Controlador{
             if (currentUser!!.password != password) {
                 Toast.makeText(context, "Incorrect password", Toast.LENGTH_SHORT).show()
             } else {
+
+                /*Firebase----------------------------*/
+
+                /*------------------------------------*/
                 //Accedemos ya dentro de la aplicación.
                 val logInt= Intent(context, MainActivity::class.java)
                 context.startActivity(logInt)

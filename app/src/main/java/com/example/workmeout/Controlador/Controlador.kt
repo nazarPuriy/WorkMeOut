@@ -1,16 +1,21 @@
 package com.example.workmeout.Controlador
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import com.example.workmeout.model.User
 import com.example.workmeout.dataBase.BaseDatos
+import com.example.workmeout.intentoDeChat.FChat
+import com.example.workmeout.intentoDeChat.FireHelper
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.LoginActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,6 +30,8 @@ object Controlador{
     var currentUserRoutineIds: Int = 0
     var readyRoutines: Int = 0
     var passwordInput = ""
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     //Guarda un usuario con los datos introducidos en la base de datos.
     fun register(context: Context, username : String, name : String, password: String, email: String, phone : String, age : String, gender : String, weight : String, height : String){
@@ -475,7 +482,7 @@ object Controlador{
 
 
         if(readyRoutines == currentUserRoutineIds){
-            login(context, passwordInput)
+            loginFireBase(context as Activity)
         }
         readyRoutines++
     }
@@ -537,6 +544,56 @@ object Controlador{
         }
 
         return -1
+
+    }
+
+    fun loginFireBase(a: Activity){
+
+        mAuth = FireHelper.AuthInit()
+        db = FireHelper.FirebaseInit()
+
+        mAuth.signInWithEmailAndPassword(
+            currentUser!!.email,
+            currentUser!!.password
+        )
+            .addOnCompleteListener(a) { task ->
+                if (task.isSuccessful) {
+
+                    val message = FChat(
+                        currentUser!!.email,
+                        currentUser!!.password,
+                        mAuth.currentUser!!.uid
+                    )
+                    db.collection("chat").add(message)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                a, "Well writeen.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                a, "Failed at modifying",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    /*
+                    val database = FirebaseDatabase.getInstance()
+                    val myRef = database.getReference("chat")
+
+                    val friendlyMessage = FChat(email, subStringName(email), mAuth!!.getCurrentUser()!!.uid)
+                    myRef.push().setValue(friendlyMessage)
+                    */
+                    login(a, passwordInput)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(
+                        a, "Firebase Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
 
     }
 

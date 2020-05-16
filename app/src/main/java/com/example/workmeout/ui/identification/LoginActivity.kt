@@ -28,12 +28,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        editTextEmail = findViewById(R.id.edttxt_email_login)
         editTextUsername = findViewById(R.id.edttxt_user_login)
         editTextPassword = findViewById(R.id.edttxt_password_login)
 
-        mAuth = FireHelper.AuthInit()
-        db = FireHelper.FirebaseInit()
+
     }
 
      //Function called when login button is clicked
@@ -41,49 +39,6 @@ class LoginActivity : AppCompatActivity() {
         if(editTextPassword.text.isEmpty() || editTextUsername.text.isEmpty()){
             Toast.makeText(this,"Please fill all fields",Toast.LENGTH_SHORT).show()
         }else {
-
-            mAuth.signInWithEmailAndPassword(
-                editTextEmail.text.toString(),
-                editTextPassword.text.toString()
-            )
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-
-                        val message = FChat(
-                            editTextEmail.text.toString(),
-                            editTextUsername.text.toString(),
-                            mAuth.currentUser!!.uid
-                        )
-                        db.collection("chat").add(message)
-                            .addOnSuccessListener {
-                                Toast.makeText(
-                                    baseContext, "Well writeen.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(
-                                    baseContext, "Failed at modifying",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        /*
-                        val database = FirebaseDatabase.getInstance()
-                        val myRef = database.getReference("chat")
-
-                        val friendlyMessage = FChat(email, subStringName(email), mAuth!!.getCurrentUser()!!.uid)
-                        myRef.push().setValue(friendlyMessage)
-                        */
-                        val logInt = Intent(this, MainActivity::class.java)
-                        startActivity(logInt)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(
-                            baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
             Controlador.loginRequest(view.context,editTextUsername.text.toString(),editTextPassword.text.toString())
         }
      }

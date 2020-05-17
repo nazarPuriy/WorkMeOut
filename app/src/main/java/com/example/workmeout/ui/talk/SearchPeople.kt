@@ -15,6 +15,7 @@ import android.widget.AdapterView
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workmeout.R
+import com.example.workmeout.intentoDeChat.Chat
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_people.*
@@ -48,6 +49,7 @@ class SearchPeople : AppCompatActivity() {
         */
         var listItems:ArrayList<String?> =  ArrayList()
         var listLast_message:ArrayList<String?> =  ArrayList()
+        var listUid:ArrayList<String?> =  ArrayList()
 
         mDataBase = FirebaseFirestore.getInstance()
         val docRef = mDataBase.collection("users")
@@ -57,8 +59,9 @@ class SearchPeople : AppCompatActivity() {
                 for (document in result) {
                     Log.d("exist", "${document.id} => ${document.data}")
 
-                        listItems.add(document.getString("name"))
-                        listLast_message.add(document.getString("email"))
+                    listItems.add(document.getString("name"))
+                    listLast_message.add(document.getString("email"))
+                    listUid.add(document.getString("uid"))
 
                 }
                 items = arrayOfNulls<String?>(listItems.size)
@@ -85,48 +88,16 @@ class SearchPeople : AppCompatActivity() {
         var adapter = MyAdapter(this, items, last_message)
         listview.adapter = adapter
 
-        /*
+
         listview.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
             if (position == 0) {
-                /*
-                val buttonppl : Intent = Intent(applicationContext, SharedChat::class.java)
-                startActivity(buttonppl)*/
+                val intent: Intent = Intent(this, Chat::class.java)
+                intent.putExtra("uid_friend", listUid[position])
+                this.startActivity(intent)
                 Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
                     .show()
             }
-            if (position == 1) {
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            if (position == 2) {
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            if (position == 3) {
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            if (position == 4) {
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            if (position == 5) {
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            if (position == 6) {
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            if (position == 7) {
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            if (position == 8) {
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })*/
+        })
 
         mySearchView = findViewById(R.id.txtsearch)
 

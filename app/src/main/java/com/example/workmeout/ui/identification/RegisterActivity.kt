@@ -58,11 +58,6 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var checkFemale: RadioButton
     private lateinit var buttonRegister: Button
 
-    private var name:String = ""
-    private var email:String = ""
-    private var password:String = ""
-    private var user:String = ""
-
     private lateinit var mAuth:FirebaseAuth
     private lateinit var mDataBase:FirebaseFirestore
     companion object {
@@ -107,56 +102,6 @@ class RegisterActivity : AppCompatActivity() {
         editTextAge.setText("20")
     }
 
-
-    //Si los datos introducidos son correctos guarda el usuario correspondiente a estos en la base de datos.
-    fun register(view: View){
-        if(checkData()){
-            mAuth.createUserWithEmailAndPassword(editTextGmail.text.toString(), "123456").addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user: HashMap<String, Any> = HashMap()
-                    user["email"] = editTextGmail.text.toString()
-                    user["name"] = editTextName.text.toString()
-                    user["uid"] = editTextUsername.text.toString()
-
-                    val uid: String = mAuth.currentUser!!.uid
-
-                    mDataBase.collection("users").document(user["name"] as String)
-                        .set(user)
-                        .addOnSuccessListener {
-                            Log.d(TAG, "DocumentSnapshot successfully written!")
-                            Toast.makeText(this, "Se ha creado el usuario", Toast.LENGTH_SHORT).show()
-
-                            /*
-                            val user = FirebaseAuth.getInstance().currentUser
-
-                            val profileUpdates = UserProfileChangeRequest.Builder()
-                                .setDisplayName(name)
-                                .build()
-
-                            user?.updateProfile(profileUpdates)
-                                ?.addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        Log.d(TAG, "User profile updated.")
-                                    }
-                                }*/
-                        }
-                        .addOnFailureListener {
-                                e -> Log.w(TAG, "Error writing document", e)
-                            Toast.makeText(this, "Error creando el usuario", Toast.LENGTH_SHORT).show()
-
-                        }
-
-                    verificationEmail()
-                    finish()
-                } else {
-                    Toast.makeText(this, "No se ha creado el usuario", Toast.LENGTH_SHORT).show()
-                }
-
-            }
-            Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),checkMale.isChecked.toString(),"0","0")
-        }
-    }
-
     //Comprueba si los datos estan y si son correctos. EN caso de no serlo muestra un Toast.
     private fun checkData() : Boolean{
         //Miramos si toda la inforamción está presente.
@@ -181,64 +126,24 @@ class RegisterActivity : AppCompatActivity() {
         return Controlador.checkData(editTextUsername.text.toString(),editTextName.text.toString(), editTextPassword.text.toString(), editTextGmail.text.toString(),editTextPhone.text.toString(),editTextAge.text.toString())
     }
 
-
-
-    //NACHO ABAJO
-    //inicio
+    //Si los datos introducidos son correctos guarda el usuario correspondiente a estos en la base de datos.
     fun registerUser(view: View) {
         Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),checkMale.isChecked.toString(),"0","0")
-        /*
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
 
-                val user: HashMap<String, Any> = HashMap()
-                user["name"] = name
-                user["email"] = email
-                user["password"] = password
-
-                val uid: String = mAuth.currentUser!!.uid
-
-                mDataBase.collection("users").document(user["name"] as String)
-                    .set(user)
-                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-                    .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
-                verificationEmail()
-                finish()
-            } else {
-                Toast.makeText(this, "No se ha creado el usuario", Toast.LENGTH_SHORT).show()
-            }
-
-        }*/
         /*Firebase------------------------------------------------*/
         mAuth.createUserWithEmailAndPassword(editTextGmail.text.toString(), "123456").addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val user: HashMap<String, Any> = HashMap()
                 user["email"] = editTextGmail.text.toString()
                 user["name"] = editTextName.text.toString()
-                user["uid"] = editTextUsername.text.toString()
-
-                val uid: String = mAuth.currentUser!!.uid
+                user["username"] = editTextUsername.text.toString()
+                user["uid"] = mAuth.currentUser!!.uid
 
                 mDataBase.collection("users").document(user["name"] as String)
                     .set(user)
                     .addOnSuccessListener {
                         Log.d(TAG, "DocumentSnapshot successfully written!")
                         Toast.makeText(this, "Se ha creado el usuario", Toast.LENGTH_SHORT).show()
-
-                        /*
-                        val user = FirebaseAuth.getInstance().currentUser
-
-                        val profileUpdates = UserProfileChangeRequest.Builder()
-                            .setDisplayName(name)
-                            .build()
-
-                        user?.updateProfile(profileUpdates)
-                            ?.addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d(TAG, "User profile updated.")
-                                }
-                            }*/
                     }
                     .addOnFailureListener {
                             e -> Log.w(TAG, "Error writing document", e)
@@ -269,32 +174,4 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
-
-
-    /*Nacho's doing
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
-
-            if (resultCode == Activity.RESULT_OK) {
-                val progressDialog = indeterminateProgressDialog("Setting up your account")
-                startActivity(intentFor<MainActivity>().newTask().clearTask())
-                progressDialog.dismiss()
-
-            }
-            else if (resultCode == Activity.RESULT_CANCELED) {
-                if (response == null) return
-
-                when (response.error?.errorCode) {
-                    ErrorCodes.NO_NETWORK ->
-                        register_layout.longSnackbar("No network")
-                    ErrorCodes.UNKNOWN_ERROR ->
-                        register_layout.longSnackbar("Unknown error")
-                }
-            }
-        }
-    }
-    --------*/
 }

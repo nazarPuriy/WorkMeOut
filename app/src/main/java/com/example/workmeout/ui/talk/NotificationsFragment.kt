@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.R
+import com.example.workmeout.intentoDeChat.FireHelper
 import com.example.workmeout.model.User2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
@@ -118,7 +119,10 @@ class NotificationsFragment : Fragment() {
                         null,
                         null
                     )
-                    data.add(usuario)
+                    if(!FireHelper.getCurrentUser().uid.equals(document.getString("uid"))) {
+                        data.add(usuario)
+                    }
+                    //data.add(usuario)
                 }
                 blogAdapter.submitList(data)
                 blogAdapter.notifyDataSetChanged()

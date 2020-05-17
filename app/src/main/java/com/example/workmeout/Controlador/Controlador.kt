@@ -14,6 +14,7 @@ import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.LoginActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import com.example.workmeout.ui.me.RoutineSearchAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
@@ -265,17 +266,7 @@ object Controlador{
         }
     }
 
-    fun fillExercises(context: Context, routine:Routine){
 
-        for(x in routine.exercises){
-
-            if(x != 0) {
-                baseDatos.buscarEjercicioUsuario(context, x, routine)
-            }
-
-        }
-
-    }
 
     //Acaba de meter la id procediente de la base de datos. También guardaremos en la base de datos del usuario esta id de rutina.
     fun fillNewRoutineId(context:Context,id:Int){
@@ -572,8 +563,8 @@ object Controlador{
 
     }
 
-    fun fillExercises(context: Context, routine: Routine, adapter: Any) {
-
+    fun matchRoutine(baseContext: Context, toString: String, adapter: RoutineSearchAdapter) {
+        baseDatos.matchRoutine(baseContext, toString, adapter)
     }
 
 

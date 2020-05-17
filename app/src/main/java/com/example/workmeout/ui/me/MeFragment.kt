@@ -40,6 +40,7 @@ class MeFragment : Fragment() {
     fun init(root: View) {
         botonF = root.findViewById(R.id.fab)
         search_button  = root.findViewById(R.id.search)
+        search_button.setOnClickListener{search()}
         add_routine = root.findViewById(R.id.new_button)
         val nombre : TextView = root.findViewById(R.id.txt_username)
         nombre.text = Controlador.currentUser!!.name
@@ -84,7 +85,6 @@ class MeFragment : Fragment() {
             galeria.setAction(Intent.ACTION_GET_CONTENT)
             startActivityForResult(Intent.createChooser(galeria,"Selecciona una imagen"), PICK_IMAGE)
         })
-
 
 
 
@@ -214,6 +214,11 @@ class MeFragment : Fragment() {
         }
 
 
+    }
+
+    fun search(){
+        val intent:Intent = Intent(this.context, SearchRoutines::class.java)
+        this.requireContext().startActivity(intent)
     }
 
 }

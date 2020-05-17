@@ -282,7 +282,6 @@ class RoutineActivity : AppCompatActivity() {
 
     fun update(){
         Controlador.editRoutineDays(indexRoutine, calcDays(), this)
-        //Toast.makeText(this, indexRoutine.toString(), Toast.LENGTH_SHORT).show()
     }
 
     fun save(){

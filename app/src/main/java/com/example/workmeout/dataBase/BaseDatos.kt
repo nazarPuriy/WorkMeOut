@@ -3,6 +3,7 @@ import android.content.Context
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
+import com.example.workmeout.ui.me.RoutineSearchAdapter
 
 class BaseDatos {
 
@@ -166,6 +167,10 @@ class BaseDatos {
         context: Context
     ) {
         exerciseDataBase.editUserExercise(exercise, context)
+    }
+
+    fun matchRoutine(baseContext: Context, toString: String, adapter: RoutineSearchAdapter) {
+        routineDataBase.matchRoutine(baseContext, toString, adapter)
     }
 
 }

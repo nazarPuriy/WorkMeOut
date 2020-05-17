@@ -119,7 +119,7 @@ class NotificationsFragment : Fragment() {
                         null,
                         document.getString("email")
                     )
-                    if(document.getString("receiverUid")!!.equals(document.getString("uid"))) {
+                    if(document.getString("receiverUid")!!.equals(FireHelper.getCurrentUser().uid)) {
                         //if (!FireHelper.getCurrentUser().uid.equals(document.getString("uid"))) {
                             data.add(usuario)
                         //}

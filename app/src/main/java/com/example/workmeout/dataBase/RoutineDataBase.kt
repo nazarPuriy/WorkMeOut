@@ -17,6 +17,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 import com.example.workmeout.ui.me.RoutineActivity
+import com.example.workmeout.ui.me.RoutineSearchAdapter
 import kotlinx.android.synthetic.main.activity_routine.*
 
 class RoutineDataBase {
@@ -316,54 +317,30 @@ class RoutineDataBase {
 
     }
 
-    /*
-    fun matchRoutine(context: Context, partialName:String, adapter:RoutineSearchAdapter){
+
+    fun matchRoutine(context: Context, partialName:String, adapter: RoutineSearchAdapter){
         var name: String
         var description: String
-        var exercise1: Int
-        var exercise2: Int
-        var exercise3: Int
-        var exercise4: Int
-        var exercise5: Int
-        var exercise6: Int
-        var exercise7: Int
-        var exercise8: Int
-        var exercise9: Int
-        var exercise10: Int
-        var exercise11: Int
-        var exercise12: Int
-        var exercise13: Int
-        var exercise14: Int
-        var exercise15: Int
         var classId: String
         val URL : String = domain + "/websercv/routine/buscar_match.php?search="+partialName
         val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
             Response.Listener<JSONArray>{ response->
                 var jsonObject: JSONObject
+                var list: ArrayList<Routine> = ArrayList()
                 for(i in 0..response.length()-1){
                     jsonObject=response.getJSONObject(i)
                     name = jsonObject.getString("name")
                     description = jsonObject.getString("description")
-                    exercise1 = jsonObject.getString("exercise1").toInt()
-                    exercise2 = jsonObject.getString("exercise2").toInt()
-                    exercise3 = jsonObject.getString("exercise3").toInt()
-                    exercise4 = jsonObject.getString("exercise4").toInt()
-                    exercise5 = jsonObject.getString("exercise5").toInt()
-                    exercise6 = jsonObject.getString("exercise6").toInt()
-                    exercise7 = jsonObject.getString("exercise7").toInt()
-                    exercise8 = jsonObject.getString("exercise8").toInt()
-                    exercise9 = jsonObject.getString("exercise9").toInt()
-                    exercise10 = jsonObject.getString("exercise10").toInt()
-                    exercise11 = jsonObject.getString("exercise11").toInt()
-                    exercise12 = jsonObject.getString("exercise12").toInt()
-                    exercise13 = jsonObject.getString("exercise13").toInt()
-                    exercise14 = jsonObject.getString("exercise14").toInt()
-                    exercise15 = jsonObject.getString("exercise15").toInt()
                     classId = jsonObject.getString("id")
-
                     var routine = Routine(0,classId.toInt(), name, description, 0)
-                    Controlador.fillExercises(context, routine, adapter)
+
+                    for (x in 1..15){
+                        routine.exercisesDesc.add(jsonObject.getString("exercise" + x.toString() ).toInt())
+                    }
+                    list.add(routine)
                 }
+                adapter.submitList(list)
+                adapter.notifyDataSetChanged()
 
             }, Response.ErrorListener { error->
                 Toast.makeText(context, "No matching exercises found.", Toast.LENGTH_SHORT).show()
@@ -375,7 +352,7 @@ class RoutineDataBase {
         requestQ.add(jsonArrayRequest)
     }
 
-     */
+
 
     //Método que utilizamos para buscar rutinas
     fun buscarRutinaUsuario(context: Context, id: Int, index:Int) {
@@ -434,7 +411,7 @@ class RoutineDataBase {
 
 
                     Controlador.postRoutine(context, rutina, index)
-                    Controlador.fillExercises(context, rutina)
+                    //Controlador.fillExercises(context, rutina)
                     buscarRutina(context,classid, index)
                 }
             }, Response.ErrorListener { error ->

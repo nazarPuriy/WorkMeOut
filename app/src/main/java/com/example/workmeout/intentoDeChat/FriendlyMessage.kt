@@ -6,7 +6,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class FriendlyMessage(
     var text: String? = "",
-    var name: String? = "",
+    var type: String? = "",
     var timeStamp : String? = "",
     var fromUserId : String? = ""
 )

@@ -37,6 +37,10 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
     private var chatIndex: String = ""
 
+    private var uidFriend: String = ""
+    private var uidFriendArray: ArrayList<String> = ArrayList<String>()
+    private var currentUserEmail: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.intento_de_chat_chat)
@@ -55,17 +59,18 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         user.getDisplayName()
         user.getEmail()
 
+        fromUseridentify = user.uid
         currentUser = subStringName(user.email!!)
+        currentUserEmail = user.email!!
+        uidFriend = intent.getStringExtra("uid_friend")
 
-        val emailFriend = intent.getStringExtra("email_friend")
         val lengthThenNatural = compareBy<String> { it.length }
             .then(naturalOrder())
 
         val sortedUsers =
-            listOf(subStringName(emailFriend), currentUser!!).sortedWith(lengthThenNatural)
-        chatIndex = sortedUsers[0] + sortedUsers[1]
+            listOf(uidFriend, fromUseridentify!!).sortedWith(lengthThenNatural)
+        chatIndex = sortedUsers[0] + "@" + sortedUsers[1]
 
-        fromUseridentify = user.uid
         mAdapter = CustomAdapter(mFMessages!!, fromUseridentify!!)
         mAdapter!!.submitStuff(ArrayList())
         mRecyclerView!!.adapter = mAdapter
@@ -159,16 +164,16 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
 
 
-        val docRef = db!!.collection("chat"+chatIndex)
+        val docRef = db!!.collection(chatIndex)
         mFMessages!!.clear()//TODO
         docRef.orderBy("timeStamp").get().addOnSuccessListener { result ->
             for (document in result) {
                 val fromUserId = document.getString("fromUserId")
-                val name = document.getString("name")
+                val type = document.getString("type")
                 val text = document.getString("text")
                 val timestamp = document.getString("timeStamp")
-                Log.d("TAG", "$fromUserId / $name / $text / $timestamp")
-                mFMessages!!.add(FriendlyMessage(text, name, timestamp, fromUserId))
+                Log.d("TAG", "$fromUserId / $type / $text / $timestamp")
+                mFMessages!!.add(FriendlyMessage(text, type, timestamp, fromUserId))
             }
             if (mFMessages!!.size > 0) {
 
@@ -212,10 +217,26 @@ class Chat : AppCompatActivity(), View.OnClickListener{
                     getTimeStamp(),
                     fromUseridentify
                 )
-                val docRef = db!!.collection("chat"+chatIndex).add(friendlyMessage)
+                val docRef = db!!.collection(chatIndex).add(friendlyMessage)
                     .addOnSuccessListener {
                         Log.w("", " Write was successful!")
                         msgText!!.setText("")
+
+                        //para que solo se muestren los chats con mensajes
+                        val userReceiver = db!!.collection("users").document(uidFriend!!)
+                            .collection("friends").document(fromUseridentify!!)
+
+                        userReceiver
+                            .set(FChat(currentUserEmail!! ,currentUser!!,fromUseridentify!!))
+                            .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
+                            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
+                        /*
+                        val usuarioActual = db!!.collection("users").document(fromUseridentify!!)
+
+                        usuarioActual
+                            .update("receiverUid", uidFriend)
+                            .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
+                            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }*/
                     }
                     .addOnFailureListener {
                         // Write failed

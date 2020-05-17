@@ -17,6 +17,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 import com.example.workmeout.ui.me.RoutineActivity
+import com.example.workmeout.ui.me.RoutineSearchAdapter
 import kotlinx.android.synthetic.main.activity_routine.*
 
 class RoutineDataBase {
@@ -316,6 +317,43 @@ class RoutineDataBase {
 
     }
 
+
+    fun matchRoutine(context: Context, partialName:String, adapter: RoutineSearchAdapter){
+        var name: String
+        var description: String
+        var classId: String
+        val URL : String = domain + "/websercv/routine/buscar_match.php?search="+partialName
+        val jsonArrayRequest : JsonArrayRequest = JsonArrayRequest(URL,
+            Response.Listener<JSONArray>{ response->
+                var jsonObject: JSONObject
+                var list: ArrayList<Routine> = ArrayList()
+                for(i in 0..response.length()-1){
+                    jsonObject=response.getJSONObject(i)
+                    name = jsonObject.getString("name")
+                    description = jsonObject.getString("description")
+                    classId = jsonObject.getString("id")
+                    var routine = Routine(0,classId.toInt(), name, description, 0)
+
+                    for (x in 1..15){
+                        routine.exercisesDesc.add(jsonObject.getString("exercise" + x.toString() ).toInt())
+                    }
+                    list.add(routine)
+                }
+                adapter.submitList(list)
+                adapter.notifyDataSetChanged()
+
+            }, Response.ErrorListener { error->
+                Toast.makeText(context, "No matching exercises found.", Toast.LENGTH_SHORT).show()
+                adapter.submitList(ArrayList<Routine>())
+                adapter.notifyDataSetChanged()
+            })
+
+        requestQ= Volley.newRequestQueue(context);
+        requestQ.add(jsonArrayRequest)
+    }
+
+
+
     //Método que utilizamos para buscar rutinas
     fun buscarRutinaUsuario(context: Context, id: Int, index:Int) {
         var classid: Int
@@ -373,7 +411,7 @@ class RoutineDataBase {
 
 
                     Controlador.postRoutine(context, rutina, index)
-                    Controlador.fillExercises(context, rutina)
+                    //Controlador.fillExercises(context, rutina)
                     buscarRutina(context,classid, index)
                 }
             }, Response.ErrorListener { error ->

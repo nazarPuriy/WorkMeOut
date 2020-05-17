@@ -39,7 +39,7 @@ class CustomAdapter(val listItem: ArrayList<FriendlyMessage>, val fromUserId: St
             viewHolderImage.itemView.tag = viewHolderImage
         } else if (v is ViewHolderYou) { // Handle Video Layout
             val viewHolderYou = v as ViewHolderYou
-            viewHolderYou.name!!.setText(String.format("%s", listItemUpdated!!.get(pos).name))
+            viewHolderYou.name!!.setText(String.format("%s", listItemUpdated!!.get(pos).type))
             viewHolderYou.messageBody!!.setText(String.format("%s", listItemUpdated!!.get(pos).text))
             val drawable = viewHolderYou.avatar!!.getBackground() as GradientDrawable
             drawable.setColor(Color.GRAY)

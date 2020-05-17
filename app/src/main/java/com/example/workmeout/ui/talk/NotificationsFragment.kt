@@ -107,7 +107,9 @@ class NotificationsFragment : Fragment() {
         //val data: ArrayList<DataChat> = DataSource.createDataSet()
         val data: ArrayList<User2> = ArrayList<User2>()
 
-        val docRef = mDataBase.collection("users")
+        //val docRef = mDataBase.collection("users")
+        val docRef = mDataBase!!.collection("users").document(FireHelper.getCurrentUser().uid)
+            .collection("friends")
 
         docRef.get()
             .addOnSuccessListener { result ->
@@ -115,13 +117,15 @@ class NotificationsFragment : Fragment() {
                     Log.d("exist", "${document.id} => ${document.data}")
                     var usuario = User2(
                         document.getString("name"),
-                        document.getString("email"),
+                        document.getString("uid"),
                         null,
-                        null
+                        document.getString("email")
                     )
-                    if(!FireHelper.getCurrentUser().uid.equals(document.getString("uid"))) {
-                        data.add(usuario)
-                    }
+                    //if(document.getString("receiverUid")!!.equals(FireHelper.getCurrentUser().uid)) {
+                        //if (!FireHelper.getCurrentUser().uid.equals(document.getString("uid"))) {
+                            data.add(usuario)
+                        //}
+                    //}
                     //data.add(usuario)
                 }
                 blogAdapter.submitList(data)

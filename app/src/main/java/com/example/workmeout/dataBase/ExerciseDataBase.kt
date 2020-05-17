@@ -156,10 +156,13 @@ class ExerciseDataBase {
                     classId = jsonObject.getString("id")
 
                     list.add(Exercise(0, classId.toInt(), name, 0, description, 0, ArrayList<Date>(), ArrayList<Int>()))
-                    adapter.submitList(list)
-                    adapter.notifyDataSetChanged()
+
 
                 }
+
+                adapter.submitList(list)
+                adapter.notifyDataSetChanged()
+
             }, Response.ErrorListener { error->
                 Toast.makeText(context, "No matching exercises found.", Toast.LENGTH_SHORT).show()
                 list = ArrayList()

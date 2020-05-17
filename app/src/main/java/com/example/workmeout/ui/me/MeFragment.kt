@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -31,9 +33,15 @@ class MeFragment : Fragment() {
     private final var PICK_IMAGE = 1
     private lateinit var profileImage : ImageView
     private lateinit var botonF : FloatingActionButton
+    private var isOpen = false
+    lateinit var search_button:FloatingActionButton
+    lateinit var add_routine:FloatingActionButton
 
     fun init(root: View) {
-        botonF = root.findViewById(R.id.floatingActionButton2)
+        botonF = root.findViewById(R.id.fab)
+        search_button  = root.findViewById(R.id.search)
+        search_button.setOnClickListener{search()}
+        add_routine = root.findViewById(R.id.new_button)
         val nombre : TextView = root.findViewById(R.id.txt_username)
         nombre.text = Controlador.currentUser!!.name
         nombre.setOnClickListener({
@@ -57,12 +65,7 @@ class MeFragment : Fragment() {
         sa.submitList(Controlador.getRoutines())
         rv.adapter = sa
         rv.layoutManager = LinearLayoutManager(root.context)
-
-        if(Controlador.currentUser!!.numberOfRoutines>=5){
-            botonF.hide()
-        }else{
-            botonF.show()
-        }
+        if(isOpen){close()}
 
     }
 
@@ -83,18 +86,12 @@ class MeFragment : Fragment() {
             startActivityForResult(Intent.createChooser(galeria,"Selecciona una imagen"), PICK_IMAGE)
         })
 
-        val fab:FloatingActionButton = root.findViewById(R.id.floatingActionButton2)
-        fab.setOnClickListener(View.OnClickListener {
-            Toast.makeText(context, "Add a new routine", Toast.LENGTH_SHORT).show()
-            val intent:Intent = Intent(root.context, RoutineActivity::class.java)
-            intent.putExtra("isNew", true)
-            intent.putExtra("name", "New routine")
-            startActivity(intent)
-
-        })
 
 
         init(root)
+
+        botonF.setOnClickListener{clickAdd()}
+        add_routine.setOnClickListener{addRoutine()}
         return root
     }
 
@@ -164,6 +161,64 @@ class MeFragment : Fragment() {
             archivo.close()
         }catch(e:Exception){}
 
+    }
+
+    fun close(){
+        val fabClose = AnimationUtils.loadAnimation(this.context, R.anim.fab_close)
+        val fabRClockwise = AnimationUtils.loadAnimation(this.context, R.anim.rotate_clockwise)
+        search_button.startAnimation(fabClose)
+        add_routine.startAnimation(fabClose)
+        botonF.startAnimation(fabRClockwise)
+
+        isOpen = false
+    }
+
+    fun open(){
+        val fabOpen = AnimationUtils.loadAnimation(this.context, R.anim.fab_open)
+        val fabRAntiClockwise = AnimationUtils.loadAnimation(this.context, R.anim.rotate_anticlockwise)
+        search_button.startAnimation(fabOpen)
+        add_routine.startAnimation(fabOpen)
+        botonF.startAnimation(fabRAntiClockwise)
+
+        search_button.isClickable
+        add_routine.isClickable
+
+        isOpen = true
+    }
+
+    fun addRoutine(){
+
+        Toast.makeText(context, "Add a new routine", Toast.LENGTH_SHORT).show()
+        val intent:Intent = Intent(this.context, RoutineActivity::class.java)
+        intent.putExtra("isNew", true)
+        intent.putExtra("name", "New routine")
+        startActivity(intent)
+
+    }
+
+    fun clickAdd(){
+
+
+        if(Controlador.currentUser!!.numberOfRoutines>=5){
+            Toast.makeText(this.context, "You can have a maximum of 5 routines.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (isOpen) {
+
+            close()
+        }
+        else {
+
+            open()
+        }
+
+
+    }
+
+    fun search(){
+        val intent:Intent = Intent(this.context, SearchRoutines::class.java)
+        this.requireContext().startActivity(intent)
     }
 
 }

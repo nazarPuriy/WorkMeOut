@@ -138,8 +138,9 @@ class RegisterActivity : AppCompatActivity() {
                 user["name"] = editTextName.text.toString()
                 user["username"] = editTextUsername.text.toString()
                 user["uid"] = mAuth.currentUser!!.uid
+                user["sended"] = false
 
-                mDataBase.collection("users").document(user["name"] as String)
+                mDataBase.collection("users").document(user["uid"] as String)
                     .set(user)
                     .addOnSuccessListener {
                         Log.d(TAG, "DocumentSnapshot successfully written!")

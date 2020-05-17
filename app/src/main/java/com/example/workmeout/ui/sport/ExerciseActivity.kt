@@ -12,9 +12,11 @@ import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.ui.MainActivity
+import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,16 +27,18 @@ class ExerciseActivity : AppCompatActivity() {
     lateinit var botoChange: Button;
     lateinit var graphView: GraphView;
     lateinit var punts: Array<DataPoint>;
-    lateinit var series: PointsGraphSeries<DataPoint>
+    lateinit var series: LineGraphSeries<DataPoint>
     lateinit var npReps: NumberPicker
     lateinit var exName: String
     lateinit var exercise: Exercise
+    var form : LabelFormatterMio = LabelFormatterMio()
     var dayList: ArrayList<Date> = ArrayList<Date>() //Llista dels dies de l'exercici
     var weightsList: ArrayList<Int> = ArrayList<Int>() //Llista de pesos de l'exercici
     var exWeight: Double = 0.toDouble()
     var exReps: Int = 0
     val calendar: Calendar = Calendar.getInstance();
     val today: Date = calendar.time;
+    val sdf: SimpleDateFormat = SimpleDateFormat("dd:mm")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         exercise = Controlador.findExerciseById(getIntent().getIntExtra("exerciseId", 0))
@@ -61,8 +65,10 @@ class ExerciseActivity : AppCompatActivity() {
         botoChange.isEnabled = false
         graphView = findViewById(R.id.grafic);
         getDataPoints(weightsList,dayList)
-        series = PointsGraphSeries<DataPoint>(punts);
-
+        series = LineGraphSeries<DataPoint>(punts);
+        series.isDrawDataPoints = true
+        series.dataPointsRadius = 15.0F
+        series.thickness = 8
         graphView.addSeries(series);
         acabargrafic(graphView,dayList)
 
@@ -78,9 +84,8 @@ class ExerciseActivity : AppCompatActivity() {
     fun tapeoGraf(){
         series.setOnDataPointTapListener(OnDataPointTapListener(
             (@Override
-            fun(series: PointsGraphSeries<DataPoint>, dataPoint: DataPoint){
-
-                Toast.makeText(this,dataPoint.y.toString(),Toast.LENGTH_LONG).show()
+            fun(series: LineGraphSeries<DataPoint>, dataPoint: DataPoint){
+                Toast.makeText(this,dataPoint.toString(),Toast.LENGTH_LONG).show()
                 changing = dataPoint
                 activarCambiarPeso()
             }) as (Series<DataPointInterface>, DataPointInterface) -> Unit
@@ -93,7 +98,6 @@ class ExerciseActivity : AppCompatActivity() {
         botoChange.isEnabled = true
     }
 
-    //todo gerard cridar a la funció editExercise
     fun cambiarPeso(view: View){
         for (punto in punts.indices){
             if(punts.get(punto) == changing){
@@ -103,7 +107,10 @@ class ExerciseActivity : AppCompatActivity() {
             }
         }
         graphView.removeAllSeries()
-        series = PointsGraphSeries<DataPoint>(punts);
+        series = LineGraphSeries<DataPoint>(punts);
+        series.isDrawDataPoints = true
+        series.dataPointsRadius = 15.0F
+        series.thickness = 8
         graphView.addSeries(series);
         cambiador.visibility = View.INVISIBLE
         botoChange.isEnabled = false
@@ -122,38 +129,73 @@ class ExerciseActivity : AppCompatActivity() {
 
 
         var prova: ArrayList<DataPoint> = ArrayList<DataPoint>()
-        for (i in 0 until dies.size){
+        if(dayList.size==0){
+            punts = prova.toTypedArray()
+        }else{
+            for (i in 0 until dies.size){
 
-            var primer: DataPoint = DataPoint(dies[i],weights[i].toDouble())
-            prova.add(primer)
+                var primer: DataPoint = DataPoint(dies[i],weights[i].toDouble())
+                prova.add(primer)
+            }
+
+
+            punts = prova.toTypedArray()
         }
 
-        punts = prova.toTypedArray()
 
 
     }
 
     fun acabargrafic(graphView: GraphView, dies: ArrayList<Date>){
-        val objj: DateAsXAxisLabelFormatter = DateAsXAxisLabelFormatter(this)
-        graphView.gridLabelRenderer.setLabelFormatter(objj)
-        graphView.gridLabelRenderer.numHorizontalLabels = dies.size
-
-        graphView.viewport.setMinX(dies[0].time.toDouble())
-        graphView.viewport.setMinY(0.0)
-
-        var last: Double = today.time.toDouble()
-        for (i in dies){
-            if(dies.indexOf(i)==dies.size-1){
-                last = i.time.toDouble()
+        //val objj: DateAsXAxisLabelFormatter = DateAsXAxisLabelFormatter(this)
+        if(dayList.size == 0){
+            graphView.gridLabelRenderer.labelFormatter = form
+            graphView.gridLabelRenderer.numHorizontalLabels = dies.size
+            graphView.viewport.isXAxisBoundsManual = true
+        }else{
+            graphView.gridLabelRenderer.labelFormatter = form
+            var last: Long = today.time
+            for (i in dies){
+                if(dies.indexOf(i)==dies.size-1){
+                    last = i.time
+                }
             }
+            //graphView.gridLabelRenderer.numHorizontalLabels = ((last-dies[0].time)/86400000).toInt()+1;
+            //graphView.viewport.setMinX(dies[0].time.toDouble())
+            //graphView.viewport.setMaxX(last.toDouble())
+            graphView.gridLabelRenderer.numHorizontalLabels = setHoritzontalLabels(last,dies)
+            setMAXMIN(last, dies)
+            graphView.gridLabelRenderer.textSize = 20f
+            graphView.viewport.isXAxisBoundsManual = true
+            graphView.viewport.isScrollable = true
         }
 
-        graphView.viewport.setMaxX(last)
+        graphView.viewport.setMinY(0.0)
         graphView.viewport.setMaxY(100.0)
-        graphView.viewport.isXAxisBoundsManual = true
         graphView.viewport.isYAxisBoundsManual = true
 
         graphView.gridLabelRenderer.setHumanRounding(false)
+    }
+
+    fun setHoritzontalLabels(last:Long,dies: ArrayList<Date>):Int{
+        var a : Int = (((last-dies[0].time)/86400000).toInt()+1)
+        if(a<=7){
+            return a
+        }else{
+            return 8
+        }
+    }
+
+    fun setMAXMIN(last:Long,dies:ArrayList<Date>){
+        var a : Int = (((last-dies[0].time)/86400000).toInt()+1)
+        if(a<=7){
+            graphView.viewport.setMinX(dayList[0].time.toDouble())
+            graphView.viewport.setMaxX(last.toDouble())
+        }else{
+            graphView.viewport.setMinX(dayList[0].time.toDouble())
+            graphView.viewport.setMaxX(sumarRestarDiasFecha(dayList[0],7).time.toDouble())
+        }
+
     }
 
     fun openDescription(view:View){
@@ -162,6 +204,14 @@ class ExerciseActivity : AppCompatActivity() {
         descriptionIntent.putExtra("reps", exReps)
         descriptionIntent.putExtra("MODE","0")
         startActivity(descriptionIntent)
+    }
+
+    fun sumarRestarDiasFecha( fecha: Date, dias: Int): Date{
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.time = fecha
+        calendar.add(Calendar.DAY_OF_YEAR,dias)
+        print(calendar.time)
+        return calendar.time
     }
 
     fun editExercise(dataDouble: Double, newValue: Int) {

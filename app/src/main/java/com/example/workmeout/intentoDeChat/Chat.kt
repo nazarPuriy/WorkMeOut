@@ -38,6 +38,8 @@ class Chat : AppCompatActivity(), View.OnClickListener{
     private var chatIndex: String = ""
 
     private var uidFriend: String = ""
+    private var uidFriendArray: ArrayList<String> = ArrayList<String>()
+    private var currentUserEmail: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,7 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
         fromUseridentify = user.uid
         currentUser = subStringName(user.email!!)
+        currentUserEmail = user.email!!
         uidFriend = intent.getStringExtra("uid_friend")
 
         val lengthThenNatural = compareBy<String> { it.length }
@@ -220,12 +223,20 @@ class Chat : AppCompatActivity(), View.OnClickListener{
                         msgText!!.setText("")
 
                         //para que solo se muestren los chats con mensajes
+                        val userReceiver = db!!.collection("users").document(uidFriend!!)
+                            .collection("friends").document(fromUseridentify!!)
+
+                        userReceiver
+                            .set(FChat(currentUserEmail!! ,currentUser!!,fromUseridentify!!))
+                            .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
+                            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
+                        /*
                         val usuarioActual = db!!.collection("users").document(fromUseridentify!!)
 
                         usuarioActual
                             .update("receiverUid", uidFriend)
                             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
-                            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
+                            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }*/
                     }
                     .addOnFailureListener {
                         // Write failed

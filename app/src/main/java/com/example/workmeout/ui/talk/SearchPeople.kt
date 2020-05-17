@@ -93,8 +93,6 @@ class SearchPeople : AppCompatActivity() {
             val intent: Intent = Intent(this, Chat::class.java)
             intent.putExtra("uid_friend", listUid[position])
             this.startActivity(intent)
-            Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                .show()
         })
 
         mySearchView = findViewById(R.id.txtsearch)

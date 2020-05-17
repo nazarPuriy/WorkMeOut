@@ -21,6 +21,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -60,9 +61,7 @@ class RegisterActivity : AppCompatActivity() {
     private var name:String = ""
     private var email:String = ""
     private var password:String = ""
-    private var passwordConfirm:String = ""
-    private var phone:String = ""
-    private var age:String = ""
+    private var user:String = ""
 
     private lateinit var mAuth:FirebaseAuth
     private lateinit var mDataBase:FirebaseFirestore
@@ -92,45 +91,9 @@ class RegisterActivity : AppCompatActivity() {
 
         //NACHO ABAJO
         //inicio
+
         mAuth = FirebaseAuth.getInstance()
-        //mDataBase = FirebaseDatabase.getInstance().reference
         mDataBase = FirebaseFirestore.getInstance()
-        /*
-        buttonRegister.setOnClickListener {
-            name = editTextName.text.toString()
-            email = editTextGmail.text.toString()
-            password = editTextPassword.text.toString()
-            passwordConfirm = editTextPasswordConfirm.text.toString()
-            phone = editTextPhone.text.toString()
-            age = editTextPassword.text.toString()
-
-            if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !phone.isEmpty() && !age.isEmpty()) {
-
-                if (password.length >= 4) {
-                    if(password != passwordConfirm) {
-                        Toast.makeText(
-                            this,
-                            "Las dos contraseñas deben coincidir",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }else {
-                        registerUser()
-                    }
-                } else {
-                    Toast.makeText(
-                        this,
-                        "El password debe tener al menos 6 carácteres",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } else {
-                Toast.makeText(this, "Completa todos los campos si us plau", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-        */
-
-        //fin
     }
 
     //TODO borrar es dummy
@@ -148,6 +111,48 @@ class RegisterActivity : AppCompatActivity() {
     //Si los datos introducidos son correctos guarda el usuario correspondiente a estos en la base de datos.
     fun register(view: View){
         if(checkData()){
+            mAuth.createUserWithEmailAndPassword(editTextGmail.text.toString(), "123456").addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user: HashMap<String, Any> = HashMap()
+                    user["email"] = editTextGmail.text.toString()
+                    user["name"] = editTextName.text.toString()
+                    user["uid"] = editTextUsername.text.toString()
+
+                    val uid: String = mAuth.currentUser!!.uid
+
+                    mDataBase.collection("users").document(user["name"] as String)
+                        .set(user)
+                        .addOnSuccessListener {
+                            Log.d(TAG, "DocumentSnapshot successfully written!")
+                            Toast.makeText(this, "Se ha creado el usuario", Toast.LENGTH_SHORT).show()
+
+                            /*
+                            val user = FirebaseAuth.getInstance().currentUser
+
+                            val profileUpdates = UserProfileChangeRequest.Builder()
+                                .setDisplayName(name)
+                                .build()
+
+                            user?.updateProfile(profileUpdates)
+                                ?.addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        Log.d(TAG, "User profile updated.")
+                                    }
+                                }*/
+                        }
+                        .addOnFailureListener {
+                                e -> Log.w(TAG, "Error writing document", e)
+                            Toast.makeText(this, "Error creando el usuario", Toast.LENGTH_SHORT).show()
+
+                        }
+
+                    verificationEmail()
+                    finish()
+                } else {
+                    Toast.makeText(this, "No se ha creado el usuario", Toast.LENGTH_SHORT).show()
+                }
+
+            }
             Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),checkMale.isChecked.toString(),"0","0")
         }
     }
@@ -180,7 +185,9 @@ class RegisterActivity : AppCompatActivity() {
 
     //NACHO ABAJO
     //inicio
-    private fun registerUser() {
+    fun registerUser(view: View) {
+        Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),checkMale.isChecked.toString(),"0","0")
+        /*
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
 
@@ -188,8 +195,6 @@ class RegisterActivity : AppCompatActivity() {
                 user["name"] = name
                 user["email"] = email
                 user["password"] = password
-                user["phone"] = phone
-                user["age"] = age
 
                 val uid: String = mAuth.currentUser!!.uid
 
@@ -200,26 +205,56 @@ class RegisterActivity : AppCompatActivity() {
 
                 verificationEmail()
                 finish()
-                /*
-                mDataBase.child("Users").child(uid).setValue(user)
-                    .addOnCompleteListener(this) { task2 ->
-                        if (task2.isSuccessful) {
-                            finish()
-
-                        } else {
-                            Toast.makeText(
-                                this,
-                                "Hubo un problema al crear los datos",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
-                    }*/
             } else {
                 Toast.makeText(this, "No se ha creado el usuario", Toast.LENGTH_SHORT).show()
             }
 
+        }*/
+        /*Firebase------------------------------------------------*/
+        mAuth.createUserWithEmailAndPassword(editTextGmail.text.toString(), "123456").addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                val user: HashMap<String, Any> = HashMap()
+                user["email"] = editTextGmail.text.toString()
+                user["name"] = editTextName.text.toString()
+                user["uid"] = editTextUsername.text.toString()
+
+                val uid: String = mAuth.currentUser!!.uid
+
+                mDataBase.collection("users").document(user["name"] as String)
+                    .set(user)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "DocumentSnapshot successfully written!")
+                        Toast.makeText(this, "Se ha creado el usuario", Toast.LENGTH_SHORT).show()
+
+                        /*
+                        val user = FirebaseAuth.getInstance().currentUser
+
+                        val profileUpdates = UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build()
+
+                        user?.updateProfile(profileUpdates)
+                            ?.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d(TAG, "User profile updated.")
+                                }
+                            }*/
+                    }
+                    .addOnFailureListener {
+                            e -> Log.w(TAG, "Error writing document", e)
+                        Toast.makeText(this, "Error creando el usuario", Toast.LENGTH_SHORT).show()
+
+                    }
+
+                verificationEmail()
+                finish()
+            } else {
+                Toast.makeText(this, "No se ha creado el usuario", Toast.LENGTH_SHORT).show()
+            }
+            Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),checkMale.isChecked.toString(),"0","0")
+
         }
+        /*---------------------------------------------------------*/
     }
     //fin
 

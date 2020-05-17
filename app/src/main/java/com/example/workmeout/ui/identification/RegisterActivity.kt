@@ -186,6 +186,7 @@ class RegisterActivity : AppCompatActivity() {
     //NACHO ABAJO
     //inicio
     fun registerUser(view: View) {
+        Controlador.register(view.context,editTextUsername.text.toString(),editTextName.text.toString(),editTextPassword.text.toString(),editTextGmail.text.toString(),editTextPhone.text.toString(), editTextAge.text.toString(),checkMale.isChecked.toString(),"0","0")
         /*
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {

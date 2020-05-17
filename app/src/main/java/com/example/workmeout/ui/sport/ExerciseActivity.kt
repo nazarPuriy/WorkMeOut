@@ -69,6 +69,7 @@ class ExerciseActivity : AppCompatActivity() {
         cambiador.visibility = View.INVISIBLE;
         changeTXT.visibility = View.INVISIBLE;
         botoChange.isEnabled = false
+        botoReps.isEnabled = false
         graphView = findViewById(R.id.grafic);
         getDataPoints(weightsList,dayList)
         series = LineGraphSeries<DataPoint>(punts);
@@ -81,7 +82,7 @@ class ExerciseActivity : AppCompatActivity() {
         tapeoGraf()
 
         npReps.setOnValueChangedListener{ numberPicker: NumberPicker, i: Int, i1: Int ->
-            botoChange.isEnabled = true
+            botoReps.isEnabled = true
         }
 
 

@@ -68,7 +68,7 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         fromUseridentify = user.uid
         mAdapter = CustomAdapter(mFMessages!!, fromUseridentify!!)
         mAdapter!!.submitStuff(ArrayList())
-        mRecyclerView!!.setAdapter(mAdapter)
+        mRecyclerView!!.adapter = mAdapter
 
 
         mFMessages = ArrayList()

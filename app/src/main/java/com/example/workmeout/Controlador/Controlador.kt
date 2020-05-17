@@ -558,32 +558,6 @@ object Controlador{
         )
             .addOnCompleteListener(a) { task ->
                 if (task.isSuccessful) {
-
-                    val message = FChat(
-                        currentUser!!.email,
-                        currentUser!!.password,
-                        mAuth.currentUser!!.uid
-                    )
-                    db.collection("chat").add(message)
-                        .addOnSuccessListener {
-                            Toast.makeText(
-                                a, "Well writeen.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                a, "Failed at modifying",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    /*
-                    val database = FirebaseDatabase.getInstance()
-                    val myRef = database.getReference("chat")
-
-                    val friendlyMessage = FChat(email, subStringName(email), mAuth!!.getCurrentUser()!!.uid)
-                    myRef.push().setValue(friendlyMessage)
-                    */
                     login(a, passwordInput)
                 } else {
                     // If sign in fails, display a message to the user.

@@ -572,5 +572,9 @@ object Controlador{
 
     }
 
+    fun fillExercises(context: Context, routine: Routine, adapter: Any) {
+
+    }
+
 
 }

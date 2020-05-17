@@ -90,13 +90,11 @@ class SearchPeople : AppCompatActivity() {
 
 
         listview.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
-            if (position == 0) {
-                val intent: Intent = Intent(this, Chat::class.java)
-                intent.putExtra("uid_friend", listUid[position])
-                this.startActivity(intent)
-                Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
-                    .show()
-            }
+            val intent: Intent = Intent(this, Chat::class.java)
+            intent.putExtra("uid_friend", listUid[position])
+            this.startActivity(intent)
+            Toast.makeText(this@SearchPeople, "Chat", Toast.LENGTH_SHORT)
+                .show()
         })
 
         mySearchView = findViewById(R.id.txtsearch)

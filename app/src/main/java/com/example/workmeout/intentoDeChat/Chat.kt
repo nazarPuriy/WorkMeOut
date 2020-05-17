@@ -37,6 +37,8 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
     private var chatIndex: String = ""
 
+    private var uidFriend: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.intento_de_chat_chat)
@@ -56,8 +58,8 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         user.getEmail()
 
         fromUseridentify = user.uid
-        //currentUser = subStringName(user.email!!)
-        val uidFriend = intent.getStringExtra("uid_friend")
+        currentUser = subStringName(user.email!!)
+        uidFriend = intent.getStringExtra("uid_friend")
 
         val lengthThenNatural = compareBy<String> { it.length }
             .then(naturalOrder())
@@ -208,7 +210,7 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
                 val friendlyMessage = FriendlyMessage(
                     msgText!!.getText().toString().trim { it <= ' ' },
-                    null,
+                    currentUser,
                     getTimeStamp(),
                     fromUseridentify
                 )
@@ -221,7 +223,7 @@ class Chat : AppCompatActivity(), View.OnClickListener{
                         val usuarioActual = db!!.collection("users").document(fromUseridentify!!)
 
                         usuarioActual
-                            .update("messagesSended", true)
+                            .update("receiverUid", uidFriend)
                             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
                             .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
                     }

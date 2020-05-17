@@ -554,7 +554,7 @@ object Controlador{
 
         mAuth.signInWithEmailAndPassword(
             currentUser!!.email,
-            currentUser!!.password
+            "123456"
         )
             .addOnCompleteListener(a) { task ->
                 if (task.isSuccessful) {
@@ -587,6 +587,7 @@ object Controlador{
                     login(a, passwordInput)
                 } else {
                     // If sign in fails, display a message to the user.
+                    if(a is LoginActivity){a.btn_login.isEnabled = true}
                     Toast.makeText(
                         a, "Firebase Authentication failed.",
                         Toast.LENGTH_SHORT

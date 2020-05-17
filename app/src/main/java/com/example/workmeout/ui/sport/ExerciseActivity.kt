@@ -85,9 +85,7 @@ class ExerciseActivity : AppCompatActivity() {
         series.setOnDataPointTapListener(OnDataPointTapListener(
             (@Override
             fun(series: LineGraphSeries<DataPoint>, dataPoint: DataPoint){
-                var sdf: SimpleDateFormat = SimpleDateFormat("MM/dd")
-
-                Toast.makeText(this,sdf.format(Date(dataPoint.x.toLong())),Toast.LENGTH_LONG).show()
+                Toast.makeText(this,dataPoint.toString(),Toast.LENGTH_LONG).show()
                 changing = dataPoint
                 activarCambiarPeso()
             }) as (Series<DataPointInterface>, DataPointInterface) -> Unit

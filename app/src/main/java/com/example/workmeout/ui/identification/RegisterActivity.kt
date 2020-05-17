@@ -138,7 +138,7 @@ class RegisterActivity : AppCompatActivity() {
                 user["name"] = editTextName.text.toString()
                 user["username"] = editTextUsername.text.toString()
                 user["uid"] = mAuth.currentUser!!.uid
-                user["sended"] = false
+                user["receiverUid"] = ""
 
                 mDataBase.collection("users").document(user["uid"] as String)
                     .set(user)

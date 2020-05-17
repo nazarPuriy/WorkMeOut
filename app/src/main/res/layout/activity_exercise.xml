@@ -95,17 +95,31 @@
 
                 <NumberPicker
                     android:id="@+id/numpicker_1"
-                    android:layout_width="30dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="48dp"
+                    android:layout_marginRight="48dp"
                     android:layout_marginBottom="5dp"
                     android:theme="@style/DefaultNumberPickerTheme"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></NumberPicker>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"></NumberPicker>
+
+                <TextView
+                    android:id="@+id/text_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="Weight:"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/numpicker_1"
+
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <NumberPicker
                     android:id="@+id/np_reps"
@@ -116,22 +130,7 @@
                     app:layout_constraintStart_toEndOf="@+id/text_reps"
                     app:layout_constraintTop_toTopOf="parent"></NumberPicker>
 
-                <Button
-                    android:id="@+id/buttonChange"
-                    style="@style/buttonDefault"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:onClick="cambiarPeso"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="Change weight"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/numpicker_1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+
 
                 <TextView
                     android:id="@+id/text_reps"
@@ -143,6 +142,46 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_edit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+
+                <Button
+                    android:id="@+id/buttonChangeReps"
+                    style="@style/buttonDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:onClick="editExercise2"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Change REPS"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/buttonChange"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/buttonChange"
+                    style="@style/buttonDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:onClick="cambiarPeso"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Change weight"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

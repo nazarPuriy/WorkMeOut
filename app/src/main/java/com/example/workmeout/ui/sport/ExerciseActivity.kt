@@ -16,6 +16,7 @@ import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.*
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -25,6 +26,8 @@ class ExerciseActivity : AppCompatActivity() {
     lateinit var changing: DataPoint;
     lateinit var cambiador: NumberPicker;
     lateinit var botoChange: Button;
+    lateinit var botoReps : Button;
+    lateinit var changeTXT : TextView;
     lateinit var graphView: GraphView;
     lateinit var punts: Array<DataPoint>;
     lateinit var series: LineGraphSeries<DataPoint>
@@ -54,6 +57,8 @@ class ExerciseActivity : AppCompatActivity() {
         botoChange = findViewById(R.id.buttonChange)
         cambiador = findViewById(R.id.numpicker_1)
         npReps = findViewById(R.id.np_reps)
+        botoReps = findViewById(R.id.buttonChangeReps)
+        changeTXT = findViewById(R.id.text_weight)
 
         tvName.setText(exName);
         npReps.maxValue = 100
@@ -62,6 +67,7 @@ class ExerciseActivity : AppCompatActivity() {
         cambiador.maxValue = 100
         cambiador.minValue = 0
         cambiador.visibility = View.INVISIBLE;
+        changeTXT.visibility = View.INVISIBLE;
         botoChange.isEnabled = false
         graphView = findViewById(R.id.grafic);
         getDataPoints(weightsList,dayList)
@@ -75,7 +81,7 @@ class ExerciseActivity : AppCompatActivity() {
         tapeoGraf()
 
         npReps.setOnValueChangedListener{ numberPicker: NumberPicker, i: Int, i1: Int ->
-            editExercise(changing.x, cambiador.value)
+            botoChange.isEnabled = true
         }
 
 
@@ -85,7 +91,7 @@ class ExerciseActivity : AppCompatActivity() {
         series.setOnDataPointTapListener(OnDataPointTapListener(
             (@Override
             fun(series: LineGraphSeries<DataPoint>, dataPoint: DataPoint){
-                Toast.makeText(this,dataPoint.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(this,dataPoint.y.toString(),Toast.LENGTH_LONG).show()
                 changing = dataPoint
                 activarCambiarPeso()
             }) as (Series<DataPointInterface>, DataPointInterface) -> Unit
@@ -95,6 +101,7 @@ class ExerciseActivity : AppCompatActivity() {
     fun activarCambiarPeso(){
         cambiador.value = changing.y.toInt()
         cambiador.visibility = View.VISIBLE
+        changeTXT.visibility = View.VISIBLE
         botoChange.isEnabled = true
     }
 
@@ -113,6 +120,7 @@ class ExerciseActivity : AppCompatActivity() {
         series.thickness = 8
         graphView.addSeries(series);
         cambiador.visibility = View.INVISIBLE
+        changeTXT.visibility = View.INVISIBLE
         botoChange.isEnabled = false
         tapeoGraf()
 
@@ -224,13 +232,15 @@ class ExerciseActivity : AppCompatActivity() {
         }
         weightsList[posicio] = newValue
         exercise.weights = weightsList
-        exercise.reps = npReps.value
 
         //demanem a la base de dades que editi
         Controlador.editUserExercise(exercise, this)
+    }
 
-
-
+    fun editExercise2(view: View){
+        exercise.reps = npReps.value
+        Controlador.editUserExercise(exercise,this)
+        botoReps.isEnabled = false;
     }
 
 

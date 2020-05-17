@@ -14,14 +14,15 @@ class CustomAdapter(val listItem: ArrayList<FriendlyMessage>, val fromUserId: St
 
     var VIEW_HOLDER_ME: Int = 0
     var VIEW_HOLDER_YOU: Int = 1
+    var listItemUpdated = listItem
 
     override fun getItemCount(): Int {
 
-        return if (null != listItem) listItem!!.size else 0
+        return if (null != listItemUpdated) listItemUpdated!!.size else 0
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (listItem!!.get(position).fromUserId.equals(fromUserId)) {
+        return if (listItemUpdated!!.get(position).fromUserId.equals(fromUserId)) {
             VIEW_HOLDER_ME
         } else {
             VIEW_HOLDER_YOU
@@ -29,16 +30,17 @@ class CustomAdapter(val listItem: ArrayList<FriendlyMessage>, val fromUserId: St
     }
 
 
+
     override fun onBindViewHolder(v: RecyclerView.ViewHolder, pos: Int) {
 
         if (v is ViewHolderMe) { // Handle Image Layout
             val viewHolderImage = v as ViewHolderMe
-            viewHolderImage.messageBody!!.setText(String.format("%s",listItem!!.get(pos).text))
+            viewHolderImage.messageBody!!.setText(String.format("%s",listItemUpdated!!.get(pos).text))
             viewHolderImage.itemView.tag = viewHolderImage
         } else if (v is ViewHolderYou) { // Handle Video Layout
             val viewHolderYou = v as ViewHolderYou
-            viewHolderYou.name!!.setText(String.format("%s", listItem!!.get(pos).name))
-            viewHolderYou.messageBody!!.setText(String.format("%s", listItem!!.get(pos).text))
+            viewHolderYou.name!!.setText(String.format("%s", listItemUpdated!!.get(pos).name))
+            viewHolderYou.messageBody!!.setText(String.format("%s", listItemUpdated!!.get(pos).text))
             val drawable = viewHolderYou.avatar!!.getBackground() as GradientDrawable
             drawable.setColor(Color.GRAY)
             viewHolderYou.itemView.tag = viewHolderYou
@@ -67,7 +69,25 @@ class CustomAdapter(val listItem: ArrayList<FriendlyMessage>, val fromUserId: St
         return return viewHolder
     }
 
-    inner class ViewHolderMe(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+    fun insertMessage(mFMessage: FriendlyMessage) {
+        this.listItemUpdated.add(mFMessage)
+        this.notifyItemInserted(listItemUpdated.size - 1 )
+
+    }
+
+    fun submitStuff(mFMessages: ArrayList<FriendlyMessage>) {
+
+
+        for((index, message)  in mFMessages.withIndex()){
+            if(index >= listItemUpdated.size){
+                this.insertMessage(message)
+            }
+
+        }
+
+    }
+
+    class ViewHolderMe(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         val messageBody = itemView?.findViewById<TextView>(R.id.message_body)
     }
 

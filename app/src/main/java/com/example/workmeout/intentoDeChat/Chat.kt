@@ -20,14 +20,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 class Chat : AppCompatActivity(), View.OnClickListener{
 
 
-    private var mAdapter: CustomAdapter? = null
+    private var mAdapter: CustomAdapter = CustomAdapter(ArrayList(), "a")
 
     //private var database: FirebaseDatabase? = null
     private var db: FirebaseFirestore? = null
     //private var myRef: DatabaseReference? = null
 
     private var fromUseridentify: String? = null
-    private var mFMessages: ArrayList<FriendlyMessage>? = null
+    private var mFMessages: ArrayList<FriendlyMessage>? = ArrayList()
     private var currentUser: String? = null
 
     private var mRecyclerView: RecyclerView? = null
@@ -50,6 +50,7 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         val mLinearLayoutManager = LinearLayoutManager(this)
         mRecyclerView!!.setLayoutManager(mLinearLayoutManager)
 
+
         val user = FireHelper.getCurrentUser()
         user.getDisplayName()
         user.getEmail()
@@ -65,6 +66,10 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         chatIndex = sortedUsers[0] + sortedUsers[1]
 
         fromUseridentify = user.uid
+        mAdapter = CustomAdapter(mFMessages!!, fromUseridentify!!)
+        mAdapter!!.submitStuff(ArrayList())
+        mRecyclerView!!.setAdapter(mAdapter)
+
 
         mFMessages = ArrayList()
 
@@ -152,7 +157,10 @@ class Chat : AppCompatActivity(), View.OnClickListener{
             })*/
         //database!!.getReference().child("message").addListenerForSingleValueEvent(
 
+
+
         val docRef = db!!.collection("chat"+chatIndex)
+        mFMessages!!.clear()//TODO
         docRef.orderBy("timeStamp").get().addOnSuccessListener { result ->
             for (document in result) {
                 val fromUserId = document.getString("fromUserId")
@@ -164,9 +172,19 @@ class Chat : AppCompatActivity(), View.OnClickListener{
             }
             if (mFMessages!!.size > 0) {
 
-                mAdapter = CustomAdapter(mFMessages!!, fromUseridentify!!)
-                mRecyclerView!!.setAdapter(mAdapter)
-                mRecyclerView!!.scrollToPosition(mRecyclerView!!.getAdapter()!!.itemCount - 1)
+
+                var new = false
+                if(mFMessages!!.size > mAdapter.listItemUpdated.size){
+                    new = true
+                }
+
+                mAdapter!!.submitStuff(mFMessages!!)
+                mAdapter!!.notifyDataSetChanged()
+                //mRecyclerView!!.scrollToPosition(mRecyclerView!!.getAdapter()!!.itemCount - 1) TODO
+
+                if(new){
+                    mRecyclerView!!.smoothScrollToPosition(mAdapter.listItemUpdated.size - 1)
+                }
             }
         }
             .addOnFailureListener { exception ->

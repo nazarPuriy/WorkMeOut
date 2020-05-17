@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class Chat : AppCompatActivity(), View.OnClickListener{
 
 
-    private var mAdapter: CustomAdapter = CustomAdapter(ArrayList(), "a")
+    private lateinit var mAdapter: CustomAdapter
 
     //private var database: FirebaseDatabase? = null
     private var db: FirebaseFirestore? = null

@@ -179,8 +179,6 @@ class Chat : AppCompatActivity(), View.OnClickListener{
                 }
 
                 mAdapter!!.submitStuff(mFMessages!!)
-                mAdapter!!.notifyDataSetChanged()
-                //mRecyclerView!!.scrollToPosition(mRecyclerView!!.getAdapter()!!.itemCount - 1) TODO
 
                 if(new){
                     mRecyclerView!!.smoothScrollToPosition(mAdapter.listItemUpdated.size - 1)

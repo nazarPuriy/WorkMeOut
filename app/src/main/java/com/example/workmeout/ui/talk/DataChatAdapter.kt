@@ -45,15 +45,15 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class BlogViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val blogImage: ImageView = itemView.blog_image
-        val blogTitle:TextView = itemView.blog_title
-        val blogAuthor = itemView.blog_author
+        val image: ImageView = itemView.blog_image
+        val name:TextView = itemView.blog_title
+        val lastMessage = itemView.blog_author
         val card: CardView = itemView.card_chat
 
 
         fun bind(dataChat: User2) {
-            blogTitle.text = dataChat.name//variable nombre
-            blogAuthor.text = dataChat.bio//variable correo
+            name.text = dataChat.name//variable nombre
+            lastMessage.text = dataChat.last_message//variable correo
 
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
@@ -62,12 +62,13 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             Glide.with(itemView.context)
                 .applyDefaultRequestOptions(requestOptions)
                 .load(dataChat.image)//variable imagen
-                .into(blogImage)
+                .into(image)
+
 
             /*Listener de los chats inspirado en el de Exercise*/
             card.setOnClickListener(View.OnClickListener {
                 val intent: Intent = Intent(itemView.context, Chat::class.java)
-                intent.putExtra("email_friend", dataChat.bio)
+                intent.putExtra("uid_friend", dataChat.uid)
                 itemView.context.startActivity(intent)
             })
         }

@@ -115,12 +115,14 @@ class NotificationsFragment : Fragment() {
                     Log.d("exist", "${document.id} => ${document.data}")
                     var usuario = User2(
                         document.getString("name"),
-                        document.getString("email"),
+                        document.getString("uid"),
                         null,
-                        null
+                        document.getString("email")
                     )
-                    if(!FireHelper.getCurrentUser().uid.equals(document.getString("uid"))) {
-                        data.add(usuario)
+                    if(document.getBoolean("sended")!!) {
+                        if (!FireHelper.getCurrentUser().uid.equals(document.getString("uid"))) {
+                            data.add(usuario)
+                        }
                     }
                     //data.add(usuario)
                 }

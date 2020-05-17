@@ -55,17 +55,17 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         user.getDisplayName()
         user.getEmail()
 
-        currentUser = subStringName(user.email!!)
+        fromUseridentify = user.uid
+        //currentUser = subStringName(user.email!!)
+        val uidFriend = intent.getStringExtra("uid_friend")
 
-        val emailFriend = intent.getStringExtra("email_friend")
         val lengthThenNatural = compareBy<String> { it.length }
             .then(naturalOrder())
 
         val sortedUsers =
-            listOf(subStringName(emailFriend), currentUser!!).sortedWith(lengthThenNatural)
-        chatIndex = sortedUsers[0] + sortedUsers[1]
+            listOf(uidFriend, fromUseridentify!!).sortedWith(lengthThenNatural)
+        chatIndex = sortedUsers[0] + "@" + sortedUsers[1]
 
-        fromUseridentify = user.uid
         mAdapter = CustomAdapter(mFMessages!!, fromUseridentify!!)
         mAdapter!!.submitStuff(ArrayList())
         mRecyclerView!!.adapter = mAdapter
@@ -159,16 +159,16 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
 
 
-        val docRef = db!!.collection("chat"+chatIndex)
+        val docRef = db!!.collection(chatIndex)
         mFMessages!!.clear()//TODO
         docRef.orderBy("timeStamp").get().addOnSuccessListener { result ->
             for (document in result) {
                 val fromUserId = document.getString("fromUserId")
-                val name = document.getString("name")
+                val type = document.getString("type")
                 val text = document.getString("text")
                 val timestamp = document.getString("timeStamp")
-                Log.d("TAG", "$fromUserId / $name / $text / $timestamp")
-                mFMessages!!.add(FriendlyMessage(text, name, timestamp, fromUserId))
+                Log.d("TAG", "$fromUserId / $type / $text / $timestamp")
+                mFMessages!!.add(FriendlyMessage(text, type, timestamp, fromUserId))
             }
             if (mFMessages!!.size > 0) {
 
@@ -208,14 +208,22 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
                 val friendlyMessage = FriendlyMessage(
                     msgText!!.getText().toString().trim { it <= ' ' },
-                    currentUser,
+                    null,
                     getTimeStamp(),
                     fromUseridentify
                 )
-                val docRef = db!!.collection("chat"+chatIndex).add(friendlyMessage)
+                val docRef = db!!.collection(chatIndex).add(friendlyMessage)
                     .addOnSuccessListener {
                         Log.w("", " Write was successful!")
                         msgText!!.setText("")
+
+                        //para que solo se muestren los chats con mensajes
+                        val usuarioActual = db!!.collection("users").document(fromUseridentify!!)
+
+                        usuarioActual
+                            .update("messagesSended", true)
+                            .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
+                            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
                     }
                     .addOnFailureListener {
                         // Write failed

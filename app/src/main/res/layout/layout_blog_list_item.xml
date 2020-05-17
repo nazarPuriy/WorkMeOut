@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/blog_author"
-                android:text="@string/last_message"
+                android:text="@string/email_chat"
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 />

@@ -53,7 +53,7 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(dataChat: User2) {
             blogTitle.text = dataChat.name//variable nombre
-            blogAuthor.text = dataChat.bio//variable last_message
+            blogAuthor.text = dataChat.bio//variable correo
 
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
@@ -67,6 +67,7 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             /*Listener de los chats inspirado en el de Exercise*/
             card.setOnClickListener(View.OnClickListener {
                 val intent: Intent = Intent(itemView.context, Chat::class.java)
+                intent.putExtra("email_friend", dataChat.bio)
                 itemView.context.startActivity(intent)
             })
         }

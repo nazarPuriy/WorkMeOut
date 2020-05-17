@@ -35,6 +35,8 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
     private var msgText: EditText? = null
 
+    private var chatIndex: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.intento_de_chat_chat)
@@ -53,6 +55,14 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         user.getEmail()
 
         currentUser = subStringName(user.email!!)
+
+        val emailFriend = intent.getStringExtra("email_friend")
+        val lengthThenNatural = compareBy<String> { it.length }
+            .then(naturalOrder())
+
+        val sortedUsers =
+            listOf(subStringName(emailFriend), currentUser!!).sortedWith(lengthThenNatural)
+        chatIndex = sortedUsers[0] + sortedUsers[1]
 
         fromUseridentify = user.uid
 
@@ -142,7 +152,7 @@ class Chat : AppCompatActivity(), View.OnClickListener{
             })*/
         //database!!.getReference().child("message").addListenerForSingleValueEvent(
 
-        val docRef = db!!.collection("chat")
+        val docRef = db!!.collection("chat"+chatIndex)
         docRef.orderBy("timeStamp").get().addOnSuccessListener { result ->
             for (document in result) {
                 val fromUserId = document.getString("fromUserId")
@@ -186,9 +196,10 @@ class Chat : AppCompatActivity(), View.OnClickListener{
                     getTimeStamp(),
                     fromUseridentify
                 )
-                val docRef = db!!.collection("chat").add(friendlyMessage)
+                val docRef = db!!.collection("chat"+chatIndex).add(friendlyMessage)
                     .addOnSuccessListener {
                         Log.w("", " Write was successful!")
+                        msgText!!.setText("")
                     }
                     .addOnFailureListener {
                         // Write failed

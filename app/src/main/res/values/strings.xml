@@ -53,7 +53,7 @@
     </string-array>
 
     <string name="nombre_chat">Name</string>
-    <string name="last_message">Last Message</string>
+    <string name="email_chat">Correo Electrónico</string>
     <string name="title_activity_exercise_detail">ExerciseDetail</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

@@ -408,8 +408,6 @@ class RoutineDataBase {
                     }
 
 
-
-
                     Controlador.postRoutine(context, rutina, index)
                     //Controlador.fillExercises(context, rutina)
                     buscarRutina(context,classid, index)

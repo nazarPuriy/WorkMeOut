@@ -143,31 +143,6 @@ object Controlador{
         baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],routine.exercisesDesc[1],routine.exercisesDesc[2],routine.exercisesDesc[3],routine.exercisesDesc[4],routine.exercisesDesc[5],routine.exercisesDesc[6],routine.exercisesDesc[7],routine.exercisesDesc[8],routine.exercisesDesc[9],routine.exercisesDesc[10],routine.exercisesDesc[11],routine.exercisesDesc[12],routine.exercisesDesc[13],routine.exercisesDesc[14])
         routine.numberOfExercises++
 
-        /*//si lo anterior va bien quitar esto
-        when(routine!!.idCount() - 1){
-
-            0->{
-                baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,id,0,0,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
-                baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,classid,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-                routine.numberOfExercises++
-            }
-            1->{
-            baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],id,0,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
-            baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],classid,0,0,0,0,0,0,0,0,0,0,0,0,0)
-            routine!!.numberOfExercises++
-            }2->{
-            baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],routine.exercises[1],id,0,0,0,0,0,0,0,0,0,0,0,0,routine.days)
-            baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],routine.exercisesDesc[1],classid,0,0,0,0,0,0,0,0,0,0,0,0)
-            routine!!.numberOfExercises++
-            }3->{
-            baseDatos.editarRutinaUsuario(context,routine.id,routine.classid,routine.exercises[0],routine.exercises[1],routine.exercises[2],id,0,0,0,0,0,0,0,0,0,0,0,routine.days)
-            baseDatos.editarRutina(context,routine.classid,routine.name,routine.description,routine.exercisesDesc[0],routine.exercisesDesc[1],routine.exercisesDesc[2],classid,0,0,0,0,0,0,0,0,0,0,0)
-            routine!!.numberOfExercises++
-        }
-
-            //TODO acabar moviendo los indices hasta 15
-
-        }*/
     }
 
     fun guardarEjercioRutina(exercise:Exercise, index:Int, context: Context){
@@ -237,31 +212,34 @@ object Controlador{
 
     //Acaba de meter en las rutinas que se estan cargando los datos.
     fun fillRoutine(name : String, description : String, idx:Int, context: Context){
+
+        var routine:Routine = Routine(0, 0, "", "", 0)
+
         when(idx){
             0-> {
-                currentUser!!.routine1!!.name = name
-                currentUser!!.routine1!!.description = description
-                currentUser!!.routine1!!.notifyExerciseReady(context)
+                routine = currentUser!!.routine1!!
             }
             1-> {
-                currentUser!!.routine2!!.name = name
-                currentUser!!.routine2!!.description = description
-                currentUser!!.routine2!!.notifyExerciseReady(context)
+                routine = currentUser!!.routine2!!
             }
             2-> {
-                currentUser!!.routine3!!.name = name
-                currentUser!!.routine3!!.description = description
-                currentUser!!.routine3!!.notifyExerciseReady(context)
+                routine = currentUser!!.routine3!!
             }
             3-> {
-                currentUser!!.routine4!!.name = name
-                currentUser!!.routine4!!.description = description
-                currentUser!!.routine4!!.notifyExerciseReady(context)
+                routine = currentUser!!.routine4!!
             }
             4-> {
-                currentUser!!.routine5!!.name = name
-                currentUser!!.routine5!!.description = description
-                currentUser!!.routine5!!.notifyExerciseReady(context)
+                routine = currentUser!!.routine5!!
+            }
+        }
+
+        routine!!.name = name
+        routine.description = description
+        routine.notifyExerciseReady(context)
+
+        for(i in routine.exercises){
+            if(i != 0){
+                baseDatos.buscarEjercicioUsuario(context, i, routine)
             }
         }
     }

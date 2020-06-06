@@ -39,6 +39,10 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
     private var uidFriend: String = ""
     private var uidFriendArray: ArrayList<String> = ArrayList<String>()
+    private var emailFriend: String = ""
+    private var nameFriend: String = ""
+
+
     private var currentUserEmail: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +67,8 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         currentUser = subStringName(user.email!!)
         currentUserEmail = user.email!!
         uidFriend = intent.getStringExtra("uid_friend")
+        nameFriend = intent.getStringExtra("name_friend")
+        emailFriend = intent.getStringExtra("email_friend")
 
         val lengthThenNatural = compareBy<String> { it.length }
             .then(naturalOrder())
@@ -228,6 +234,14 @@ class Chat : AppCompatActivity(), View.OnClickListener{
 
                         userReceiver
                             .set(FChat(currentUserEmail!! ,currentUser!!,fromUseridentify!!))
+                            .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
+                            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
+
+                        val userSender = db!!.collection("users").document(fromUseridentify!!)
+                            .collection("friends").document(uidFriend!!)
+
+                        userSender
+                            .set(FChat(emailFriend!! ,nameFriend!!,uidFriend!!))
                             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully updated!") }
                             .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
                         /*

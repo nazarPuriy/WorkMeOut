@@ -7,7 +7,7 @@ data class User2 (
 
     var image: String?,
 
-    var last_message: String?
+    var email: String?
 ) {
 
 }

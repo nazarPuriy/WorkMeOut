@@ -25,7 +25,7 @@ import com.firebase.ui.auth.AuthUI.getApplicationContext as getApplicationContex
 class SearchPeople : AppCompatActivity() {
 
 
-    private lateinit var items: Array<String?>
+    private lateinit var names: Array<String?>
     private lateinit var items2: Array<String?>
     //private var listItems: ArrayList<String> = ArrayList()
     private lateinit var adapter_: ArrayAdapter<String>
@@ -47,7 +47,7 @@ class SearchPeople : AppCompatActivity() {
             "Carmen", "Jeremias", "Nacho")
         last_message = arrayOf("Maria, it's okey", "hahahah I guess", "Yeaaaaaah", "No, it is going to be impossible :(", "Richelle", "Maria is the best. Have you heard from her lately?", "I'm asking Alfonso about Maria", "Keep Calm hahahah", "Okey")
         */
-        var listItems:ArrayList<String?> =  ArrayList()
+        var listNames:ArrayList<String?> =  ArrayList()
         var listLast_message:ArrayList<String?> =  ArrayList()
         var listUid:ArrayList<String?> =  ArrayList()
 
@@ -59,16 +59,16 @@ class SearchPeople : AppCompatActivity() {
                 for (document in result) {
                     Log.d("exist", "${document.id} => ${document.data}")
 
-                    listItems.add(document.getString("name"))
+                    listNames.add(document.getString("name"))
                     listLast_message.add(document.getString("email"))
                     listUid.add(document.getString("uid"))
 
                 }
-                items = arrayOfNulls<String?>(listItems.size)
-                listItems.toArray(items)
+                names = arrayOfNulls<String?>(listNames.size)
+                listNames.toArray(names)
                 last_message = arrayOfNulls<String?>(listLast_message.size)
                 listLast_message.toArray(last_message)
-                var adapter = MyAdapter(this, items, last_message)
+                var adapter = MyAdapter(this, names, last_message)
                 listview.adapter = adapter
                 adapter.notifyDataSetChanged()
 
@@ -78,20 +78,22 @@ class SearchPeople : AppCompatActivity() {
                 Log.d("no_exist", "Error getting documents: ", exception)
             }
         
-        items = arrayOfNulls<String?>(listItems.size)
-        listItems.toArray(items)
+        names = arrayOfNulls<String?>(listNames.size)
+        listNames.toArray(names)
         last_message = arrayOfNulls<String?>(listLast_message.size)
         listLast_message.toArray(last_message)
 
         myList = findViewById<View>(R.id.listview) as ListView
 
-        var adapter = MyAdapter(this, items, last_message)
+        var adapter = MyAdapter(this, names, last_message)
         listview.adapter = adapter
 
 
         listview.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
             val intent: Intent = Intent(this, Chat::class.java)
             intent.putExtra("uid_friend", listUid[position])
+            intent.putExtra("name_friend", listNames[position])
+            intent.putExtra("email_friend", listLast_message[position])
             this.startActivity(intent)
         })
 
@@ -107,7 +109,7 @@ class SearchPeople : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if(s.toString().equals("")) {
-                    adapter = MyAdapter(this@SearchPeople, items, last_message)
+                    adapter = MyAdapter(this@SearchPeople, names, last_message)
                     listview.adapter = adapter
                     image.visibility = View.INVISIBLE
                 } else {
@@ -117,8 +119,8 @@ class SearchPeople : AppCompatActivity() {
                     var lastMessageTemp:ArrayList<String?> = ArrayList()
 
 
-                    for(i in 0..(items.size - 1)) {
-                        var item = items[i]
+                    for(i in 0..(names.size - 1)) {
+                        var item = names[i]
                         var lastMessage = last_message[i]
 
                         if(item!!.toLowerCase().contains(s.toString().toLowerCase())) {

@@ -2,6 +2,7 @@ package com.example.workmeout.ui.talk
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,9 @@ class NotificationsFragment : Fragment() {
     private var isOpen = false
 
     //variables nuevas vistas
-
+    private lateinit var root:View
+    private var data: ArrayList<User2> = ArrayList<User2>()
+    private var sizeChats: Int = 0
 
     //variables chat: Firebase Firestore Chat App: Show a List of Users (Ep 3)
     private lateinit var userListenerRegistration: ListenerRegistration
@@ -45,7 +48,7 @@ class NotificationsFragment : Fragment() {
     ): View? {
         notificationsViewModel =
             ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_talk, container, false)
+        root = inflater.inflate(R.layout.fragment_talk, container, false)
 
 
         //floatting button
@@ -97,17 +100,54 @@ class NotificationsFragment : Fragment() {
         //userListenerRegistration = FirestoreUtil.addUsersListener(this.activity!!, this::updateRecyclerView)
         mDataBase = FirebaseFirestore.getInstance()
 
-        addDataSet()
-        initRecycleView(root)
+        //addDataSet()
+        //initRecycleView(root)
+        blogAdapter = DataChatAdapter()
+
+        mHandler = Handler()
+        startRepeatingTask()
 
         return root
     }
 
-    private fun addDataSet() {
-        //val data: ArrayList<DataChat> = DataSource.createDataSet()
-        val data: ArrayList<User2> = ArrayList<User2>()
+    override fun onDestroy() {
+        super.onDestroy()
+        stopRepeatingTask()
+    }
 
-        //val docRef = mDataBase.collection("users")
+    fun updateFetchMessage() {
+        addDataSet()
+        //initRecycleView(root)
+    }
+
+    private val mInterval = 1000 // 1 seconds by default, can be changed later
+    private var mHandler: Handler? = null
+
+    internal var mStatusChecker: Runnable = object : Runnable {
+        override fun run() {
+            try {
+
+                updateFetchMessage()
+
+            } finally {
+
+                mHandler!!.postDelayed(this, mInterval.toLong())
+            }
+        }
+    }
+
+    internal fun startRepeatingTask() {
+        mStatusChecker.run()
+    }
+
+    internal fun stopRepeatingTask() {
+        mHandler!!.removeCallbacks(mStatusChecker)
+    }
+
+    private fun addDataSet() {
+        //val data: ArrayList<User2> = ArrayList<User2>()
+        data!!.clear()
+
         val docRef = mDataBase!!.collection("users").document(FireHelper.getCurrentUser().uid)
             .collection("friends")
 
@@ -128,16 +168,31 @@ class NotificationsFragment : Fragment() {
                     //}
                     //data.add(usuario)
                 }
-                blogAdapter.submitList(data)
-                blogAdapter.notifyDataSetChanged()
+                if (data!!.size > 0) {
+                    if (data!!.size > sizeChats) {
+                        blogAdapter.submitList(data)
+                        blogAdapter.notifyDataSetChanged()
+
+                        sizeChats = data!!.size
+                        initRecycleView(root)
+                    }
+                }
+
+
+                //blogAdapter.submitList(data)
+                //blogAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.d("no_exist", "Error getting documents: ", exception)
             }
-        val data2: ArrayList<DataChat> = DataSource.createDataSet()
 
-        blogAdapter = DataChatAdapter()
-        blogAdapter.submitList(data)
+        /*if (data!!.size > sizeChats) {
+            blogAdapter.submitList(data)
+            sizeChats = data!!.size
+        }*/
+
+        //blogAdapter = DataChatAdapter()
+        //blogAdapter.submitList(data)
     }
 
     private fun initRecycleView(root:View) {

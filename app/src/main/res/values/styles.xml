@@ -13,7 +13,7 @@
     </style>
 
     <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog" tools:targetApi="lollipop">
-        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorPrimary </item>
     </style>
 
     <style name="DefaultNumberPickerTheme">

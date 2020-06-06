@@ -1,6 +1,7 @@
 package com.example.workmeout.ui.sport
 
 import android.animation.ObjectAnimator
+import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,6 +41,7 @@ class SportFragment : Fragment() {
     val sa: RoutineListAdapter = RoutineListAdapter()
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -64,7 +66,7 @@ class SportFragment : Fragment() {
 
         next.setOnClickListener{next()}
         previous.setOnClickListener{previous()}
-
+        routinesText.setOnClickListener{obreCalendari()}
 
         return root
     }
@@ -143,6 +145,22 @@ class SportFragment : Fragment() {
         refresh()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun obreCalendari() {
+        val cal: Calendar = Calendar.getInstance()
+        val dia: Int = cal.get(Calendar.DAY_OF_MONTH)
+        val mes: Int = cal.get(Calendar.MONTH)
+        val ano: Int = cal.get(Calendar.YEAR)
+        val dpd = DatePickerDialog(this.requireContext(), DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+
+            // Display Selected date in textbox
+            cal.set(year,monthOfYear,dayOfMonth)
+
+            date = cal.time
+            refresh()
+
+        }, ano, mes, dia)
+        dpd.show()    }
 
     fun refresh(){
 
@@ -162,6 +180,8 @@ class SportFragment : Fragment() {
         return formatter.parse(formatter.format(dateNow))
 
     }
+
+
 
 
 

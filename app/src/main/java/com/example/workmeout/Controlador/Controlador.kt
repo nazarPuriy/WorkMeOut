@@ -580,6 +580,8 @@ object Controlador{
             }
         }
 
+        routine.notifyExerciseReadyExisting(context)
+
     }
 
     private fun registerExistingExercise(ex: Exercise, context: Context, idx: Int) {

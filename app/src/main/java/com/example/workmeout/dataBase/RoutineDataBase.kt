@@ -336,6 +336,7 @@ class RoutineDataBase {
 
                     for (x in 1..15){
                         routine.exercisesDesc.add(jsonObject.getString("exercise" + x.toString() ).toInt())
+                        routine.exercises.add(0)
                     }
                     list.add(routine)
                 }

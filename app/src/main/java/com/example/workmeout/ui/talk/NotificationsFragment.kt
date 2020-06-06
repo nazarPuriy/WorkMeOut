@@ -102,7 +102,7 @@ class NotificationsFragment : Fragment() {
 
         //addDataSet()
         //initRecycleView(root)
-        blogAdapter = DataChatAdapter()
+        initRecycleView(root)
 
         mHandler = Handler()
         startRepeatingTask()
@@ -145,9 +145,6 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun addDataSet() {
-        //val data: ArrayList<User2> = ArrayList<User2>()
-        data!!.clear()
-
         val docRef = mDataBase!!.collection("users").document(FireHelper.getCurrentUser().uid)
             .collection("friends")
 
@@ -161,42 +158,31 @@ class NotificationsFragment : Fragment() {
                         null,
                         document.getString("email")
                     )
-                    //if(document.getString("receiverUid")!!.equals(FireHelper.getCurrentUser().uid)) {
-                        //if (!FireHelper.getCurrentUser().uid.equals(document.getString("uid"))) {
-                            data.add(usuario)
-                        //}
-                    //}
-                    //data.add(usuario)
-                }
-                if (data!!.size > 0) {
-                    if (data!!.size > sizeChats) {
-                        blogAdapter.submitList(data)
-                        blogAdapter.notifyDataSetChanged()
 
-                        sizeChats = data!!.size
-                        initRecycleView(root)
+                    var exists = false
+
+                    for(user2 in data){
+                        if(user2.uid.equals(usuario.uid)){
+                            exists = true
+                        }
+                    }
+
+                    if(!exists){
+                        data.add(usuario)
+                        blogAdapter.submitList(data)
+                        blogAdapter.notifyItemInserted(data.size - 1)
                     }
                 }
-
-
-                //blogAdapter.submitList(data)
-                //blogAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.d("no_exist", "Error getting documents: ", exception)
             }
 
-        /*if (data!!.size > sizeChats) {
-            blogAdapter.submitList(data)
-            sizeChats = data!!.size
-        }*/
-
-        //blogAdapter = DataChatAdapter()
-        //blogAdapter.submitList(data)
     }
 
     private fun initRecycleView(root:View) {
         root.findViewById<RecyclerView>(R.id.recycler_view).apply{
+            blogAdapter = DataChatAdapter()
             layoutManager = LinearLayoutManager(root.context)
             adapter = blogAdapter
         }

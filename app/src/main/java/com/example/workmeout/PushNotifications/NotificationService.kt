@@ -70,8 +70,8 @@ class NotificationService : IntentService("NotificationService") {
             var notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val notifyIntent = Intent(this, ResultActivity::class.java)
 
-            val title = "Exercise Time"
-            val message = "Hey long time no see you."
+            val title = "Tiempo de ejercitarse"
+            val message = "Hey, te echábamos de menos."
 
             notifyIntent.putExtra("title", title)
             notifyIntent.putExtra("message", message)

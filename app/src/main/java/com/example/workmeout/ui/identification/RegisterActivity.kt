@@ -144,6 +144,20 @@ class RegisterActivity : AppCompatActivity() {
                     .set(user)
                     .addOnSuccessListener {
                         Log.d(TAG, "DocumentSnapshot successfully written!")
+
+                        //to update a name
+                        val crrntUser = FirebaseAuth.getInstance().currentUser
+
+                        val profileUpdates = UserProfileChangeRequest.Builder()
+                            .setDisplayName(user["name"] as String?)
+                            .build()
+
+                        crrntUser?.updateProfile(profileUpdates)
+                            ?.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d(TAG, "User profile updated.")
+                                }
+                            }
                         Toast.makeText(this, "Se ha creado el usuario", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener {

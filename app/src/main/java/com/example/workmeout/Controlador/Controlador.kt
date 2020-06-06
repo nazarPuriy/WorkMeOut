@@ -3,6 +3,7 @@ package com.example.workmeout.Controlador
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.workmeout.model.User
@@ -12,10 +13,12 @@ import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
 import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.LoginActivity
+import com.example.workmeout.ui.identification.RegisterActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 import com.example.workmeout.ui.me.RoutineSearchAdapter
 import com.example.workmeout.ui.me.SearchRoutines
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
@@ -530,6 +533,19 @@ object Controlador{
         )
             .addOnCompleteListener(a) { task ->
                 if (task.isSuccessful) {
+                    //to update a name
+                    val crrntUser = FirebaseAuth.getInstance().currentUser
+
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(currentUser!!.userName)
+                        .build()
+
+                    crrntUser?.updateProfile(profileUpdates)
+                        ?.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.d("TAG", "User profile updated.")
+                            }
+                        }
                     login(a, passwordInput)
                 } else {
                     // If sign in fails, display a message to the user.

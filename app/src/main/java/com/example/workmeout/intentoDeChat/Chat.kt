@@ -64,7 +64,7 @@ class Chat : AppCompatActivity(), View.OnClickListener{
         user.getEmail()
 
         fromUseridentify = user.uid
-        currentUser = subStringName(user.email!!)
+        currentUser = user.displayName
         currentUserEmail = user.email!!
         uidFriend = intent.getStringExtra("uid_friend")
         nameFriend = intent.getStringExtra("name_friend")

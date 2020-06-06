@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -8,12 +8,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColorHighlight">@color/lightGray</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="android:datePickerDialogTheme" tools:targetApi="lollipop">@style/MyDatePickerDialogTheme</item>
 
+    </style>
+
+    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog" tools:targetApi="lollipop">
+        <item name="android:colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="DefaultNumberPickerTheme">
         <item name="colorControlNormal">#00FFFFFF</item>
     </style>
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

@@ -160,7 +160,8 @@ class SportFragment : Fragment() {
             refresh()
 
         }, ano, mes, dia)
-        dpd.show()    }
+        dpd.show()
+    }
 
     fun refresh(){
 

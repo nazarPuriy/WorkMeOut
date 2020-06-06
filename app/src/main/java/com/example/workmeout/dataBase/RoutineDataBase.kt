@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_routine.*
 
 class RoutineDataBase {
 
-    val domain = "http://79.157.166.57:7070"
+    val domain = "http://79.157.167.91:7070"
 
     //Variable que se utilitza para acceder a la base de datos.
     lateinit var requestQ: RequestQueue

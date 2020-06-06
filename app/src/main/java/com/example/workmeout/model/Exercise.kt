@@ -1,6 +1,6 @@
 package com.example.workmeout.model
 
-import android.text.format.DateUtils
+import android.content.Context
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -16,6 +16,7 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
     var days: ArrayList<Date> = days
     var weights: ArrayList<Int> = weights
     lateinit var routine: Routine
+    var dataReady = false
 
     /**
      * Funció que afegirà un event a l'exercici, per això rep un Date i un Int que seran la data de
@@ -190,6 +191,16 @@ class Exercise(id:Int, classId:Int, name:String, reps:Int, description: String, 
         weights.removeAt(index)
 
     }
+
+    fun isReady():Boolean{
+        return dataReady && id != 0
+    }
+
+    fun notifyRoutine(context: Context){
+        routine.notifyExerciseReadyExisting(context)
+    }
+
+
 
 
 }

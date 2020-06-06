@@ -173,4 +173,12 @@ class BaseDatos {
         routineDataBase.matchRoutine(baseContext, toString, adapter)
     }
 
+    fun registerExistingExercise(ex: Exercise, context: Context, idx: Int) {
+        exerciseDataBase.registerExistingExercise(ex, context, idx)
+    }
+
+    fun getExerciseDescription(ex: Exercise, context: Context) {
+        exerciseDataBase.buscarEjercicio(context, ex)
+    }
+
 }

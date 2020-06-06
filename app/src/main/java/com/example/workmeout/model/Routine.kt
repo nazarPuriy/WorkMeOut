@@ -1,11 +1,8 @@
 package com.example.workmeout.model
 
 import android.content.Context
-import android.widget.Toast
 import com.example.workmeout.Controlador.Controlador
-import kotlinx.coroutines.selects.select
-import java.lang.Exception
-import java.nio.channels.Selector
+import com.example.workmeout.ui.me.SearchRoutines
 
 class Routine {
 
@@ -37,6 +34,23 @@ class Routine {
         }
 
         return count
+    }
+
+    fun notifyExerciseReadyExisting(context: Context) {
+
+        var ready = true
+
+        for (ex in exercises_class){
+            if(!ex.isReady()){
+                ready = false
+            }
+        }
+
+        if(ready){
+            if (context is SearchRoutines){
+                Controlador.uploadRoutine(this, context)
+            }
+        }
     }
 
     //Todos los atributos del usuario

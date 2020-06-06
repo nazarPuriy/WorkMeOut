@@ -58,7 +58,7 @@ class RoutineSearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             name.text = routine.name
             addButton.setOnClickListener{
-               Toast.makeText(itemView.context, "Not implemented yet", Toast.LENGTH_SHORT).show()
+               Controlador.addExistingRoutine(routine, itemView.context)
             }
 
         }

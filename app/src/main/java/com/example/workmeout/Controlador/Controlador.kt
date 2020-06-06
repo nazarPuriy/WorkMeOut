@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import com.example.workmeout.model.User
 import com.example.workmeout.dataBase.BaseDatos
-import com.example.workmeout.intentoDeChat.FChat
 import com.example.workmeout.intentoDeChat.FireHelper
 import com.example.workmeout.model.Exercise
 import com.example.workmeout.model.Routine
@@ -15,10 +14,10 @@ import com.example.workmeout.ui.MainActivity
 import com.example.workmeout.ui.identification.LoginActivity
 import com.example.workmeout.ui.me.ExerciseSearchAdapter
 import com.example.workmeout.ui.me.RoutineSearchAdapter
+import com.example.workmeout.ui.me.SearchRoutines
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.max
@@ -299,6 +298,10 @@ object Controlador{
             }
         }
 
+        if(context is SearchRoutines){
+            context.finish()
+        }
+
 
     }
 
@@ -543,6 +546,55 @@ object Controlador{
 
     fun matchRoutine(baseContext: Context, toString: String, adapter: RoutineSearchAdapter) {
         baseDatos.matchRoutine(baseContext, toString, adapter)
+    }
+
+    fun addExistingRoutine(routine: Routine, context: Context) {
+
+        var l = getRoutines().size
+
+        if(l >= 5) {
+            Toast.makeText(context, "You can have a maximum of 5 routines.", Toast.LENGTH_SHORT)
+            return
+        }
+
+        when(l){
+            0 -> currentUser!!.routine1 = routine
+            1 -> currentUser!!.routine2 = routine
+            2 -> currentUser!!.routine3 = routine
+            3 -> currentUser!!.routine4 = routine
+            4 -> currentUser!!.routine5 = routine
+        }
+
+        currentUser!!.numberOfRoutines++
+
+        for((i, x) in routine.exercisesDesc.withIndex()){
+            if(x != 0){
+
+                var ex = Exercise(0, x, "", 0, "", 0, ArrayList(), ArrayList())
+                routine.exercises_class.add(ex)
+                ex.routine = routine
+
+                getExerciseDescription(ex, context)
+                registerExistingExercise(ex, context, i)
+
+            }
+        }
+
+    }
+
+    private fun registerExistingExercise(ex: Exercise, context: Context, idx: Int) {
+        baseDatos.registerExistingExercise(ex, context, idx)
+    }
+
+    private fun getExerciseDescription(ex: Exercise, context: Context) {
+        baseDatos.getExerciseDescription(ex, context)
+    }
+
+    fun uploadRoutine(routine: Routine, context: SearchRoutines) {
+
+        baseDatos.guardarRutinaUsuario(context, routine.classid, routine.days, routine.exercises[0], routine.exercises[1], routine.exercises[2], routine.exercises[3], routine.exercises[4], routine.exercises[5],
+            routine.exercises[6], routine.exercises[7], routine.exercises[8], routine.exercises[9], routine.exercises[10], routine.exercises[11], routine.exercises[12], routine.exercises[13], routine.exercises[14])
+
     }
 
 

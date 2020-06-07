@@ -58,6 +58,7 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             name.text = usuario.name//variable nombre
             lastMessage.text = usuario.email//variable correo
 
+
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
@@ -68,7 +69,7 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .into(image)
 
             storageRef.child("images/"+usuario.uid).downloadUrl.addOnSuccessListener {
-                Glide.with(itemView.context).load(it).into(image)
+                Glide.with(itemView.context).applyDefaultRequestOptions(requestOptions).load(it).into(image)
             }
 
 

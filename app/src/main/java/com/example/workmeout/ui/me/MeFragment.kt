@@ -8,6 +8,7 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +30,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import dmax.dialog.SpotsDialog
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import java.io.*
+import java.util.concurrent.TimeUnit
 
 class MeFragment : Fragment() {
 
@@ -45,6 +51,9 @@ class MeFragment : Fragment() {
     lateinit var storageRef: StorageReference
     lateinit var picturePath: String
     lateinit var user: FirebaseUser
+
+    //alert dialog
+    lateinit var dialog: android.app.AlertDialog
 
     fun init(root: View) {
         botonF = root.findViewById(R.id.fab)
@@ -153,6 +162,12 @@ class MeFragment : Fragment() {
                     Toast.makeText(context, "Uploaded image to FireStore", Toast.LENGTH_SHORT).show()
 
                 }
+
+                dialog = SpotsDialog.Builder().setContext(context).build()
+                dialog.show()
+                /*
+                TimeUnit.SECONDS.sleep(1L)
+                dialog.dismiss()*/
             }
 
         }

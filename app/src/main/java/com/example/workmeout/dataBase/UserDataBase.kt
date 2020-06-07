@@ -2,7 +2,6 @@ package com.example.workmeout.dataBase
 
 import android.content.Context
 import android.content.res.Resources
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -30,14 +29,11 @@ class UserDataBase {
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 if(response.length>4){ //Nos informa la base de datos que el usuario ya existe
-                    Toast.makeText(context,"There is already a user with the given username" + response, Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(context,"User registered", Toast.LENGTH_SHORT).show()
                 }
 
 
             }, Response.ErrorListener { error ->
-                Toast.makeText(context,"ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String,String>()
@@ -120,10 +116,8 @@ class UserDataBase {
         val URL : String = domain + "/websercv/user/editar.php"
         val stringRequest = object: StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context,"OPERACION EXITOSA DE EDIT " + response, Toast.LENGTH_SHORT).show()
 
             }, Response.ErrorListener { error ->
-                Toast.makeText(context,"ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String,String>()

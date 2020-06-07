@@ -157,9 +157,9 @@ class MeFragment : Fragment() {
                 val uploadTask = imageReference.putFile(file)
 
                 uploadTask.addOnFailureListener {
-                    Toast.makeText(context, "Fail to upload image to FireStore", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
                 }.addOnSuccessListener {
-                    Toast.makeText(context, "Uploaded image to FireStore", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
 
                 }
 
@@ -167,7 +167,7 @@ class MeFragment : Fragment() {
                 dialog.show()
                 /*
                 TimeUnit.SECONDS.sleep(1L)
-                dialog.dismiss()*/
+                */
             }
 
         }

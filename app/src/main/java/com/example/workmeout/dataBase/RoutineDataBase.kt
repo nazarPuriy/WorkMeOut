@@ -2,7 +2,6 @@ package com.example.workmeout.dataBase
 
 import android.content.Context
 import android.content.res.Resources
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -53,11 +52,9 @@ class RoutineDataBase {
         val URL: String = domain + "/websercv/routine/registrar.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context, "Routine registered id: " + response , Toast.LENGTH_SHORT).show()
                 Controlador.fillNewRoutineClassId(response.toInt())
                 guardarRutinaUsuario(context,response.toInt(),days,exercise1,exercise2,exercise3,exercise4,exercise5,exercise6,exercise7,exercise8,exercise9,exercise10,exercise11,exercise12,exercise13,exercise14,exercise15)
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String, String>()
@@ -112,10 +109,8 @@ class RoutineDataBase {
         val URL: String = domain + "/websercv/routine/registrarUsuario.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context, "Routine registered id: " + response , Toast.LENGTH_SHORT).show()
                 Controlador.fillNewRoutineId(context,response.toInt())
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String, String>()
@@ -170,9 +165,7 @@ class RoutineDataBase {
         val URL: String = domain + "/websercv/routine/editar.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context, "Edit de rutina", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String, String>()
@@ -230,9 +223,7 @@ class RoutineDataBase {
         val URL: String = domain + "/websercv/routine/editarUsuario.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context, "Edit de rutina", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String, String>()
@@ -344,7 +335,6 @@ class RoutineDataBase {
                 adapter.notifyDataSetChanged()
 
             }, Response.ErrorListener { error->
-                Toast.makeText(context, "No matching exercises found.", Toast.LENGTH_SHORT).show()
                 adapter.submitList(ArrayList<Routine>())
                 adapter.notifyDataSetChanged()
             })
@@ -431,9 +421,7 @@ class RoutineDataBase {
         val URL: String = domain + "/websercv/routine/eliminarUsuario.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context, "Edit de rutina", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String, String>()

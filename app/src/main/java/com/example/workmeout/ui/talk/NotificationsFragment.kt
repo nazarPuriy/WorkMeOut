@@ -105,7 +105,6 @@ class NotificationsFragment : Fragment() {
         initRecycleView(root)
 
         val user = FireHelper.getCurrentUser()
-        Toast.makeText(context, user.getDisplayName(), Toast.LENGTH_SHORT).show()
 
         mHandler = Handler()
         startRepeatingTask()

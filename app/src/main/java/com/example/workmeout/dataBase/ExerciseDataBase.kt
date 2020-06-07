@@ -2,7 +2,6 @@ package com.example.workmeout.dataBase
 
 import android.app.Activity
 import android.content.Context
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -41,8 +40,6 @@ class ExerciseDataBase {
         val URL: String = domain + "/websercv/exercise/registrar.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context, "Exercise registered id: " + response, Toast.LENGTH_SHORT)
-                    .show()
 
                 guardarEjercicioUsuario(
                     Exercise(
@@ -57,7 +54,6 @@ class ExerciseDataBase {
                     ), routineIndex, context
                 ) //Guardamos la rutina del usuario.
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
                 var parametros = HashMap<String, String>()
@@ -143,11 +139,7 @@ class ExerciseDataBase {
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
                 exercise.id = response.toInt()
-                Toast.makeText(
-                    context,
-                    "Exercise user registered id: " + response,
-                    Toast.LENGTH_SHORT
-                ).show()
+
                 //Controlador.fillNewExerciseId(response.toInt()) TODO
                 //Faltaria meter el objeto ejercicio aqui dentro del objeto rutina correspondiente. Mirar el método de la id.
                 Controlador.saveExerciseIdOnRutine(
@@ -157,7 +149,6 @@ class ExerciseDataBase {
                     indexRoutine
                 )
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
 
             override fun getParams(): Map<String, String> {
@@ -225,7 +216,6 @@ class ExerciseDataBase {
                 adapter.notifyDataSetChanged()
 
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "No matching exercises found.", Toast.LENGTH_SHORT).show()
                 list = ArrayList()
                 adapter.submitList(list)
                 adapter.notifyDataSetChanged()
@@ -328,9 +318,7 @@ class ExerciseDataBase {
         val URL: String = domain + "/websercv/exercise/editarUsuario.php"
         val stringRequest = object : StringRequest(Request.Method.POST, URL,
             Response.Listener<String> { response ->
-                Toast.makeText(context, "Edit de ejercicio", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
             override fun getParams(): Map<String, String> {
 
@@ -376,7 +364,6 @@ class ExerciseDataBase {
                 ex.routine.exercises[idx] = response.toInt()
                 ex.notifyRoutine(context)
             }, Response.ErrorListener { error ->
-                Toast.makeText(context, "ERROR : " + error.toString(), Toast.LENGTH_LONG).show()
             }) {
 
             override fun getParams(): Map<String, String> {

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -68,7 +69,11 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .into(image)
 
             storageRef.child("images/"+usuario.uid).downloadUrl.addOnSuccessListener {
-                Glide.with(itemView.context).load(it).into(image)
+                try {
+                    Glide.with(itemView.context).applyDefaultRequestOptions(requestOptions).load(it).into(image)
+                }catch (e:Exception){
+                    Toast.makeText(itemView.context, e.message, Toast.LENGTH_SHORT).show()
+                }
             }
 
 

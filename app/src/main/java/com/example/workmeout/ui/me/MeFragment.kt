@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
 import com.example.workmeout.intentoDeChat.FireHelper
@@ -75,6 +76,8 @@ class MeFragment : Fragment() {
         rv.layoutManager = LinearLayoutManager(root.context)
         if(isOpen){close()}
 
+
+
     }
 
     override fun onCreateView(
@@ -102,6 +105,11 @@ class MeFragment : Fragment() {
 
         botonF.setOnClickListener{clickAdd()}
         add_routine.setOnClickListener{addRoutine()}
+
+        storageRef.child("images/"+user.uid).downloadUrl.addOnSuccessListener {
+            Glide.with(this.requireContext() ).load(it).into(profileImage)
+        }
+
         return root
     }
 
@@ -113,9 +121,15 @@ class MeFragment : Fragment() {
 
     fun uploadProfileImage(view:View){
         profileImage=view.findViewById(R.id.img_profile)
+
+
+
+
+        /*
         if(isImage){
             profileImage.setImageURI(uriImagePath)
         }
+         */
     }
 
 

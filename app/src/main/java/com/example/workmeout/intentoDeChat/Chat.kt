@@ -215,7 +215,7 @@ class Chat : AppCompatActivity(), View.OnClickListener{
             R.id.msgsend -> {
 
 
-                if (msgText!!.getText() == null || msgText!!.getText().length < 0) return
+                if (msgText!!.getText() == null || msgText!!.getText().length <= 0) return
 
                 val friendlyMessage = FriendlyMessage(
                     msgText!!.getText().toString().trim { it <= ' ' },

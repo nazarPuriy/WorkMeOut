@@ -118,7 +118,7 @@ class NotificationsFragment : Fragment() {
         stopRepeatingTask()
     }
 
-    fun updateFetchMessage() {
+    fun updateDataSet() {
         addDataSet()
         //initRecycleView(root)
     }
@@ -130,7 +130,7 @@ class NotificationsFragment : Fragment() {
         override fun run() {
             try {
 
-                updateFetchMessage()
+                updateDataSet()
 
             } finally {
 

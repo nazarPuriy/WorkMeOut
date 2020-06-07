@@ -16,6 +16,7 @@ import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workmeout.R
 import com.example.workmeout.intentoDeChat.Chat
+import com.example.workmeout.intentoDeChat.FireHelper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_people.*
@@ -53,15 +54,18 @@ class SearchPeople : AppCompatActivity() {
 
         mDataBase = FirebaseFirestore.getInstance()
         val docRef = mDataBase.collection("users")
+        val user = FireHelper.getCurrentUser()
 
         docRef.get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d("exist", "${document.id} => ${document.data}")
 
-                    listNames.add(document.getString("name"))
-                    listLast_message.add(document.getString("email"))
-                    listUid.add(document.getString("uid"))
+                    if(!user.getDisplayName().equals(document.getString("name"))) {
+                        listNames.add(document.getString("name"))
+                        listLast_message.add(document.getString("email"))
+                        listUid.add(document.getString("uid"))
+                    }
 
                 }
                 names = arrayOfNulls<String?>(listNames.size)

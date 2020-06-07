@@ -4,13 +4,16 @@ import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -19,11 +22,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.workmeout.Controlador.Controlador
 import com.example.workmeout.R
-import com.example.workmeout.data.RoutineDataSourceDummy
+import com.example.workmeout.intentoDeChat.FireHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.io.*
 
 class MeFragment : Fragment() {
 
@@ -36,6 +40,10 @@ class MeFragment : Fragment() {
     private var isOpen = false
     lateinit var search_button:FloatingActionButton
     lateinit var add_routine:FloatingActionButton
+
+    lateinit var storageRef: StorageReference
+    lateinit var picturePath: String
+    lateinit var user: FirebaseUser
 
     fun init(root: View) {
         botonF = root.findViewById(R.id.fab)
@@ -86,7 +94,9 @@ class MeFragment : Fragment() {
             startActivityForResult(Intent.createChooser(galeria,"Selecciona una imagen"), PICK_IMAGE)
         })
 
-
+        //identificador del Storage de Firebase
+        storageRef = FirebaseStorage.getInstance().reference
+        user = FireHelper.getCurrentUser()
 
         init(root)
 
@@ -117,9 +127,64 @@ class MeFragment : Fragment() {
                 profileImage.setImageURI(path)
                 isImage = true
                 uriImagePath=path
+
+                var tempUri:Uri = getImageUri(
+                    requireContext(),
+                    (data!!.extras!!["data"] as Bitmap?)!!
+                )!!
+                picturePath = getRealPathFromURI(tempUri)!!
+
+                Toast.makeText(context, picturePath, Toast.LENGTH_SHORT).show()
+                
+                Log.d("Picture Path", picturePath)
+                var imageReference = storageRef.child("images/"+user.uid)
+                var file = Uri.fromFile(File(picturePath))
+                val riversRef = storageRef.child("images/${file.lastPathSegment}")
+                val uploadTask = riversRef.putFile(file)
+
+                // Register observers to listen for when the download is done or if it fails
+                uploadTask.addOnFailureListener {
+                    //Toast.makeText(context, "Fail to upload image to FireStore", Toast.LENGTH_SHORT).show()
+                }.addOnSuccessListener {
+                    Toast.makeText(context, "Uploaded image to FireStore", Toast.LENGTH_SHORT).show()
+
+                }
             }
 
         }
+    }
+
+    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path: String =
+            MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+        return Uri.parse(path)
+    }
+
+    fun getRealPathFromURI(uri: Uri?): String? {
+        val cursor: Cursor =
+            requireContext().getContentResolver().query(uri!!, null, null, null, null)!!
+        cursor.moveToFirst()
+        val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+        return cursor.getString(idx)
+    }
+
+    fun getPath(context: Context, uri: Uri?): String? {
+        var result: String? = null
+        val proj = arrayOf<String>(MediaStore.Images.Media.DATA)
+        val cursor: Cursor? = context.contentResolver.query(uri!!, proj, null, null, null)
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                val column_index: Int = cursor.getColumnIndexOrThrow(proj[0])
+                result = cursor.getString(column_index)
+            }
+            cursor.close()
+        }
+        if (result == null) {
+            result = "Not found"
+        }
+        return result
     }
 
     override fun onPause() {

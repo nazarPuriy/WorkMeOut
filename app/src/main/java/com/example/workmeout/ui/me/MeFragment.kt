@@ -128,10 +128,8 @@ class MeFragment : Fragment() {
                 isImage = true
                 uriImagePath=path
 
-                var tempUri:Uri = getImageUri(
-                    requireContext(),
-                    (data!!.extras!!["data"] as Bitmap?)!!
-                )!!
+
+                var tempUri:Uri = getImageUri(this.requireContext(), MediaStore.Images.Media.getBitmap(requireContext().contentResolver, data!!.data))!!
                 picturePath = getRealPathFromURI(tempUri)!!
 
                 Toast.makeText(context, picturePath, Toast.LENGTH_SHORT).show()
@@ -144,7 +142,7 @@ class MeFragment : Fragment() {
 
                 // Register observers to listen for when the download is done or if it fails
                 uploadTask.addOnFailureListener {
-                    //Toast.makeText(context, "Fail to upload image to FireStore", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Fail to upload image to FireStore", Toast.LENGTH_SHORT).show()
                 }.addOnSuccessListener {
                     Toast.makeText(context, "Uploaded image to FireStore", Toast.LENGTH_SHORT).show()
 

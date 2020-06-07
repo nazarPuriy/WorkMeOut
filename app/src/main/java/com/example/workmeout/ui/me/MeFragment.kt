@@ -128,19 +128,11 @@ class MeFragment : Fragment() {
                 isImage = true
                 uriImagePath=path
 
-
-                var tempUri:Uri = getImageUri(this.requireContext(), MediaStore.Images.Media.getBitmap(requireContext().contentResolver, data!!.data))!!
-                picturePath = getRealPathFromURI(tempUri)!!
-
-                Toast.makeText(context, picturePath, Toast.LENGTH_SHORT).show()
-                
-                Log.d("Picture Path", picturePath)
                 var imageReference = storageRef.child("images/"+user.uid)
-                var file = Uri.fromFile(File(picturePath))
-                val riversRef = storageRef.child("images/${file.lastPathSegment}")
-                val uploadTask = riversRef.putFile(file)
+                var file = uriImagePath
+                //val riversRef = storageRef.child("images/${file.lastPathSegment}")
+                val uploadTask = imageReference.putFile(file)
 
-                // Register observers to listen for when the download is done or if it fails
                 uploadTask.addOnFailureListener {
                     Toast.makeText(context, "Fail to upload image to FireStore", Toast.LENGTH_SHORT).show()
                 }.addOnSuccessListener {
@@ -152,6 +144,8 @@ class MeFragment : Fragment() {
         }
     }
 
+    /*
+    //Creo que esto se puede borrar
     fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
@@ -184,6 +178,7 @@ class MeFragment : Fragment() {
         }
         return result
     }
+     */
 
     override fun onPause() {
         //saveStatus()

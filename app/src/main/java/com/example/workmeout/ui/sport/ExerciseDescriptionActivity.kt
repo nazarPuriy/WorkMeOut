@@ -86,7 +86,7 @@ class ExerciseDescriptionActivity : AppCompatActivity() {//TODO repeticiones
         if(modo==EDITAR){
             if(checkInfo()){
                 val routineIndex:Int = intent.getIntExtra("index", 0)
-                Controlador.registerExercise(this, title_edit.text.toString(), description_edit.text.toString(),7,7, routineIndex)//TODO cambiar valores para que se muestren los del activity
+                Controlador.registerExercise(this, title_edit.text.toString(), description_edit.text.toString(),0,0, routineIndex)//TODO cambiar valores para que se muestren los del activity
 
 
                 modo=0

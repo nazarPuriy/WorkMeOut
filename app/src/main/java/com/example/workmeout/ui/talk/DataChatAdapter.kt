@@ -13,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.workmeout.R
 import com.example.workmeout.intentoDeChat.Chat
 import com.example.workmeout.model.User2
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.layout_blog_list_item.view.*
 import kotlin.collections.ArrayList
 
@@ -49,6 +51,7 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val name:TextView = itemView.blog_title
         val lastMessage = itemView.blog_author
         val card: CardView = itemView.card_chat
+        var storageRef: StorageReference = FirebaseStorage.getInstance().reference
 
 
         fun bind(usuario: User2) {
@@ -63,6 +66,10 @@ class DataChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .applyDefaultRequestOptions(requestOptions)
                 .load(usuario.image)//variable imagen
                 .into(image)
+
+            storageRef.child("images/"+usuario.uid).downloadUrl.addOnSuccessListener {
+                Glide.with(itemView.context).load(it).into(image)
+            }
 
 
             /*Listener de los chats inspirado en el de Exercise*/

@@ -18,7 +18,7 @@ import com.example.workmeout.ui.me.ChangePersonalInformationActivity
 
 class UserDataBase {
 
-    val domain = "http://88.20.142.243:7070"
+    val domain = "http://83.46.142.41:7070"
 
     //Variable que se utilitza para acceder a la base de datos.
     lateinit var requestQ : RequestQueue

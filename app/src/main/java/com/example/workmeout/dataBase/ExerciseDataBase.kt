@@ -22,7 +22,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 class ExerciseDataBase {
 
-    val domain = "http://88.20.142.243:7070"
+    val domain = "http://83.46.142.41:7070"
     val dateFormatter = SimpleDateFormat("ddMMyyyy")
 
     //Variable que se utilitza para acceder a la base de datos.
